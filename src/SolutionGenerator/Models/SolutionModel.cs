@@ -16,6 +16,7 @@
         private string _testProjectGuid;
         private string _solutionReadme;
         private bool _includeReadme;
+        private string _projectType;
 
         public SolutionModel()
         {
@@ -35,6 +36,7 @@
 
         }
 
+        public bool InitiliazeGit { get; set; }
         public bool IncludeTestProject { get; set; }
         public bool IncludeGitIgnore { get; set; }
         public bool IncludeGitAttribute { get; set; }
@@ -221,6 +223,20 @@
                     return;
                 }
                 _targetFramework = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ProjectType
+        {
+            get { return _projectType; }
+            set
+            {
+                if (value == _projectType)
+                {
+                    return;
+                }
+                _projectType = value;
                 OnPropertyChanged();
             }
         }

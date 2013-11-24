@@ -33,6 +33,11 @@
                 CreateTestProjectFile(rootDirectoryInfo, model);
             }
             CreateProjectAssets(rootDirectoryInfo, model);
+
+            if (model.InitiliazeGit)
+            {
+                GitService.InitGitRepository(rootDirectoryInfo);
+            }
         }
 
         private void CreateFolderStructure(DirectoryInfo root)
@@ -73,8 +78,13 @@
                 ProjectRootNameSpace = model.ProjectRootNameSpace,
                 TargetFramework = model.TargetFramework,
                 ReleaseOutputPath = string.Format("../../output/Release/{0}", model.ProjectName),
-                DebugOutputPath = string.Format("../../output/Debug/{0}", model.ProjectName)
+                DebugOutputPath = string.Format("../../output/Debug/{0}", model.ProjectName),
+                ProjectType = model.ProjectType
             };
+
+            projectModel.ProjectOutputType = projectModel.ProjectTypeToProjectOutputType(model.ProjectType);
+            projectModel.AddCoreReferences();
+            
             var projectFile = new FileInfo(projectRoot + projectModel.ProjectName + ".csproj");
             File.WriteAllText(projectFile.FullName, TemplateRenderer.Render(ProjectTemplate, projectModel));
             
@@ -99,8 +109,10 @@
                 ProjectRootNameSpace = string.Format("{0}.Tests", model.ProjectRootNameSpace),
                 TargetFramework = model.TargetFramework,
                 ReleaseOutputPath = string.Format("../../output/Release/{0}", projectName),
-                DebugOutputPath = string.Format("../../output/Debug/{0}", projectName)
+                DebugOutputPath = string.Format("../../output/Debug/{0}", projectName),
+                ProjectOutputType = "Library"
             };
+
             var projectFile = new FileInfo(projectRoot + projectModel.ProjectName + ".csproj");
             File.WriteAllText(projectFile.FullName, TemplateRenderer.Render(ProjectTemplate, projectModel));
 
@@ -128,7 +140,7 @@
             if (model.IncludeReadme)
             {
                 solutionFile = new FileInfo(string.Format("{0}/README.md", root.FullName));
-                File.WriteAllText(solutionFile.FullName, TemplateRenderer.Render(ReadmeTemplate, model));
+                File.WriteAllText(solutionFile.FullName, TemplateRenderer.RenderAndRenderContent(ReadmeTemplate, model));
                 files.Add(solutionFile);
             }
             if (model.IncludeLicense)
