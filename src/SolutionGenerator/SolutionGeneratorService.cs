@@ -15,6 +15,7 @@
         private const string ResharperSettingsTemplate = "./Templates/resharperSettingsTemplate.txt";
         private const string StyleCopTemplate = "./Templates/styleCopTemplate.txt";
         private const string LicenseTemplate = "./Templates/licenseTemplate.txt";
+        private const string PackagesTemplate = "./Templates/packagesConfigTemplate.txt";
         private const string FolderStructureFile = "./folders.txt";
 
         public void DoWork(SolutionModel model)
@@ -110,8 +111,17 @@
                 TargetFramework = model.TargetFramework,
                 ReleaseOutputPath = string.Format("../../output/Release/{0}", projectName),
                 DebugOutputPath = string.Format("../../output/Debug/{0}", projectName),
-                ProjectOutputType = "Library"
+                ProjectOutputType = "Library",
             };
+
+            if (model.TargetFramework == "v4.5")
+            {
+                projectModel.ProjectType = "Test";
+                var packagesFile = new FileInfo(projectRoot + "packages.config");
+                File.WriteAllText(packagesFile.FullName, TemplateRenderer.Render(PackagesTemplate, projectModel));
+            }
+
+            projectModel.AddCoreReferences();
 
             var projectFile = new FileInfo(projectRoot + projectModel.ProjectName + ".csproj");
             File.WriteAllText(projectFile.FullName, TemplateRenderer.Render(ProjectTemplate, projectModel));

@@ -73,8 +73,8 @@ namespace SolutionGenerator.Frontend
             this.targetFrameworkComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.initiliazeGitCheckBox = new System.Windows.Forms.CheckBox();
-            this.solutionModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.projectOutputTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.solutionModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             projectAssemblyNameLabel = new System.Windows.Forms.Label();
             projectGuidLabel = new System.Windows.Forms.Label();
             projectNameLabel = new System.Windows.Forms.Label();
@@ -101,7 +101,7 @@ namespace SolutionGenerator.Frontend
             // projectAssemblyNameLabel
             // 
             projectAssemblyNameLabel.AutoSize = true;
-            projectAssemblyNameLabel.Location = new System.Drawing.Point(12, 146);
+            projectAssemblyNameLabel.Location = new System.Drawing.Point(12, 173);
             projectAssemblyNameLabel.Name = "projectAssemblyNameLabel";
             projectAssemblyNameLabel.Size = new System.Drawing.Size(121, 13);
             projectAssemblyNameLabel.TabIndex = 0;
@@ -111,7 +111,7 @@ namespace SolutionGenerator.Frontend
             // projectGuidLabel
             // 
             projectGuidLabel.AutoSize = true;
-            projectGuidLabel.Location = new System.Drawing.Point(12, 172);
+            projectGuidLabel.Location = new System.Drawing.Point(12, 199);
             projectGuidLabel.Name = "projectGuidLabel";
             projectGuidLabel.Size = new System.Drawing.Size(68, 13);
             projectGuidLabel.TabIndex = 2;
@@ -132,7 +132,7 @@ namespace SolutionGenerator.Frontend
             // projectRootNameSpaceLabel
             // 
             projectRootNameSpaceLabel.AutoSize = true;
-            projectRootNameSpaceLabel.Location = new System.Drawing.Point(12, 120);
+            projectRootNameSpaceLabel.Location = new System.Drawing.Point(12, 147);
             projectRootNameSpaceLabel.Name = "projectRootNameSpaceLabel";
             projectRootNameSpaceLabel.Size = new System.Drawing.Size(134, 13);
             projectRootNameSpaceLabel.TabIndex = 6;
@@ -249,24 +249,42 @@ namespace SolutionGenerator.Frontend
             // targetFrameworkLabel1
             // 
             targetFrameworkLabel1.AutoSize = true;
-            targetFrameworkLabel1.Location = new System.Drawing.Point(12, 198);
+            targetFrameworkLabel1.Location = new System.Drawing.Point(12, 225);
             targetFrameworkLabel1.Name = "targetFrameworkLabel1";
             targetFrameworkLabel1.Size = new System.Drawing.Size(96, 13);
             targetFrameworkLabel1.TabIndex = 35;
             targetFrameworkLabel1.Text = "Target Framework:";
             // 
+            // initiliazeGitLabel
+            // 
+            initiliazeGitLabel.AutoSize = true;
+            initiliazeGitLabel.Location = new System.Drawing.Point(583, 264);
+            initiliazeGitLabel.Name = "initiliazeGitLabel";
+            initiliazeGitLabel.Size = new System.Drawing.Size(63, 13);
+            initiliazeGitLabel.TabIndex = 37;
+            initiliazeGitLabel.Text = "Initiliaze Git:";
+            // 
+            // projectOutputTypeLabel
+            // 
+            projectOutputTypeLabel.AutoSize = true;
+            projectOutputTypeLabel.Location = new System.Drawing.Point(12, 120);
+            projectOutputTypeLabel.Name = "projectOutputTypeLabel";
+            projectOutputTypeLabel.Size = new System.Drawing.Size(105, 13);
+            projectOutputTypeLabel.TabIndex = 38;
+            projectOutputTypeLabel.Text = "Project Output Type:";
+            // 
             // projectAssemblyNameTextBox
             // 
             this.projectAssemblyNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.solutionModelBindingSource, "ProjectAssemblyName", true));
-            this.projectAssemblyNameTextBox.Location = new System.Drawing.Point(152, 143);
+            this.projectAssemblyNameTextBox.Location = new System.Drawing.Point(152, 170);
             this.projectAssemblyNameTextBox.Name = "projectAssemblyNameTextBox";
             this.projectAssemblyNameTextBox.Size = new System.Drawing.Size(381, 20);
-            this.projectAssemblyNameTextBox.TabIndex = 5;
+            this.projectAssemblyNameTextBox.TabIndex = 6;
             // 
             // projectGuidTextBox
             // 
             this.projectGuidTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.solutionModelBindingSource, "ProjectGuid", true));
-            this.projectGuidTextBox.Location = new System.Drawing.Point(152, 169);
+            this.projectGuidTextBox.Location = new System.Drawing.Point(152, 196);
             this.projectGuidTextBox.Name = "projectGuidTextBox";
             this.projectGuidTextBox.Size = new System.Drawing.Size(381, 20);
             this.projectGuidTextBox.TabIndex = 17;
@@ -282,10 +300,10 @@ namespace SolutionGenerator.Frontend
             // projectRootNameSpaceTextBox
             // 
             this.projectRootNameSpaceTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.solutionModelBindingSource, "ProjectRootNameSpace", true));
-            this.projectRootNameSpaceTextBox.Location = new System.Drawing.Point(152, 117);
+            this.projectRootNameSpaceTextBox.Location = new System.Drawing.Point(152, 144);
             this.projectRootNameSpaceTextBox.Name = "projectRootNameSpaceTextBox";
             this.projectRootNameSpaceTextBox.Size = new System.Drawing.Size(381, 20);
-            this.projectRootNameSpaceTextBox.TabIndex = 4;
+            this.projectRootNameSpaceTextBox.TabIndex = 5;
             // 
             // rootPathTextBox
             // 
@@ -316,7 +334,7 @@ namespace SolutionGenerator.Frontend
             this.btnGenerate.Location = new System.Drawing.Point(270, 446);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(263, 23);
-            this.btnGenerate.TabIndex = 9;
+            this.btnGenerate.TabIndex = 10;
             this.btnGenerate.Text = "Give me back 15 mins of my lilfe.";
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.BtnGenerateClick);
@@ -347,7 +365,7 @@ namespace SolutionGenerator.Frontend
             this.readmeRichTextBox.Location = new System.Drawing.Point(152, 249);
             this.readmeRichTextBox.Name = "readmeRichTextBox";
             this.readmeRichTextBox.Size = new System.Drawing.Size(381, 191);
-            this.readmeRichTextBox.TabIndex = 7;
+            this.readmeRichTextBox.TabIndex = 8;
             this.readmeRichTextBox.Text = "";
             // 
             // chkStartVisualStudio
@@ -356,7 +374,7 @@ namespace SolutionGenerator.Frontend
             this.chkStartVisualStudio.Location = new System.Drawing.Point(152, 450);
             this.chkStartVisualStudio.Name = "chkStartVisualStudio";
             this.chkStartVisualStudio.Size = new System.Drawing.Size(112, 17);
-            this.chkStartVisualStudio.TabIndex = 8;
+            this.chkStartVisualStudio.TabIndex = 9;
             this.chkStartVisualStudio.Text = "Start Visual Studio";
             this.chkStartVisualStudio.UseVisualStyleBackColor = true;
             // 
@@ -366,7 +384,7 @@ namespace SolutionGenerator.Frontend
             this.includeGitAttributeCheckBox.Location = new System.Drawing.Point(131, 19);
             this.includeGitAttributeCheckBox.Name = "includeGitAttributeCheckBox";
             this.includeGitAttributeCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeGitAttributeCheckBox.TabIndex = 22;
+            this.includeGitAttributeCheckBox.TabIndex = 0;
             this.includeGitAttributeCheckBox.UseVisualStyleBackColor = true;
             // 
             // includeGitIgnoreCheckBox
@@ -375,7 +393,7 @@ namespace SolutionGenerator.Frontend
             this.includeGitIgnoreCheckBox.Location = new System.Drawing.Point(131, 49);
             this.includeGitIgnoreCheckBox.Name = "includeGitIgnoreCheckBox";
             this.includeGitIgnoreCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeGitIgnoreCheckBox.TabIndex = 24;
+            this.includeGitIgnoreCheckBox.TabIndex = 1;
             this.includeGitIgnoreCheckBox.UseVisualStyleBackColor = true;
             // 
             // includeLicenseCheckBox
@@ -384,7 +402,7 @@ namespace SolutionGenerator.Frontend
             this.includeLicenseCheckBox.Location = new System.Drawing.Point(131, 79);
             this.includeLicenseCheckBox.Name = "includeLicenseCheckBox";
             this.includeLicenseCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeLicenseCheckBox.TabIndex = 26;
+            this.includeLicenseCheckBox.TabIndex = 2;
             this.includeLicenseCheckBox.UseVisualStyleBackColor = true;
             // 
             // includeReadmeCheckBox
@@ -393,7 +411,7 @@ namespace SolutionGenerator.Frontend
             this.includeReadmeCheckBox.Location = new System.Drawing.Point(131, 109);
             this.includeReadmeCheckBox.Name = "includeReadmeCheckBox";
             this.includeReadmeCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeReadmeCheckBox.TabIndex = 28;
+            this.includeReadmeCheckBox.TabIndex = 3;
             this.includeReadmeCheckBox.UseVisualStyleBackColor = true;
             // 
             // includeResharperCheckBox
@@ -402,7 +420,7 @@ namespace SolutionGenerator.Frontend
             this.includeResharperCheckBox.Location = new System.Drawing.Point(131, 139);
             this.includeResharperCheckBox.Name = "includeResharperCheckBox";
             this.includeResharperCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeResharperCheckBox.TabIndex = 30;
+            this.includeResharperCheckBox.TabIndex = 4;
             this.includeResharperCheckBox.UseVisualStyleBackColor = true;
             // 
             // includeStylecopCheckBox
@@ -411,7 +429,7 @@ namespace SolutionGenerator.Frontend
             this.includeStylecopCheckBox.Location = new System.Drawing.Point(131, 169);
             this.includeStylecopCheckBox.Name = "includeStylecopCheckBox";
             this.includeStylecopCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeStylecopCheckBox.TabIndex = 32;
+            this.includeStylecopCheckBox.TabIndex = 5;
             this.includeStylecopCheckBox.UseVisualStyleBackColor = true;
             // 
             // includeTestProjectCheckBox
@@ -420,7 +438,7 @@ namespace SolutionGenerator.Frontend
             this.includeTestProjectCheckBox.Location = new System.Drawing.Point(131, 199);
             this.includeTestProjectCheckBox.Name = "includeTestProjectCheckBox";
             this.includeTestProjectCheckBox.Size = new System.Drawing.Size(21, 24);
-            this.includeTestProjectCheckBox.TabIndex = 34;
+            this.includeTestProjectCheckBox.TabIndex = 6;
             this.includeTestProjectCheckBox.UseVisualStyleBackColor = true;
             // 
             // targetFrameworkComboBox
@@ -433,10 +451,10 @@ namespace SolutionGenerator.Frontend
             "v3.5",
             "v4.0",
             "v4.5"});
-            this.targetFrameworkComboBox.Location = new System.Drawing.Point(152, 195);
+            this.targetFrameworkComboBox.Location = new System.Drawing.Point(152, 222);
             this.targetFrameworkComboBox.Name = "targetFrameworkComboBox";
             this.targetFrameworkComboBox.Size = new System.Drawing.Size(381, 21);
-            this.targetFrameworkComboBox.TabIndex = 36;
+            this.targetFrameworkComboBox.TabIndex = 7;
             // 
             // groupBox1
             // 
@@ -457,7 +475,7 @@ namespace SolutionGenerator.Frontend
             this.groupBox1.Location = new System.Drawing.Point(563, 15);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(157, 237);
-            this.groupBox1.TabIndex = 37;
+            this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Include";
             // 
@@ -467,30 +485,8 @@ namespace SolutionGenerator.Frontend
             this.initiliazeGitCheckBox.Location = new System.Drawing.Point(694, 258);
             this.initiliazeGitCheckBox.Name = "initiliazeGitCheckBox";
             this.initiliazeGitCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.initiliazeGitCheckBox.TabIndex = 38;
+            this.initiliazeGitCheckBox.TabIndex = 11;
             this.initiliazeGitCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // initiliazeGitLabel
-            // 
-            initiliazeGitLabel.AutoSize = true;
-            initiliazeGitLabel.Location = new System.Drawing.Point(583, 264);
-            initiliazeGitLabel.Name = "initiliazeGitLabel";
-            initiliazeGitLabel.Size = new System.Drawing.Size(63, 13);
-            initiliazeGitLabel.TabIndex = 37;
-            initiliazeGitLabel.Text = "Initiliaze Git:";
-            // 
-            // solutionModelBindingSource
-            // 
-            this.solutionModelBindingSource.DataSource = typeof(SolutionGenerator.Models.SolutionModel);
-            // 
-            // projectOutputTypeLabel
-            // 
-            projectOutputTypeLabel.AutoSize = true;
-            projectOutputTypeLabel.Location = new System.Drawing.Point(12, 225);
-            projectOutputTypeLabel.Name = "projectOutputTypeLabel";
-            projectOutputTypeLabel.Size = new System.Drawing.Size(105, 13);
-            projectOutputTypeLabel.TabIndex = 38;
-            projectOutputTypeLabel.Text = "Project Output Type:";
             // 
             // projectOutputTypeComboBox
             // 
@@ -501,16 +497,20 @@ namespace SolutionGenerator.Frontend
             "WPF",
             "WinForms",
             "Console"});
-            this.projectOutputTypeComboBox.Location = new System.Drawing.Point(152, 222);
+            this.projectOutputTypeComboBox.Location = new System.Drawing.Point(152, 117);
             this.projectOutputTypeComboBox.Name = "projectOutputTypeComboBox";
             this.projectOutputTypeComboBox.Size = new System.Drawing.Size(381, 21);
-            this.projectOutputTypeComboBox.TabIndex = 39;
+            this.projectOutputTypeComboBox.TabIndex = 4;
+            // 
+            // solutionModelBindingSource
+            // 
+            this.solutionModelBindingSource.DataSource = typeof(SolutionGenerator.Models.SolutionModel);
             // 
             // GeneratorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 478);
+            this.ClientSize = new System.Drawing.Size(736, 478);
             this.Controls.Add(projectOutputTypeLabel);
             this.Controls.Add(this.projectOutputTypeComboBox);
             this.Controls.Add(initiliazeGitLabel);

@@ -55,7 +55,7 @@
     <Compile Include="TemplateRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\packagesConfig.txt">
+    <Content Include="Templates\packagesConfigTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\SolutionWithTestTemplate.txt">

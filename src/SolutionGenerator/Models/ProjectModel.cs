@@ -17,11 +17,13 @@
         public string ProjectType { get; set; }
 
         public string ProjectReferences { get; set; }
+        public string FileIncludes { get; set; }
 
         public ProjectModel(string projectGuid)
         {
             ProjectGuid = projectGuid;
             ProjectReferences = string.Empty;
+            FileIncludes = string.Empty;
         }
 
         public string ProjectTypeToProjectOutputType(string projectType)
@@ -47,6 +49,11 @@
     <Reference Include=""nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL"">
         <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>";
+
+            FileIncludes += @"  
+    <ItemGroup>
+        <None Include=""packages.config"" />
+    </ItemGroup>";
         }
 
         public void AddWinformsReferences()
