@@ -1,6 +1,9 @@
 ﻿namespace SolutionGenerator.Models
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using Base;
 
     public class SolutionModel : ModelBase
@@ -17,6 +20,7 @@
         private string _solutionReadme;
         private bool _includeReadme;
         private string _projectType;
+        private string _licenseName;
 
         public SolutionModel()
         {
@@ -33,9 +37,13 @@
             IncludeStylecop       = true;
             IncludeLicense        = true;
             IncludeReadme = true;
+            LicenseName = "MIT";
 
+            ProjectType = "Library";
+            AvailableLicenses = Directory.EnumerateFiles("./Licenses").Select(Path.GetFileNameWithoutExtension).ToList();
         }
 
+        public bool OpenFolderOnCreate { get; set; }
         public bool InitiliazeGit { get; set; }
         public bool IncludeTestProject { get; set; }
         public bool IncludeGitIgnore { get; set; }
@@ -45,7 +53,10 @@
         public bool IncludeLicense { get; set; }
         public bool IncludeReadme
         {
-            get { return _includeReadme; }
+            get
+            {
+                return _includeReadme;
+            }
             set
             {
                 if (value == _includeReadme)
@@ -53,6 +64,20 @@
                     return;
                 }
                 _includeReadme = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<string> AvailableLicenses { get; set; }
+        public string LicenseName
+        {
+            get
+            {
+                return _licenseName;
+            }
+            set
+            {
+                _licenseName = value;
                 OnPropertyChanged();
             }
         }
@@ -229,7 +254,10 @@
 
         public string ProjectType
         {
-            get { return _projectType; }
+            get
+            {
+                return _projectType;
+            }
             set
             {
                 if (value == _projectType)
@@ -240,5 +268,7 @@
                 OnPropertyChanged();
             }
         }
+
+        public string LicenseText { get; set; }
     }
 }

@@ -16,6 +16,17 @@
         private const string StyleCopTemplate = "./Templates/styleCopTemplate.txt";
         private const string LicenseTemplate = "./Templates/licenseTemplate.txt";
         private const string PackagesTemplate = "./Templates/packagesConfigTemplate.txt";
+        private const string ConsoleProgramClass = "./Templates/consoleProgramClass.txt";
+
+        private const string AppXaml = "./Templates/WPF/appXaml.txt";
+        private const string AppXamlCs = "./Templates/WPF/appXamlCs.txt";
+        private const string MainWindowXaml = "./Templates/WPF/mainWindowXaml.txt";
+        private const string MainWindowXamlCs = "./Templates/WPF/mainWindowXamlCs.txt";
+
+        private const string ProgramCs = "./Templates/Winform/programCs.txt";
+        private const string Form1DesignerCs = "./Templates/Winform/form1DesignerCs.txt";
+        private const string Form1Cs = "./Templates/Winform/form1Cs.txt";
+
         private const string FolderStructureFile = "./folders.txt";
 
         public void DoWork(SolutionModel model)
@@ -86,6 +97,24 @@
             projectModel.ProjectOutputType = projectModel.ProjectTypeToProjectOutputType(model.ProjectType);
             projectModel.AddCoreReferences();
             
+            if (projectModel.ProjectOutputType == "Exe")
+            {
+                File.WriteAllText(projectRoot + "Program.cs", TemplateRenderer.Render(ConsoleProgramClass, projectModel));
+            }
+            else if (model.ProjectType == "WPF")
+            {
+                File.WriteAllText(projectRoot + "App.xaml", TemplateRenderer.Render(AppXaml, projectModel));
+                File.WriteAllText(projectRoot + "App.xaml.cs", TemplateRenderer.Render(AppXamlCs, projectModel));
+                File.WriteAllText(projectRoot + "MainWindow.xaml", TemplateRenderer.Render(MainWindowXaml, projectModel));
+                File.WriteAllText(projectRoot + "MainWindow.xaml.cs", TemplateRenderer.Render(MainWindowXamlCs, projectModel));
+            }
+            else if (model.ProjectType == "WinForms")
+            {
+                File.WriteAllText(projectRoot + "Form1.cs", TemplateRenderer.Render(Form1Cs, projectModel));
+                File.WriteAllText(projectRoot + "Form1.Designer.cs", TemplateRenderer.Render(Form1DesignerCs, projectModel));
+                File.WriteAllText(projectRoot + "Program.cs", TemplateRenderer.Render(ProgramCs, projectModel));
+            }
+
             var projectFile = new FileInfo(projectRoot + projectModel.ProjectName + ".csproj");
             File.WriteAllText(projectFile.FullName, TemplateRenderer.Render(ProjectTemplate, projectModel));
             
@@ -156,7 +185,7 @@
             if (model.IncludeLicense)
             {
                 solutionFile = new FileInfo(string.Format("{0}/License.txt", root.FullName));
-                File.WriteAllText(solutionFile.FullName, TemplateRenderer.Render(LicenseTemplate, model));
+                File.WriteAllText(solutionFile.FullName, model.LicenseText);
                 files.Add(solutionFile);
             }
             return files.ToArray();
@@ -169,7 +198,6 @@
             FileInfo solutionFile;
             if (model.IncludeResharper)
             {
-
                 solutionFile = new FileInfo(string.Format("{0}/resharper.settings", root.FullName));
                 File.WriteAllText(solutionFile.FullName, TemplateRenderer.Render(ResharperSettingsTemplate, model));
                 files.Add(solutionFile);
