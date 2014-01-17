@@ -80,14 +80,15 @@ namespace SolutionGenerator.Services
             CreateSolutionAssets(rootDirectoryInfo, solution);
 
             // create files under root/src path
-            rootDirectoryInfo = new DirectoryInfo(string.Format("{0}/src/", solution.RootPath));
-            CreateSolutionFile(rootDirectoryInfo, solution);
-            CreateProjectFile(rootDirectoryInfo, solution);
+            var sourceDirectoryInfo = new DirectoryInfo(string.Format("{0}/src/", solution.RootPath));
+            CreateSolutionFile(sourceDirectoryInfo, solution);
+            CreateProjectFile(sourceDirectoryInfo, solution);
             if (solution.IncludeTestProject)
             {
-                CreateTestProjectFile(rootDirectoryInfo, solution);
+                CreateTestProjectFile(sourceDirectoryInfo, solution);
             }
-            CreateProjectAssets(rootDirectoryInfo, solution);
+
+            CreateProjectAssets(sourceDirectoryInfo, solution);
 
             if (solution.InitializeGit)
             {
