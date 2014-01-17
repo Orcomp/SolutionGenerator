@@ -9,43 +9,48 @@ namespace SolutionGenerator.Services
 {
     using System.IO;
     using System.Text.RegularExpressions;
+    using Catel.Logging;
 
     public class TemplateRenderer : ITemplateRenderer
     {
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
         #region Constants
-        private const string TemplateRegex = @"[^{]({[^{].*?})";
+        //private const string TemplateRegex = @"[^{]({[^{].*?})";
+        private readonly Regex TemplateRegex = new Regex(@"(?<=\{)[^}]*(?=\})", RegexOptions.Compiled | RegexOptions.Multiline);
         #endregion
 
         #region ITemplateRenderer Members
-        public string Render<T>(string templateContent, T model)
+        public string RenderFile<T>(string templateContent, T model)
         {
             string text = File.ReadAllText(templateContent);
 
-            return Regex.Replace(text, TemplateRegex, match =>
-            {
-                var indexOfFirst = match.Value.IndexOf('{');
-                var prefix = indexOfFirst > 0 ? match.Value.Substring(0, 1) : string.Empty;
-                var value = match.Value.Substring(indexOfFirst);
-                string replace = value.Replace("{", string.Empty).Replace("}", string.Empty);
-                return prefix + model.GetType().GetProperty(replace).GetValue(model).ToString();
-            }).Replace("{{", "{").Replace("}}", "}");
+            return RenderContent(text, model);
         }
 
-        public string RenderAndRenderContent<T>(string templateContent, T model)
+        public string RenderContent<T>(string templateContent, T model)
         {
-            string text = File.ReadAllText(templateContent);
-
             MatchEvaluator matchEvaluator = match =>
             {
-                var indexOfFirst = match.Value.IndexOf('{');
-                var prefix = indexOfFirst > 0 ? match.Value.Substring(0, 1) : string.Empty;
-                var value = match.Value.Substring(indexOfFirst);
-                string replace = value.Replace("{", string.Empty).Replace("}", string.Empty);
-                return prefix + model.GetType().GetProperty(replace).GetValue(model).ToString();
+                string propertyName = match.Value;
+                object propertyValue = propertyName;
+                
+                var property = model.GetType().GetProperty(propertyName);
+                if (property == null)
+                {
+                    Log.Warning("Cannot replace token '{0}' because the property is not found on the model", propertyName);
+                }
+                else
+                {
+                    propertyValue = property.GetValue(model);
+                }
+
+                return propertyValue.ToString();
             };
 
-            string resolvedTemplate = Regex.Replace(text, TemplateRegex, matchEvaluator);
-            return Regex.Replace(resolvedTemplate, TemplateRegex, matchEvaluator).Replace("{{", "{").Replace("}}", "}");
+            string resolvedTemplate = TemplateRegex.Replace(templateContent, matchEvaluator);
+            var replacedContent = resolvedTemplate.Replace("{", string.Empty).Replace("}", string.Empty);
+            return replacedContent;
         }
         #endregion
     }

@@ -10,8 +10,8 @@ namespace SolutionGenerator.Services
     public interface ITemplateRenderer
     {
         #region Methods
-        string Render<T>(string templateContent, T model);
-        string RenderAndRenderContent<T>(string templateContent, T model);
+        string RenderFile<T>(string templateContent, T model);
+        string RenderContent<T>(string templateContent, T model);
         #endregion
     }
 }

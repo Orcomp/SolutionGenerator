@@ -116,7 +116,7 @@ namespace SolutionGenerator.Services
             var templateToRender = model.IncludeTestProject ? SolutionWithTestTemplate : SolutionTemplate;
             var solutionFile = new FileInfo(string.Format("{0}{1}.sln", root.FullName, model.SolutionName));
 
-            File.WriteAllText(solutionFile.FullName, _templateRenderer.Render(templateToRender, model));
+            File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(templateToRender, model));
 
             return solutionFile;
         }
@@ -150,25 +150,25 @@ namespace SolutionGenerator.Services
 
             if (string.Equals(project.ProjectOutputType, "Exe"))
             {
-                File.WriteAllText(projectRoot + "Program.cs", _templateRenderer.Render(ConsoleProgramClass, project));
+                File.WriteAllText(projectRoot + "Program.cs", _templateRenderer.RenderFile(ConsoleProgramClass, project));
             }
             else if (string.Equals(solution.ProjectType, "WPF"))
             {
                 projectTemplate = WpfProjectTemplate;
-                File.WriteAllText(projectRoot + "App.xaml", _templateRenderer.Render(AppXaml, project));
-                File.WriteAllText(projectRoot + "App.xaml.cs", _templateRenderer.Render(AppXamlCs, project));
-                File.WriteAllText(projectRoot + "MainWindow.xaml", _templateRenderer.Render(MainWindowXaml, project));
-                File.WriteAllText(projectRoot + "MainWindow.xaml.cs", _templateRenderer.Render(MainWindowXamlCs, project));
+                File.WriteAllText(projectRoot + "App.xaml", _templateRenderer.RenderFile(AppXaml, project));
+                File.WriteAllText(projectRoot + "App.xaml.cs", _templateRenderer.RenderFile(AppXamlCs, project));
+                File.WriteAllText(projectRoot + "MainWindow.xaml", _templateRenderer.RenderFile(MainWindowXaml, project));
+                File.WriteAllText(projectRoot + "MainWindow.xaml.cs", _templateRenderer.RenderFile(MainWindowXamlCs, project));
             }
             else if (string.Equals(solution.ProjectType, "WinForms"))
             {
-                File.WriteAllText(projectRoot + "Form1.cs", _templateRenderer.Render(Form1Cs, project));
-                File.WriteAllText(projectRoot + "Form1.Designer.cs", _templateRenderer.Render(Form1DesignerCs, project));
-                File.WriteAllText(projectRoot + "Program.cs", _templateRenderer.Render(ProgramCs, project));
+                File.WriteAllText(projectRoot + "Form1.cs", _templateRenderer.RenderFile(Form1Cs, project));
+                File.WriteAllText(projectRoot + "Form1.Designer.cs", _templateRenderer.RenderFile(Form1DesignerCs, project));
+                File.WriteAllText(projectRoot + "Program.cs", _templateRenderer.RenderFile(ProgramCs, project));
             }
 
             var projectFile = new FileInfo(projectRoot + project.ProjectName + ".csproj");
-            File.WriteAllText(projectFile.FullName, _templateRenderer.Render(ProjectTemplate, project));
+            File.WriteAllText(projectFile.FullName, _templateRenderer.RenderFile(ProjectTemplate, project));
 
             return projectFile;
         }
@@ -199,13 +199,13 @@ namespace SolutionGenerator.Services
             {
                 project.ProjectType = ProjectTypes.Test;
                 var packagesFile = new FileInfo(projectRoot + "packages.config");
-                File.WriteAllText(packagesFile.FullName, _templateRenderer.Render(PackagesTemplate, project));
+                File.WriteAllText(packagesFile.FullName, _templateRenderer.RenderFile(PackagesTemplate, project));
             }
 
             _referencesService.AddRequiredReferences(project);
 
             var projectFile = new FileInfo(projectRoot + project.ProjectName + ".csproj");
-            File.WriteAllText(projectFile.FullName, _templateRenderer.Render(ProjectTemplate, project));
+            File.WriteAllText(projectFile.FullName, _templateRenderer.RenderFile(ProjectTemplate, project));
 
             return projectFile;
         }
@@ -219,21 +219,21 @@ namespace SolutionGenerator.Services
             if (model.IncludeGitAttribute)
             {
                 solutionFile = new FileInfo(string.Format("{0}/.gitattributes", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.Render(GitAttributeTemplate, model));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitAttributeTemplate, model));
                 files.Add(solutionFile);
             }
 
             if (model.IncludeGitIgnore)
             {
                 solutionFile = new FileInfo(string.Format("{0}/.gitignore", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.Render(GitIgnoreTemplate, model));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitIgnoreTemplate, model));
                 files.Add(solutionFile);
             }
 
             if (model.IncludeReadme)
             {
                 solutionFile = new FileInfo(string.Format("{0}/README.md", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderAndRenderContent(ReadmeTemplate, model));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderContent(model.SolutionReadme, model));
                 files.Add(solutionFile);
             }
 
@@ -257,14 +257,14 @@ namespace SolutionGenerator.Services
             if (model.IncludeReSharper)
             {
                 solutionFile = new FileInfo(string.Format("{0}/resharper.settings", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.Render(ResharperSettingsTemplate, model));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(ResharperSettingsTemplate, model));
                 files.Add(solutionFile);
             }
 
             if (model.IncludeStylecop)
             {
                 solutionFile = new FileInfo(string.Format("{0}/Settings.StyleCop", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.Render(StyleCopTemplate, model));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(StyleCopTemplate, model));
                 files.Add(solutionFile);
             }
 
