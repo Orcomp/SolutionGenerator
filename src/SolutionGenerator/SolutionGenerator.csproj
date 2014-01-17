@@ -77,46 +77,46 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="Licenses\Affero_GPL.txt">
+    <Content Include="Templates\Licenses\Affero_GPL.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\Apache_v2.txt">
+    <Content Include="Templates\Licenses\Apache_v2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\Artistic_v2.txt">
+    <Content Include="Templates\Licenses\Artistic_v2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\BSD_2_Clause.txt">
+    <Content Include="Templates\Licenses\BSD_2_Clause.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\BSD_3_Clause.txt">
+    <Content Include="Templates\Licenses\BSD_3_Clause.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\Eclipse_Public_License_v1.txt">
+    <Content Include="Templates\Licenses\Eclipse_Public_License_v1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\GPL_v2.txt">
+    <Content Include="Templates\Licenses\GPL_v2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\GPL_v3.txt">
+    <Content Include="Templates\Licenses\GPL_v3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\LGPL_v2.1.txt">
+    <Content Include="Templates\Licenses\LGPL_v2.1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\LGPL_v3.txt">
+    <Content Include="Templates\Licenses\LGPL_v3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\MIT.txt">
+    <Content Include="Templates\Licenses\MIT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\Mozilla.txt">
+    <Content Include="Templates\Licenses\Mozilla.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\No_License.txt">
+    <Content Include="Templates\Licenses\No_License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Licenses\Public_Domain.txt">
+    <Content Include="Templates\Licenses\Public_Domain.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\consoleProgramClass.txt">

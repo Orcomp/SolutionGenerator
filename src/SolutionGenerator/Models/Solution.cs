@@ -87,8 +87,6 @@ namespace SolutionGenerator.Models
 
         [DefaultValue(ProjectTypes.Library)]
         public ProjectTypes ProjectType { get; set; }
-
-        public string LicenseText { get; set; }
         #endregion
 
         #region Methods

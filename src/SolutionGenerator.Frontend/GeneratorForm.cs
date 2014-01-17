@@ -41,8 +41,7 @@
                             _solutionModel.ProjectAssemblyName = _solutionModel.ProjectName;
                             break;
                         case "LicenseName":
-                            _solutionModel.LicenseText =
-                                File.ReadAllText(string.Format("./Licenses/{0}.txt", _solutionModel.LicenseName));
+                            _solutionModel.LicenseText = File.ReadAllText(string.Format("./Licenses/{0}.txt", _solutionModel.LicenseName));
                             break;
                     }
                 };

@@ -11,6 +11,7 @@ namespace SolutionGenerator.Services
     using System.IO;
     using Catel;
     using Catel.Logging;
+    using Catel.Reflection;
     using SolutionGenerator.Models;
 
     public class SolutionGeneratorService : ISolutionGeneratorService
@@ -210,37 +211,39 @@ namespace SolutionGenerator.Services
             return projectFile;
         }
 
-        private FileInfo[] CreateSolutionAssets(DirectoryInfo root, Solution model)
+        private FileInfo[] CreateSolutionAssets(DirectoryInfo root, Solution solution)
         {
             var files = new List<FileInfo>();
 
-            FileInfo solutionFile;
-
-            if (model.IncludeGitAttribute)
+            if (solution.IncludeGitAttribute)
             {
-                solutionFile = new FileInfo(string.Format("{0}/.gitattributes", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitAttributeTemplate, model));
+                var solutionFile = new FileInfo(Path.Combine(root.FullName, ".gitattributes"));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitAttributeTemplate, solution));
                 files.Add(solutionFile);
             }
 
-            if (model.IncludeGitIgnore)
+            if (solution.IncludeGitIgnore)
             {
-                solutionFile = new FileInfo(string.Format("{0}/.gitignore", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitIgnoreTemplate, model));
+                var solutionFile = new FileInfo(Path.Combine(root.FullName, ".gitignore"));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitIgnoreTemplate, solution));
                 files.Add(solutionFile);
             }
 
-            if (model.IncludeReadme)
+            if (solution.IncludeReadme)
             {
-                solutionFile = new FileInfo(string.Format("{0}/README.md", root.FullName));
-                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderContent(model.SolutionReadme, model));
+                var solutionFile = new FileInfo(Path.Combine(root.FullName, "README.md"));
+                File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderContent(solution.SolutionReadme, solution));
                 files.Add(solutionFile);
             }
 
-            if (model.IncludeLicense)
+            if (solution.IncludeLicense)
             {
-                solutionFile = new FileInfo(string.Format("{0}/License.txt", root.FullName));
-                File.WriteAllText(solutionFile.FullName, model.LicenseText);
+                var assemblyDirectory = GetType().Assembly.GetDirectory();
+                string licenseTemplateFileName = Path.Combine(assemblyDirectory, "Templates", "Licenses", string.Format("{0}.txt", solution.LicenseName));
+                string licenseContent = File.ReadAllText(licenseTemplateFileName);
+
+                var solutionFile = new FileInfo(Path.Combine(root.FullName, "License.txt"));
+                File.WriteAllText(solutionFile.FullName, licenseContent);
                 files.Add(solutionFile);
             }
 
