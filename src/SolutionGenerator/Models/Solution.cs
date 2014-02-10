@@ -24,7 +24,9 @@ namespace SolutionGenerator.Models
             SolutionGuid = Guid.NewGuid().ToString("B");
             TestProjectGuid = Guid.NewGuid().ToString("B");
 
-            AvailableLicenses = Directory.EnumerateFiles("./Licenses").Select(Path.GetFileNameWithoutExtension).ToList();
+            // Note: should be in the model, but in a separate service
+            var licensesPath = Path.Combine(".", "Templates", "Licenses");
+            AvailableLicenses = Directory.EnumerateFiles(licensesPath).Select(Path.GetFileNameWithoutExtension).ToList();
         }
         #endregion
 

@@ -5,13 +5,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SolutionGenerator.Frontend.WPF
+namespace SolutionGenerator
 {
     using System;
     using System.Windows;
     using Catel.IoC;
     using Catel.Windows;
-    using SolutionGenerator.Frontend.WPF.Services;
+    using SolutionGenerator.Services;
     using SolutionGenerator.Models;
 
     /// <summary>

@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SolutionGenerator.Frontend.WPF.ViewModels
+namespace SolutionGenerator.ViewModels
 {
     using Catel;
     using Catel.MVVM;

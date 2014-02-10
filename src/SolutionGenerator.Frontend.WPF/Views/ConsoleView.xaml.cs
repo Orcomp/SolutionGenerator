@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SolutionGenerator.Frontend.WPF.Views
+namespace SolutionGenerator.Views
 {
     using System.ComponentModel;
     using Catel.Windows.Controls;

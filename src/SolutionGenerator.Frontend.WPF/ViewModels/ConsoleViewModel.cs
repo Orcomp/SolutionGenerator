@@ -5,12 +5,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SolutionGenerator.Frontend.WPF.ViewModels
+namespace SolutionGenerator.ViewModels
 {
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
-    using SolutionGenerator.Frontend.WPF.Services;
+    using SolutionGenerator.Services;
 
     public class ConsoleViewModel : ViewModelBase
     {

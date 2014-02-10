@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SolutionGenerator.Frontend.WPF.Services
+namespace SolutionGenerator.Services
 {
     using System;
     using Catel.Logging;

@@ -1,4 +1,4 @@
-﻿namespace SolutionGenerator.Frontend.WPF.Views
+﻿namespace SolutionGenerator.Views
 {
     using Catel.Windows;
 

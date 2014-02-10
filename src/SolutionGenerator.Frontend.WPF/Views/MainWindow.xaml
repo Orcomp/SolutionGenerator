@@ -1,8 +1,8 @@
-﻿<catel:DataWindow x:Class="SolutionGenerator.Frontend.WPF.Views.MainWindow"
+﻿<catel:DataWindow x:Class="SolutionGenerator.Views.MainWindow"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 				  xmlns:catel="http://catel.codeplex.com"
-				  xmlns:views="clr-namespace:SolutionGenerator.Frontend.WPF.Views"
+				  xmlns:views="clr-namespace:SolutionGenerator.Views"
 				  ShowInTaskbar="True" SizeToContent="WidthAndHeight" WindowStartupLocation="Manual">
 
     <!-- Resources -->
