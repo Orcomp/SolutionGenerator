@@ -1,22 +1,22 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ProjectTypes.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2013 Orcomp development team. All rights reserved.
+//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 namespace SolutionGenerator
 {
-    public enum ProjectTypes
-    {
-        Console,
+	public enum ProjectTypes
+	{
+		Console,
 
-        WPF,
+		WPF,
 
-        WinForms,
+		WinForms,
 
-        Test,
+		Test,
 
-        Library
-    }
+		Library
+	}
 }
