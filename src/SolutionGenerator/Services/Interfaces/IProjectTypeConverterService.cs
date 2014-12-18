@@ -1,14 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="IProjectTypeConverterService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2013 Orcomp development team. All rights reserved.
+//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 namespace SolutionGenerator.Services
 {
-    public interface IProjectTypeConverterService
-    {
-        ProjectOutputTypes Convert(ProjectTypes projectType);
-    }
+	public interface IProjectTypeConverterService
+	{
+		#region Methods
+		ProjectOutputTypes Convert(ProjectTypes projectType);
+		#endregion
+	}
 }

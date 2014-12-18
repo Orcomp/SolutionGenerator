@@ -1,0 +1,68 @@
+﻿<catel:UserControl x:Class="SolutionGenerator.Wpf.Views.SolutionOptionsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:catel="http://catel.codeplex.com">
+
+    <catel:StackGrid>
+        <catel:StackGrid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="300" />
+        </catel:StackGrid.RowDefinitions>
+
+        <catel:StackGrid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </catel:StackGrid.ColumnDefinitions>
+
+        <Label Content="Root path" />
+        <TextBox Text="{Binding RootPath, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Content="..."
+            Command="{Binding SelectSolutionDirectory}" />
+
+        <Label Content="Solution name" />
+        <TextBox Text="{Binding SolutionName, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="Project name" />
+        <TextBox Text="{Binding ProjectName, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="Project output type" />
+        <ComboBox ItemsSource="{Binding AvailableProjectTypes}"
+            Text="{Binding ProjectType, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="Project root namespace" />
+        <TextBox Text="{Binding ProjectRootNameSpace, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="Project assembly name" />
+        <TextBox Text="{Binding ProjectAssemblyName, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="Target framework" />
+        <ComboBox ItemsSource="{Binding AvailableTargetFrameworks}"
+            Text="{Binding TargetFramework, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="License name" />
+        <ComboBox ItemsSource="{Binding AvailableLicenseNames}"
+            Text="{Binding LicenseName, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
+            catel:StackGrid.ColumnSpan="2" />
+
+        <Label Content="Read me" />
+        <TextBox Text="{Binding Readme, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
+            catel:StackGrid.ColumnSpan="2"
+            AcceptsTab="True"
+            AcceptsReturn="True" />
+    </catel:StackGrid>
+
+</catel:UserControl>

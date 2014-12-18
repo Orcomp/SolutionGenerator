@@ -1,18 +1,18 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ISolutionGeneratorService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2013 Orcomp development team. All rights reserved.
+//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 namespace SolutionGenerator.Services
 {
-    using SolutionGenerator.Models;
+	using Models;
 
-    public interface ISolutionGeneratorService
-    {
-        #region Methods
-        void DoWork(Solution solution);
-        #endregion
-    }
+	public interface ISolutionGeneratorService
+	{
+		#region Methods
+		void DoWork(Solution solution);
+		#endregion
+	}
 }

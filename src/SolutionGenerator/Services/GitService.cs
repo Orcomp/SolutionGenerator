@@ -1,23 +1,24 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="GitService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2013 Orcomp development team. All rights reserved.
+//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
 namespace SolutionGenerator.Services
 {
-    using Catel;
+	using Catel;
+	using LibGit2Sharp;
 
-    public class GitService : IGitService
-    {
-        #region IGitService Members
-        public void InitGitRepository(string directoryName)
-        {
-            Argument.IsNotNullOrWhitespace(() => directoryName);
+	public class GitService : IGitService
+	{
+		#region IGitService Members
+		public void InitGitRepository(string directoryName)
+		{
+			Argument.IsNotNullOrWhitespace(() => directoryName);
 
-            LibGit2Sharp.Repository.Init(directoryName);
-        }
-        #endregion
-    }
+			Repository.Init(directoryName);
+		}
+		#endregion
+	}
 }

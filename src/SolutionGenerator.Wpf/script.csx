@@ -3,12 +3,12 @@
 #r "System.Drawing"
 #r "System.Windows.Forms"
 #r "SolutionGenerator.dll"
-#r "SolutionGenerator.Frontend.exe"
+#r "SolutionGenerator.Wpf.exe"
 
 using System;
 using System.Threading;
 using SolutionGenerator;
-using SolutionGenerator.Frontend;
+using SolutionGenerator.Wpf;
 
 public static class Utilities
 {
