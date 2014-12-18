@@ -1,12 +1,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator", "SolutionGenerator\SolutionGenerator.csproj", "{175BDF78-5F4E-407D-B63C-52F7DB65FFFA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8AED3657-3762-4B95-8434-71B300207011}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Frontend", "SolutionGenerator.Frontend\SolutionGenerator.Frontend.csproj", "{FFE51261-FD23-444F-B3C6-CA64B95A2441}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AB5D1B12-CEC8-4E37-A7D7-EAF092C67A51}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,10 +23,6 @@ Global
 		{175BDF78-5F4E-407D-B63C-52F7DB65FFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{175BDF78-5F4E-407D-B63C-52F7DB65FFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{175BDF78-5F4E-407D-B63C-52F7DB65FFFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFE51261-FD23-444F-B3C6-CA64B95A2441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFE51261-FD23-444F-B3C6-CA64B95A2441}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFE51261-FD23-444F-B3C6-CA64B95A2441}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFE51261-FD23-444F-B3C6-CA64B95A2441}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25A21DF3-C6F8-46C0-BB54-D8EB4FD72E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{25A21DF3-C6F8-46C0-BB54-D8EB4FD72E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25A21DF3-C6F8-46C0-BB54-D8EB4FD72E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,7 +33,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{175BDF78-5F4E-407D-B63C-52F7DB65FFFA} = {8AED3657-3762-4B95-8434-71B300207011}
-		{FFE51261-FD23-444F-B3C6-CA64B95A2441} = {8AED3657-3762-4B95-8434-71B300207011}
 		{25A21DF3-C6F8-46C0-BB54-D8EB4FD72E90} = {8AED3657-3762-4B95-8434-71B300207011}
 	EndGlobalSection
 EndGlobal
