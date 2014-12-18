@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\lib\LibGit2Sharp.0.20.0.0\build\net40\LibGit2Sharp.props" Condition="Exists('..\..\lib\LibGit2Sharp.0.20.0.0\build\net40\LibGit2Sharp.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <FodyPath>..\..\lib\Fody.1.19.1.0</FodyPath>
+    <NuGetPackageImportStamp>ab9ad14a</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,16 +36,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core">
-      <HintPath>..\..\lib\Catel.Core.3.8.1312160837-beta\lib\net45\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Catel.Core.4.1.0-unstable0030\lib\net45\Catel.Core.dll</HintPath>
     </Reference>
     <Reference Include="Catel.Fody.Attributes">
-      <HintPath>..\..\lib\Catel.Fody.1.6.0.1312271635-beta\lib\net45\Catel.Fody.Attributes.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\lib\Catel.Fody.2.4.0-unstable0001\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="LibGit2Sharp, Version=0.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LibGit2Sharp, Version=0.20.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\LibGit2Sharp.0.15.0.0\lib\net35\LibGit2Sharp.dll</HintPath>
+      <HintPath>..\..\lib\LibGit2Sharp.0.20.0.0\lib\net40\LibGit2Sharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -182,7 +183,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fody.targets" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -192,12 +192,19 @@
   <PropertyGroup>
     <PostBuildEvent>if not exist "$(TargetDir)NativeBinaries" md "$(TargetDir)NativeBinaries"
 if not exist "$(TargetDir)NativeBinaries\x86" md "$(TargetDir)NativeBinaries\x86"
-xcopy /s /y "$(SolutionDir)..\lib\LibGit2Sharp.0.15.0.0\lib\net35\NativeBinaries\x86\*.*" "$(TargetDir)NativeBinaries\x86"
+xcopy /s /y "$(SolutionDir)..\lib\LibGit2Sharp.0.20.0.0\lib\net40\NativeBinaries\x86\*.*" "$(TargetDir)NativeBinaries\x86"
 if not exist "$(TargetDir)NativeBinaries\amd64" md "$(TargetDir)NativeBinaries\amd64"
-xcopy /s /y "$(SolutionDir)..\lib\LibGit2Sharp.0.15.0.0\lib\net35\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"</PostBuildEvent>
+xcopy /s /y "$(SolutionDir)..\lib\LibGit2Sharp.0.20.0.0\lib\net40\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="Fody.targets" />
+  <Import Project="..\..\lib\Fody.1.26.4\build\Fody.targets" Condition="Exists('..\..\lib\Fody.1.26.4\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\lib\Fody.1.26.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.1.26.4\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\lib\LibGit2Sharp.0.20.0.0\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.0.20.0.0\build\net40\LibGit2Sharp.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

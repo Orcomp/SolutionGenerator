@@ -8,10 +8,12 @@
 namespace SolutionGenerator.ViewModels
 {
     using System.IO;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
-    using Catel.MVVM.Services;
+    
+    using Catel.Services;
     using SolutionGenerator.Models;
     using SolutionGenerator.Services;
 
@@ -95,9 +97,11 @@ namespace SolutionGenerator.ViewModels
             }
         }
 
-        protected override void Initialize()
+
+        protected override Task Initialize()
         {
             Log.Info("Welcome to the Solution Generator");
+	        return base.Initialize();
         }
         #endregion
 
