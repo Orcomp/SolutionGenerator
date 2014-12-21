@@ -15,28 +15,67 @@ We follow the standards documented here: https://github.com/Orcomp/Standards, bu
 
 Things SolutionGenerator will do for you **at the click of a button**:
 
-- Create the folder structure you want.
+- Runtime solution template discovery. 
+- Create your own solution template with unlimited number of projects
+- This repo has 2 simple templates out of the box
 - Create the following files (and populates them):
-    - Readme.md
-    - .gitignore
-    - .gitattributes
-    - stlylecop settings
-    - Resharper settings
-- It also creates a solution file and associated project as well as a project to write your tests.
-- The project is configured to build its artifacts into an "output" folder.
+    - Editable Readme.md
+    - Pick Licence.txt from more than a dozen well known licence types
+    - .gitignore (currently comes from the template)
+    - .gitattributes (currently comes from the template)
+    - stlylecop settings (currently comes from the template)
+    - Resharper settings (currently comes from the template)
+    - Initializes a git repository (files not added yet)
+
+
+Out of the box template include the following features: 
+
+- All sources are under the /src folder
+- All rojects are configured to build artifacts into an "/output/configname" folder.
+- The NuGet are configured to use the /lib folder
+- NuGet.exe included in the /tools/nuget folder
+- Utility scrips included in the repository root to 
+	- Update NuGet.exe
+    - Restore packages
+    - Clean all
+
 
 Once you click the button to create the solution, it will do all of the above, and  immediately start Visual Studio, so you can start working on your project in no time ;)
 
 ## Customising
 
-- You can change the content of the various template files in the "\template" folder.
-- You can also customize the folder structure.
+To add a new template to the template set is as easy as 
+
+- create a VS solution interactively with your favorite tool
+- remove some folders to spare vith space like 'obj'. (optional, recommended) 
+- place a text file named .description into the root (optional, recommended). For syntax please refer to the included template zips in SolutionGenerator project's /Templates folder.
+- ZIP the whole folder, name as you want
+- place the zip file to the executable's folder under ./templates
+- if you would like to make your template to an out of the box template, include the .zip file into the SolutionValidator project's Templates folder as content file, and set its property 'Copy to Output Directory'  to 'Copy if newer'
+
+The tool will pick up the .zip templates at run time.
+The solution name and 'base' project name will be inferred from the template, no magic macros are used.
+To allow this simple infer to work there is a simple rule about project naming: The longest common project name starting part will be inferred as 'base' project name and will replaced with the new project name. For example in case the template contains 4 projects like:
+
+- AnyName.Core.csproj
+- AnyName.Core.Tests.csproj
+- AnyName.Wpf..csproj
+- AnyName.Wpf.Tests.csproj
+
+then AnyName will be inferred as 'base' project name. In case your input for generation is MyNewApp then you will get a new solution with projects:
+
+- MyNewApp.Core.csproj
+- MyNewApp.Core.Tests.csproj
+- MyNewApp.Wpf..csproj
+- MyNewApp.Wpf.Tests.csproj
+
+Solution name is infrerred and replaced independently from 'base' project name.
+Solution root folder name (repository root) is also an independent input.
+
 
 ## Building The Solution
 
-You will need Nuget installed on your computer.
-
-The first time you build the solution, Nuget will fetch the required packages. (If it fails to do this you may have to right click on the solution and enable "Nuget Restore".) and then rebuild the solution again. This time it should work.
+The first time you build the solution, NuGet will fetch the required packages to the /lib folder. In case of any error do not enable NuGet restore on the solution, instead close VS, go to the repository root folder and execute 'scripts - Restore packages.bat' 
 
 ## Roadmap
 

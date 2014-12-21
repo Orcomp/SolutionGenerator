@@ -7,272 +7,188 @@
 
 namespace SolutionGenerator.Services
 {
+	using System;
 	using System.Collections.Generic;
 	using System.IO;
-	using Catel;
+	using System.Linq;
 	using Catel.Logging;
 	using Catel.Reflection;
+	using Ionic.Zip;
 	using Models;
 
 	public class SolutionGeneratorService : ISolutionGeneratorService
 	{
 		#region Constants
-		private const string SolutionTemplate = "./Templates/SolutionTemplate.txt";
-		private const string SolutionWithTestTemplate = "./Templates/SolutionWithTestTemplate.txt";
-		private const string ProjectTemplate = "./Templates/ProjectTemplate.txt";
-		private const string WpfProjectTemplate = "./Templates/WPF/ProjectTemplate.txt";
-		private const string GitAttributeTemplate = "./Templates/gitAttributeTemplate.txt";
-		private const string GitIgnoreTemplate = "./Templates/gitIgnoreTemplate.txt";
-		private const string ReadmeTemplate = "./Templates/ReadmeTemplate.txt";
-		private const string ResharperSettingsTemplate = "./Templates/resharperSettingsTemplate.txt";
-		private const string StyleCopTemplate = "./Templates/styleCopTemplate.txt";
-		private const string LicenseTemplate = "./Templates/licenseTemplate.txt";
-		private const string PackagesTemplate = "./Templates/packagesConfigTemplate.txt";
-		private const string ConsoleProgramClass = "./Templates/consoleProgramClass.txt";
-
-		private const string AppXaml = "./Templates/WPF/appXaml.txt";
-		private const string AppXamlCs = "./Templates/WPF/appXamlCs.txt";
-		private const string MainWindowXaml = "./Templates/WPF/mainWindowXaml.txt";
-		private const string MainWindowXamlCs = "./Templates/WPF/mainWindowXamlCs.txt";
-
-		private const string ProgramCs = "./Templates/Winform/programCs.txt";
-		private const string Form1DesignerCs = "./Templates/Winform/form1DesignerCs.txt";
-		private const string Form1Cs = "./Templates/Winform/form1Cs.txt";
-
-		private const string FolderStructureFile = "./folders.txt";
-
 		private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 		#endregion
 
 		#region Fields
+		private readonly IFileSystemService _fileSystemService;
 		private readonly IGitService _gitService;
-		private readonly IProjectTypeConverterService _projectTypeConverterService;
-		private readonly IReferencesService _referencesService;
+		private readonly ITemplateProvider _templateProvider;
 		private readonly ITemplateRenderer _templateRenderer;
 		#endregion
 
 		#region Constructors
-		public SolutionGeneratorService(IGitService gitService, ITemplateRenderer templateRenderer,
-			IProjectTypeConverterService projectTypeConverterService, IReferencesService referencesService)
+		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, ITemplateRenderer templateRenderer, IGitService gitService)
 		{
-			Argument.IsNotNull(() => gitService);
-			Argument.IsNotNull(() => templateRenderer);
-			Argument.IsNotNull(() => projectTypeConverterService);
-			Argument.IsNotNull(() => referencesService);
-
-			_gitService = gitService;
+			_templateProvider = templateProvider;
+			_fileSystemService = fileSystemService;
 			_templateRenderer = templateRenderer;
-			_projectTypeConverterService = projectTypeConverterService;
-			_referencesService = referencesService;
-		}
-		#endregion
-
-		#region ISolutionGeneratorService Members
-		public void DoWork(Solution solution)
-		{
-			Argument.IsNotNull(() => solution);
-
-			Log.Info("Generating solution '{0}'", solution);
-
-			// create folders under root path
-			var rootDirectoryInfo = new DirectoryInfo(solution.RootPath);
-			CreateFolderStructure(rootDirectoryInfo);
-			CreateSolutionAssets(rootDirectoryInfo, solution);
-
-			// create files under root/src path
-			var sourceDirectoryInfo = new DirectoryInfo(string.Format("{0}/src/", solution.RootPath));
-			CreateSolutionFile(sourceDirectoryInfo, solution);
-			CreateProjectFile(sourceDirectoryInfo, solution);
-			if (solution.IncludeTestProject)
-			{
-				CreateTestProjectFile(sourceDirectoryInfo, solution);
-			}
-
-			CreateProjectAssets(sourceDirectoryInfo, solution);
-
-			if (solution.InitializeGit)
-			{
-				_gitService.InitGitRepository(rootDirectoryInfo.FullName);
-			}
+			_gitService = gitService;
 		}
 		#endregion
 
 		#region Methods
-		private void CreateFolderStructure(DirectoryInfo root)
+		public void DoWork(Solution solution)
 		{
-			Log.Info("Creating folder structure");
+			var root = CreateRootFolder(solution);
+			Extract(solution, root);
+			ProcessSolution(solution, root);
+			ProcessFiles(solution, root);
 
-			if (!root.Exists)
-			{
-				root.Create();
-			}
-
-			var directoryCreator = new DirectoryCreator(new FileInfo(FolderStructureFile), root);
-			directoryCreator.CreateDirectoryStructure();
+			CreateLicence(solution, root);
+			CreateReadme(solution, root);
+			ApplyGit(solution, root);
 		}
 
-		private FileInfo CreateSolutionFile(DirectoryInfo root, Solution model)
+		private void ApplyGit(Solution solution, string root)
 		{
-			Log.Info("Creating solution file");
-
-			var templateToRender = model.IncludeTestProject ? SolutionWithTestTemplate : SolutionTemplate;
-			var solutionFile = new FileInfo(string.Format("{0}{1}.sln", root.FullName, model.SolutionName));
-
-			File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(templateToRender, model));
-
-			return solutionFile;
+			if (solution.InitializeGit)
+			{
+				_gitService.InitGitRepository(root);
+			}
 		}
 
-		private FileInfo CreateProjectFile(DirectoryInfo root, Solution solution)
+		private void CreateReadme(Solution solution, string root)
 		{
-			Log.Info("Creating project file");
-
-			var projectRoot = string.Format("{0}/{1}/", root.FullName, solution.ProjectName);
-			var directoryInfo = new DirectoryInfo(projectRoot);
-			var projectTemplate = ProjectTemplate;
-
-			if (!directoryInfo.Exists)
-			{
-				directoryInfo.Create();
-			}
-
-			var project = new Project(solution.TestProjectGuid)
-			{
-				ProjectAssemblyName = solution.ProjectAssemblyName,
-				ProjectName = solution.ProjectName,
-				ProjectRootNameSpace = solution.ProjectRootNameSpace,
-				TargetFramework = solution.TargetFramework,
-				ReleaseOutputPath = string.Format("../../output/Release/{0}", solution.ProjectName),
-				DebugOutputPath = string.Format("../../output/Debug/{0}", solution.ProjectName),
-				ProjectType = solution.ProjectType
-			};
-
-			project.ProjectOutputType = _projectTypeConverterService.Convert(solution.ProjectType);
-			_referencesService.AddRequiredReferences(project);
-
-			if (Equals(project.ProjectOutputType, "Exe"))
-			{
-				File.WriteAllText(projectRoot + "Program.cs", _templateRenderer.RenderFile(ConsoleProgramClass, project));
-			}
-			else if (Equals(solution.ProjectType, "WPF"))
-			{
-				projectTemplate = WpfProjectTemplate;
-				File.WriteAllText(projectRoot + "App.xaml", _templateRenderer.RenderFile(AppXaml, project));
-				File.WriteAllText(projectRoot + "App.xaml.cs", _templateRenderer.RenderFile(AppXamlCs, project));
-				File.WriteAllText(projectRoot + "MainWindow.xaml", _templateRenderer.RenderFile(MainWindowXaml, project));
-				File.WriteAllText(projectRoot + "MainWindow.xaml.cs", _templateRenderer.RenderFile(MainWindowXamlCs, project));
-			}
-			else if (Equals(solution.ProjectType, "WinForms"))
-			{
-				File.WriteAllText(projectRoot + "Form1.cs", _templateRenderer.RenderFile(Form1Cs, project));
-				File.WriteAllText(projectRoot + "Form1.Designer.cs", _templateRenderer.RenderFile(Form1DesignerCs, project));
-				File.WriteAllText(projectRoot + "Program.cs", _templateRenderer.RenderFile(ProgramCs, project));
-			}
-
-			var projectFile = new FileInfo(projectRoot + project.ProjectName + ".csproj");
-			File.WriteAllText(projectFile.FullName, _templateRenderer.RenderFile(ProjectTemplate, project));
-
-			return projectFile;
-		}
-
-		private FileInfo CreateTestProjectFile(DirectoryInfo root, Solution solution)
-		{
-			var projectRoot = string.Format("{0}/{1}.Tests/", root.FullName, solution.ProjectName);
-			var directoryInfo = new DirectoryInfo(projectRoot);
-
-			if (!directoryInfo.Exists)
-			{
-				directoryInfo.Create();
-			}
-
-			var projectName = string.Format("{0}.Tests", solution.ProjectName);
-			var project = new Project(solution.TestProjectGuid)
-			{
-				ProjectAssemblyName = string.Format("{0}.Tests", solution.ProjectAssemblyName),
-				ProjectName = projectName,
-				ProjectRootNameSpace = string.Format("{0}.Tests", solution.ProjectRootNameSpace),
-				TargetFramework = solution.TargetFramework,
-				ReleaseOutputPath = string.Format("../../output/Release/{0}", projectName),
-				DebugOutputPath = string.Format("../../output/Debug/{0}", projectName),
-				ProjectOutputType = ProjectOutputTypes.Library
-			};
-
-			if (string.Equals(solution.TargetFramework, "v4.5"))
-			{
-				project.ProjectType = ProjectTypes.Test;
-				var packagesFile = new FileInfo(projectRoot + "packages.config");
-				File.WriteAllText(packagesFile.FullName, _templateRenderer.RenderFile(PackagesTemplate, project));
-			}
-
-			_referencesService.AddRequiredReferences(project);
-
-			var projectFile = new FileInfo(projectRoot + project.ProjectName + ".csproj");
-			File.WriteAllText(projectFile.FullName, _templateRenderer.RenderFile(ProjectTemplate, project));
-
-			return projectFile;
-		}
-
-		private FileInfo[] CreateSolutionAssets(DirectoryInfo root, Solution solution)
-		{
-			var files = new List<FileInfo>();
-
-			if (solution.IncludeGitAttribute)
-			{
-				var solutionFile = new FileInfo(Path.Combine(root.FullName, ".gitattributes"));
-				File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitAttributeTemplate, solution));
-				files.Add(solutionFile);
-			}
-
-			if (solution.IncludeGitIgnore)
-			{
-				var solutionFile = new FileInfo(Path.Combine(root.FullName, ".gitignore"));
-				File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(GitIgnoreTemplate, solution));
-				files.Add(solutionFile);
-			}
-
 			if (solution.IncludeReadme)
 			{
-				var solutionFile = new FileInfo(Path.Combine(root.FullName, "README.md"));
+				var solutionFile = new FileInfo(Path.Combine(root, "README.md"));
 				File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderContent(solution.SolutionReadme, solution));
-				files.Add(solutionFile);
 			}
+		}
 
+		private void CreateLicence(Solution solution, string root)
+		{
 			if (solution.IncludeLicense)
 			{
 				var assemblyDirectory = GetType().Assembly.GetDirectory();
-				var licenseTemplateFileName = Path.Combine(assemblyDirectory, "Templates", "Licenses", string.Format("{0}.txt", solution.LicenseName));
+				var licenseTemplateFileName = Path.Combine(assemblyDirectory, "Templates.Fixed", "Licenses", string.Format("{0}.txt", solution.LicenseName));
 				var licenseContent = File.ReadAllText(licenseTemplateFileName);
-
-				var solutionFile = new FileInfo(Path.Combine(root.FullName, "License.txt"));
+				var solutionFile = new FileInfo(Path.Combine(root, "License.txt"));
 				File.WriteAllText(solutionFile.FullName, licenseContent);
-				files.Add(solutionFile);
 			}
-
-			return files.ToArray();
 		}
 
-		private FileInfo[] CreateProjectAssets(DirectoryInfo root, Solution model)
+		private void ProcessFiles(Solution solution, string root)
 		{
-			Log.Info("Creating project assets");
-
-			var files = new List<FileInfo>();
-
-			FileInfo solutionFile;
-			if (model.IncludeReSharper)
+			var projectNames = _fileSystemService.Files(root, "*.csproj").ToArray();
+			if (projectNames.Length == 0)
 			{
-				solutionFile = new FileInfo(string.Format("{0}/resharper.settings", root.FullName));
-				File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(ResharperSettingsTemplate, model));
-				files.Add(solutionFile);
+				throw new ApplicationException(string.Format("Template {0} does not contain projects", solution.TemplateInfo.Name));
 			}
 
-			if (model.IncludeStylecop)
+			var baseProjectName = InferBaseProjectName(projectNames);
+
+			try
 			{
-				solutionFile = new FileInfo(string.Format("{0}/Settings.StyleCop", root.FullName));
-				File.WriteAllText(solutionFile.FullName, _templateRenderer.RenderFile(StyleCopTemplate, model));
-				files.Add(solutionFile);
+				_fileSystemService.Rename(baseProjectName, solution.ProjectName, root, new[] {"*.*"});
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.Message);
+				throw new ApplicationException(string.Format("Can not create files"), e);
 			}
 
-			return files.ToArray();
+			try
+			{
+				_fileSystemService.Replace(baseProjectName, solution.ProjectName, root, new[] {"*.sln", "*.csproj", "*.cs", "*.xml"});
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.Message);
+				throw new ApplicationException(string.Format("Can not create files"), e);
+			}
+		}
+
+		private void ProcessSolution(Solution solution, string root)
+		{
+			try
+			{
+				var solutionName = InferSolutionName(root);
+				_fileSystemService.Rename(solutionName, solution.SolutionName, root, new[] {"*.sln*", "*.suo"}, false);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.Message);
+				throw new ApplicationException(string.Format("Can not create solution file"), e);
+			}
+		}
+
+		private string CreateRootFolder(Solution solution)
+		{
+			var root = string.Empty;
+			try
+			{
+				root = _fileSystemService.NormalizePath(solution.RootPath);
+				_fileSystemService.CreateFolder(solution.RootPath);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.Message);
+				throw new ApplicationException(string.Format("Can not create folder: '{0}'", root), e);
+			}
+			return root;
+		}
+
+		private static void Extract(Solution solution, string root)
+		{
+			try
+			{
+				using (var zipFile = ZipFile.Read(solution.TemplateInfo.FileName))
+				{
+					foreach (var zipEntry in zipFile)
+					{
+						if (zipEntry.FileName.ToLower().Contains(".description"))
+						{
+							continue;
+						}
+						zipEntry.Extract(root, ExtractExistingFileAction.Throw);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.Message);
+				throw new ApplicationException(string.Format("Can not create subfolders or files.: '{0}'", root), e);
+			}
+		}
+
+		private string InferBaseProjectName(IEnumerable<string> projectNames)
+		{
+			var projectNameArray = projectNames
+				.Select(Path.GetFileNameWithoutExtension)
+				.OrderBy(pn => pn.Length)
+				.ToArray();
+
+			var shortest = projectNameArray.First();
+			const int minimumLength = 3;
+			for (var i = shortest.Length; i >= minimumLength; i--)
+			{
+				var lookFor = shortest.Substring(0, i);
+				if (projectNameArray.All(pn => pn.StartsWith(lookFor)))
+				{
+					return lookFor.Trim().Trim('.').Trim();
+				}
+			}
+			throw new ApplicationException(string.Format(@"Can not infer base project name from the available project names: \n{0}", string.Join("\n", projectNameArray)));
+		}
+
+		private string InferSolutionName(string root)
+		{
+			var result = _fileSystemService.Files(root, "*.sln").FirstOrDefault();
+			return Path.GetFileNameWithoutExtension(result);
 		}
 		#endregion
 	}

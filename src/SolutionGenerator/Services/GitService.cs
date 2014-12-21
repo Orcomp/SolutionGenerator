@@ -16,7 +16,6 @@ namespace SolutionGenerator.Services
 		public void InitGitRepository(string directoryName)
 		{
 			Argument.IsNotNullOrWhitespace(() => directoryName);
-
 			Repository.Init(directoryName);
 		}
 		#endregion

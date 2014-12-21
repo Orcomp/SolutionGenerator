@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\Debug\SolutionGenerator.Core\</OutputPath>
+    <OutputPath>..\..\output\Debug\SolutionGenerator\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,7 +30,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\Release\SolutionGenerator.Core\</OutputPath>
+    <OutputPath>..\..\output\Release\SolutionGenerator\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,10 +43,19 @@
       <HintPath>..\..\lib\Catel.Fody.1.6.0.1312271635-beta\lib\net45\Catel.Fody.Attributes.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\lib\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="LibGit2Sharp, Version=0.20.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\LibGit2Sharp.0.20.0.0\lib\net40\LibGit2Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Conversion.v4.0" />
+    <Reference Include="Microsoft.Build.Engine" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Tasks.v4.0" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -60,131 +69,136 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Models\TemplateInfo.cs" />
     <Compile Include="Models\ProjectReference.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="ProjectOutputTypes.cs" />
     <Compile Include="ProjectTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DirectoryCreator.cs" />
+    <Compile Include="Services\SolutionGeneratorService.cs" />
     <Compile Include="Services\GitService.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Services\FileSystemService.cs" />
+    <Compile Include="Services\Interfaces\IFileSystemService.cs" />
+    <Compile Include="Services\Interfaces\ITemplateProvider.cs" />
     <Compile Include="Services\Interfaces\IGitService.cs" />
-    <Compile Include="Services\Interfaces\IDirectoryCreator.cs" />
     <Compile Include="Services\Interfaces\ISolutionGeneratorService.cs" />
     <Compile Include="Services\Interfaces\ITemplateRenderer.cs" />
-    <Compile Include="Services\Interfaces\IReferencesService.cs" />
-    <Compile Include="Services\Interfaces\IProjectTypeConverterService.cs" />
-    <Compile Include="Services\ProjectTypeConverterService.cs" />
-    <Compile Include="Services\ReferencesService.cs" />
-    <Compile Include="Services\SolutionGeneratorService.cs" />
+    <Compile Include="Services\TemplateProvider.cs" />
     <Compile Include="Models\Solution.cs" />
     <Compile Include="Services\TemplateRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="Templates\Licenses\Affero_GPL.txt">
+    <Content Include="Templates.Fixed\Licenses\Affero_GPL.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\Apache_v2.txt">
+    <Content Include="Templates.Fixed\Licenses\Apache_v2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\Artistic_v2.txt">
+    <Content Include="Templates.Fixed\Licenses\Artistic_v2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\BSD_2_Clause.txt">
+    <Content Include="Templates.Fixed\Licenses\BSD_2_Clause.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\BSD_3_Clause.txt">
+    <Content Include="Templates.Fixed\Licenses\BSD_3_Clause.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\Eclipse_Public_License_v1.txt">
+    <Content Include="Templates.Fixed\Licenses\Eclipse_Public_License_v1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\GPL_v2.txt">
+    <Content Include="Templates.Fixed\Licenses\GPL_v2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\GPL_v3.txt">
+    <Content Include="Templates.Fixed\Licenses\GPL_v3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\LGPL_v2.1.txt">
+    <Content Include="Templates.Fixed\Licenses\LGPL_v2.1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\LGPL_v3.txt">
+    <Content Include="Templates.Fixed\Licenses\LGPL_v3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\MIT.txt">
+    <Content Include="Templates.Fixed\Licenses\MIT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\Mozilla.txt">
+    <Content Include="Templates.Fixed\Licenses\Mozilla.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\No_License.txt">
+    <Content Include="Templates.Fixed\Licenses\No_License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Licenses\Public_Domain.txt">
+    <Content Include="Templates.Fixed\Licenses\Public_Domain.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\consoleProgramClass.txt">
+    <Content Include="Templates.Fixed\consoleProgramClass.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\packagesConfigTemplate.txt">
+    <Content Include="Templates.Fixed\packagesConfigTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\SolutionWithTestTemplate.txt">
+    <Content Include="Templates.Fixed\SolutionWithTestTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\licenseTemplate.txt">
+    <Content Include="Templates.Fixed\licenseTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\gitAttributeTemplate.txt">
+    <Content Include="Templates.Fixed\gitAttributeTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\gitIgnoreTemplate.txt">
+    <Content Include="Templates.Fixed\gitIgnoreTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\ProjectTemplate.txt">
+    <Content Include="Templates.Fixed\ProjectTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\ReadmeTemplate.txt">
+    <Content Include="Templates.Fixed\ReadmeTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\resharperSettingsTemplate.txt">
+    <Content Include="Templates.Fixed\resharperSettingsTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\SolutionTemplate.txt">
+    <Content Include="Templates.Fixed\SolutionTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\styleCopTemplate.txt">
+    <Content Include="Templates.Fixed\styleCopTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Winform\programCs.txt">
+    <Content Include="Templates.Fixed\Winform\programCs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Winform\form1Cs.txt">
+    <Content Include="Templates.Fixed\Winform\form1Cs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\Winform\form1DesignerCs.txt">
+    <Content Include="Templates.Fixed\Winform\form1DesignerCs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\WPF\appXaml.txt">
+    <Content Include="Templates.Fixed\WPF\appXaml.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\WPF\appXamlCs.txt">
+    <Content Include="Templates.Fixed\WPF\appXamlCs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\WPF\mainWindowXaml.txt">
+    <Content Include="Templates.Fixed\WPF\mainWindowXaml.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\WPF\mainWindowXamlCs.txt">
+    <Content Include="Templates.Fixed\WPF\mainWindowXamlCs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\WPF\ProjectTemplate.txt">
+    <Content Include="Templates.Fixed\WPF\ProjectTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Templates\ClassLibrary45.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\ClassLibrary4.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup />

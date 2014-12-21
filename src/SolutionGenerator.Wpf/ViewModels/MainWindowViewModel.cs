@@ -7,6 +7,7 @@
 
 namespace SolutionGenerator.Wpf.ViewModels
 {
+	using System;
 	using System.IO;
 	using Catel;
 	using Catel.Logging;
@@ -82,7 +83,15 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 		private void OnGenerateExecute()
 		{
-			_solutionGeneratorService.DoWork(Solution);
+			try
+			{
+				_solutionGeneratorService.DoWork(Solution);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e.Message);
+				return;
+			}
 
 			_messageService.Show(string.Format("Solution {0} created with root path '{1}'", Solution.SolutionName, Solution.RootPath));
 

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IProjectTypeConverterService.cs" company="Orcomp development team">
+// <copyright file="ITemplateProvider.cs" company="Orcomp development team">
 //   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,10 +7,13 @@
 
 namespace SolutionGenerator.Services
 {
-	public interface IProjectTypeConverterService
+	using System.Collections.Generic;
+	using Models;
+
+	public interface ITemplateProvider
 	{
-		#region Methods
-		ProjectOutputTypes Convert(ProjectTypes projectType);
+		#region Properties
+		IEnumerable<TemplateInfo> Templates { get; }
 		#endregion
 	}
 }

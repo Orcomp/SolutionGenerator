@@ -1,23 +1,23 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IDirectoryCreator.cs" company="Orcomp development team">
+// <copyright file="TemplateInfo.cs" company="Orcomp development team">
 //   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SolutionGenerator.Services
+namespace SolutionGenerator.Models
 {
-	using System.IO;
+	using System;
+	using Catel.Data;
 
-	public interface IDirectoryCreator
+	[Serializable]
+	public class TemplateInfo : ModelBase
 	{
 		#region Properties
-		FileInfo FolderConfigFile { get; set; }
-		DirectoryInfo RootFolder { get; set; }
-		#endregion
-
-		#region Methods
-		void CreateDirectoryStructure();
+		public bool IsDefault { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public string FileName { get; set; }
 		#endregion
 	}
 }

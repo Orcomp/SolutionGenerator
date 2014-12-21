@@ -35,6 +35,7 @@ namespace SolutionGenerator.Models
 		public string TargetFramework { get; set; }
 		public ProjectOutputTypes ProjectOutputType { get; set; }
 		public ProjectTypes ProjectType { get; set; }
+		public TemplateInfo TemplateInfo { get; set; }
 
 		public string ProjectReferences { get; set; }
 		public string FileIncludes { get; set; }

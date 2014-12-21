@@ -25,7 +25,7 @@ namespace SolutionGenerator.Models
 			TestProjectGuid = Guid.NewGuid().ToString("B");
 
 			// Note: should be in the model, but in a separate service
-			var licensesPath = Path.Combine(".", "Templates", "Licenses");
+			var licensesPath = Path.Combine(".", "Templates.Fixed", "Licenses");
 			AvailableLicenses = Directory.EnumerateFiles(licensesPath).Select(Path.GetFileNameWithoutExtension).ToList();
 		}
 		#endregion
@@ -60,7 +60,7 @@ namespace SolutionGenerator.Models
 		[DefaultValue("MIT")]
 		public string LicenseName { get; set; }
 
-		[DefaultValue("{ProjectName}\r\n----------------------------------------------")]
+		[DefaultValue("{ProjectName}\r\n---------------------")]
 		public string SolutionReadme { get; set; }
 
 		public string TestProjectGuid { get; set; }
@@ -78,10 +78,8 @@ namespace SolutionGenerator.Models
 		[Required]
 		public string RootPath { get; set; }
 
-		[Required]
 		public string ProjectRootNameSpace { get; set; }
 
-		[Required]
 		public string ProjectAssemblyName { get; set; }
 
 		[DefaultValue("v4.5")]
@@ -89,6 +87,8 @@ namespace SolutionGenerator.Models
 
 		[DefaultValue(ProjectTypes.Library)]
 		public ProjectTypes ProjectType { get; set; }
+
+		public TemplateInfo TemplateInfo { get; set; }
 		#endregion
 
 		#region Methods

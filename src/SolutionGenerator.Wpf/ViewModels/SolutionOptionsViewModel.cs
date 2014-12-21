@@ -10,11 +10,13 @@ namespace SolutionGenerator.Wpf.ViewModels
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.IO;
+	using System.Linq;
 	using Catel;
 	using Catel.Logging;
 	using Catel.MVVM;
 	using Catel.MVVM.Services;
 	using Models;
+	using SolutionGenerator.Services;
 
 	public class SolutionOptionsViewModel : ViewModelBase
 	{
@@ -24,10 +26,11 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 		#region Fields
 		private readonly ISelectDirectoryService _selectDirectoryService;
+		private ITemplateProvider _templateProvider;
 		#endregion
 
 		#region Constructors
-		public SolutionOptionsViewModel(Solution solution, ISelectDirectoryService selectDirectoryService)
+		public SolutionOptionsViewModel(Solution solution, ISelectDirectoryService selectDirectoryService, ITemplateProvider templateProvider)
 		{
 			Argument.IsNotNull(() => solution);
 			Argument.IsNotNull(() => selectDirectoryService);
@@ -35,9 +38,21 @@ namespace SolutionGenerator.Wpf.ViewModels
 			Solution = solution;
 			_selectDirectoryService = selectDirectoryService;
 			_selectDirectoryService.ShowNewFolderButton = true;
+			_templateProvider = templateProvider;
 
 			AvailableLicenseNames = Solution.AvailableLicenses;
 			AvailableProjectTypes = new ObservableCollection<ProjectTypes>(Enum<ProjectTypes>.GetValues());
+			var templateInfos = _templateProvider.Templates.ToArray();
+			if (templateInfos.Count() != 0)
+			{
+				var @default = templateInfos.FirstOrDefault(ti => ti.IsDefault);
+				if (@default == null)
+				{
+					@default = templateInfos.FirstOrDefault();
+				}
+				Solution.TemplateInfo = @default;
+			}
+			AvailableTemplateInfos = new ObservableCollection<TemplateInfo>(templateInfos);
 
 			// TODO: Read from registry instead in service
 			AvailableTargetFrameworks = new ObservableCollection<string>(new[] {"v2.0", "v3.0", "v3.5", "v4.0", "v4.5"});
@@ -49,6 +64,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 		#region Properties
 		[Model]
 		[Catel.Fody.Expose("ProjectType")]
+		[Catel.Fody.Expose("TemplateInfo")]
 		[Catel.Fody.Expose("TargetFramework")]
 		[Catel.Fody.Expose("LicenseName")]
 		[Catel.Fody.Expose("Readme", "SolutionReadme")]
@@ -70,6 +86,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 		public string ProjectAssemblyName { get; set; }
 
 		public ObservableCollection<ProjectTypes> AvailableProjectTypes { get; private set; }
+		public ObservableCollection<TemplateInfo> AvailableTemplateInfos { get; private set; }
 
 		public ObservableCollection<string> AvailableTargetFrameworks { get; private set; }
 
@@ -105,20 +122,27 @@ namespace SolutionGenerator.Wpf.ViewModels
 		#region Methods
 		private void OnRootPathChanged()
 		{
-			if (!string.IsNullOrWhiteSpace(RootPath))
+			if (string.IsNullOrWhiteSpace(RootPath))
 			{
-				if (!Directory.Exists(RootPath))
-				{
-					return;
-				}
+				return;
+			}
 
+			string solutionName = null;
+			if (Directory.Exists(RootPath))
+			{
 				var directoryInfo = new DirectoryInfo(RootPath);
-				var solutionName = directoryInfo.Name;
+				solutionName = Path.GetFileName(directoryInfo.Name);
+			}
 
-				if (string.IsNullOrWhiteSpace(SolutionName))
-				{
-					SolutionName = solutionName;
-				}
+			if (string.IsNullOrEmpty(solutionName))
+			{
+				return;
+			}
+
+			if (string.IsNullOrWhiteSpace(SolutionName)
+			    || RootPath.Contains(string.Format(@"\{0}\", SolutionName)))
+			{
+				SolutionName = solutionName;
 			}
 		}
 

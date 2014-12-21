@@ -29,20 +29,20 @@
         <views:SolutionOptionsView DataContext="{Binding Solution}" />
         <views:IncludeOptionsView DataContext="{Binding Solution}" />
 
-        <WrapPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
             <CheckBox Content="Open folder after creating solution"
                 IsChecked="{Binding OpenFolderOnCreate}" />
             <CheckBox Content="Start Visual Studio after creating solution"
                 IsChecked="{Binding StartVisualStudio}" />
-        </WrapPanel>
+        </StackPanel>
+
         <catel:EmptyCell />
 
         <Button Command="{Binding Generate}"
             Content="Give me back 15 minutes of my life!"
-            HorizontalAlignment="Right"
-            SnapsToDevicePixels="True" />
-        <catel:EmptyCell />
+            HorizontalAlignment="Left" />
 
+        <catel:EmptyCell />
         <views:ConsoleView Width="800"
             catel:StackGrid.ColumnSpan="2" />
 
