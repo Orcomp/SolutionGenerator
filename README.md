@@ -28,13 +28,13 @@ Things SolutionGenerator will do for you **at the click of a button**:
     - Initializes a git repository (files not added yet)
 
 
-Out of the box template include the following features: 
+Out of the box templates include the following features: 
 
 - All sources are under the /src folder
-- All rojects are configured to build artifacts into an "/output/configname" folder.
-- The NuGet are configured to use the /lib folder
+- All projects are configured to build artifacts into an "/output/configname/projectname" folder.
+- NuGet are configured to use the /lib folder
 - NuGet.exe included in the /tools/nuget folder
-- Utility scrips included in the repository root to 
+- Utility scripts included in the repository root:
 	- Update NuGet.exe
     - Restore packages
     - Clean all
@@ -44,12 +44,12 @@ Once you click the button to create the solution, it will do all of the above, a
 
 ## Customising
 
-To add a new template to the template set is as easy as 
+Adding a new template to the template set is as easy as:
 
-- create a VS solution interactively with your favorite tool
-- remove some folders to spare vith space like 'obj'. (optional, recommended) 
-- place a text file named .description into the root (optional, recommended). For syntax please refer to the included template zips in SolutionGenerator project's /Templates folder.
-- ZIP the whole folder, name as you want
+- create a VS solution interactively using your favorite tool
+- remove some folders to spare with space like 'obj'. (optional, recommended) 
+- place a text file named '.description' into the root (optional, recommended). For syntax please refer to the included template zips in SolutionGenerator project's /Templates folder.
+- ZIP the whole folder, name according your preference
 - place the zip file to the executable's folder under ./templates
 - if you would like to make your template to an out of the box template, include the .zip file into the SolutionValidator project's Templates folder as content file, and set its property 'Copy to Output Directory'  to 'Copy if newer'
 
@@ -75,7 +75,7 @@ Solution root folder name (repository root) is also an independent input.
 
 ## Building The Solution
 
-The first time you build the solution, NuGet will fetch the required packages to the /lib folder. In case of any error do not enable NuGet restore on the solution, instead close VS, go to the repository root folder and execute 'scripts - Restore packages.bat' 
+The first time you build the solution, NuGet will fetch the required packages to the /lib folder. In case of any error please do not enable NuGet restore on the solution, instead close VS, go to the repository root folder and execute 'scripts - Restore packages.bat' 
 
 ## Roadmap
 
