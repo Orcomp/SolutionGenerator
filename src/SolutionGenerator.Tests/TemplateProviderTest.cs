@@ -83,7 +83,7 @@ namespace SolutionGenerator.Tests
 			}
 			else
 			{
-				Assert.IsTrue(result[0].Name.Contains(string.Format("{0} (", anyZip.Replace(".zip", ""))));
+				Assert.IsTrue(result[0].Name.Contains($"{anyZip.Replace(".zip", "")} ("));
 			}
 
 			if (expectedDescription != null)
@@ -92,7 +92,7 @@ namespace SolutionGenerator.Tests
 			}
 			else
 			{
-				Assert.IsTrue(result[0].Description.Contains(string.Format("{0} (", anyZip.Replace(".zip", ""))));
+				Assert.IsTrue(result[0].Description.Contains($"{anyZip.Replace(".zip", "")} ("));
 			}
 
 			Assert.IsTrue(result[0].FileName.Contains(anyZip));
@@ -123,8 +123,8 @@ namespace SolutionGenerator.Tests
 			for (var index = 0; index < templateNames.Count; index++)
 			{
 				var templateName = templateNames[index];
-				Assert.IsTrue(result[index].Name.Contains(string.Format("{0} (", templateName.Replace(".zip", ""))));
-				Assert.IsTrue(result[index].Description.Contains(string.Format("{0} (", templateName.Replace(".zip", ""))));
+				Assert.IsTrue(result[index].Name.Contains($"{templateName.Replace(".zip", "")} ("));
+				Assert.IsTrue(result[index].Description.Contains($"{templateName.Replace(".zip", "")} ("));
 				Assert.IsTrue(result[index].FileName.Contains(templateName));
 			}
 

@@ -8,12 +8,14 @@ namespace SolutionGenerator.Wpf.ViewModels
 {
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
+	using System.Diagnostics;
 	using System.IO;
 	using System.Linq;
 	using Catel;
 	using Catel.Logging;
 	using Catel.MVVM;
 	using Catel.MVVM.Services;
+	using Catel.Services;
 	using Models;
 	using SolutionGenerator.Services;
 
@@ -23,6 +25,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 		private readonly ISelectDirectoryService _selectDirectoryService;
 		private readonly ITemplateProvider _templateProvider;
+		private int _templateIndex = 0;
 
 		public SolutionOptionsViewModel(Solution solution, ISelectDirectoryService selectDirectoryService, ITemplateProvider templateProvider)
 		{
@@ -52,6 +55,8 @@ namespace SolutionGenerator.Wpf.ViewModels
 			AvailableTargetFrameworks = new ObservableCollection<string>(new[] {"v2.0", "v3.0", "v3.5", "v4.0", "v4.5"});
 
 			SelectSolutionDirectory = new Command(OnSelectSolutionDirectoryExecute);
+
+			SelectDataFolder = new Command(OnSelectDataFolderExecute);
 		}
 
 		[Model]
@@ -62,8 +67,27 @@ namespace SolutionGenerator.Wpf.ViewModels
 		[Catel.Fody.Expose("Readme", "SolutionReadme")]
 		public Solution Solution { get; private set; }
 
+		public int TemplateIndex
+		{
+			get { return _templateIndex; }
+			set
+			{
+				_templateIndex = value;
+				if (value >= 0)
+				{
+					HasDataFolder = AvailableTemplateInfos[value].HasDataFolder;
+				}
+			}
+		}
+
 		[ViewModelToModel("Solution")]
 		public string RootPath { get; set; }
+
+		[ViewModelToModel("Solution")]
+		public string DataFolder { get; set; }
+
+		[ViewModelToModel("Solution")]
+		public bool HasDataFolder { get; set; }
 
 		[ViewModelToModel("Solution")]
 		public string SolutionName { get; set; }
@@ -90,6 +114,11 @@ namespace SolutionGenerator.Wpf.ViewModels
 		public Command SelectSolutionDirectory { get; private set; }
 
 		/// <summary>
+		/// Gets the SelectDataFolder command.
+		/// </summary>
+		public Command SelectDataFolder { get; private set; }
+
+		/// <summary>
 		/// Method to invoke when the SelectSolutionDirectory command is executed.
 		/// </summary>
 		private void OnSelectSolutionDirectoryExecute()
@@ -97,8 +126,19 @@ namespace SolutionGenerator.Wpf.ViewModels
 			if (_selectDirectoryService.DetermineDirectory())
 			{
 				RootPath = _selectDirectoryService.DirectoryName;
-
 				Log.Info("Changed solution directory to '{0}'", RootPath);
+			}
+		}
+
+		/// <summary>
+		/// Method to invoke when the SelectDataFolder command is executed.
+		/// </summary>
+		private void OnSelectDataFolderExecute()
+		{
+			if (_selectDirectoryService.DetermineDirectory())
+			{
+				DataFolder = _selectDirectoryService.DirectoryName;
+				Log.Info("Changed data folder to '{0}'", DataFolder);
 			}
 		}
 
@@ -122,7 +162,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 			}
 
 			if (string.IsNullOrWhiteSpace(SolutionName)
-			    || RootPath.Contains(string.Format(@"\{0}\", SolutionName)))
+			    || RootPath.Contains($@"\{SolutionName}\"))
 			{
 				SolutionName = solutionName;
 			}

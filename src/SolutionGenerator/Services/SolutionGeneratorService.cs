@@ -10,10 +10,12 @@ namespace SolutionGenerator.Services
 	using System.Collections.Generic;
 	using System.IO;
 	using System.Linq;
+	using Catel.IoC;
 	using Catel.Logging;
 	using Catel.Reflection;
 	using Ionic.Zip;
 	using Models;
+	
 
 	public class SolutionGeneratorService : ISolutionGeneratorService
 	{
@@ -36,12 +38,59 @@ namespace SolutionGenerator.Services
 		{
 			var root = CreateRootFolder(solution);
 			Extract(solution, root);
+			DeleteIgnorableFolders(solution, root);
+			ProcessDataFolder(solution, root);
 			ProcessSolution(solution, root);
 			ProcessFiles(solution, root);
-
 			CreateLicence(solution, root);
 			CreateReadme(solution, root);
 			ApplyGit(solution, root);
+		}
+
+		private void DeleteIgnorableFolders(Solution solution, string root)
+		{
+			var ignorableFolderPatterns = new string[] {"/bin/", "\\bin\\", "/.vs/", "\\.vs\\" };
+			var folders = _fileSystemService.Folders(root, "*.*").ToArray();
+			foreach (var folder in folders)
+			{
+				if (ignorableFolderPatterns.Any(ifp => folder.ToLower().Contains(ifp)))
+				{
+					try
+					{
+						_fileSystemService.DeleteFolder(folder);
+					}
+					catch
+					{
+					}
+				}
+			}
+		}
+
+		public void ProcessDataFolder(Solution solution, string root)
+		{
+			if (!solution.HasDataFolder || string.IsNullOrEmpty(solution.DataFolder))
+			{
+				return;
+			}
+			// TODO: Create pluggable action here by loading calling an assembly from the template
+			var modelFolder = _fileSystemService.Folders(root, "*.*").FirstOrDefault(f => f.ToLower().Contains("\\model"));
+			if (modelFolder == null)
+			{
+				return;
+			}
+
+			var projectNames = _fileSystemService.Files(root, "*.csproj").ToArray();
+			if (projectNames.Length == 0)
+			{
+				throw new ApplicationException($"Template {solution.TemplateInfo.Name} does not contain projects");
+			}
+
+			//var nameSpace = InferBaseProjectName(projectNames);
+			//var serviceLocator = ServiceLocator.Default;
+			//var csvReaderService = serviceLocator.ResolveType<ICsvReaderService>();
+
+
+			//CodeGeneration.CreateCSharpFilesForAllCsvFiles(solution.DataFolder, nameSpace, modelFolder);
 		}
 
 		private void ApplyGit(Solution solution, string root)
@@ -66,7 +115,7 @@ namespace SolutionGenerator.Services
 			if (solution.IncludeLicense)
 			{
 				var assemblyDirectory = GetType().Assembly.GetDirectory();
-				var licenseTemplateFileName = Path.Combine(assemblyDirectory, "Templates.Fixed", "Licenses", string.Format("{0}.txt", solution.LicenseName));
+				var licenseTemplateFileName = Path.Combine(assemblyDirectory, "Templates.Fixed", "Licenses", $"{solution.LicenseName}.txt");
 				var licenseContent = File.ReadAllText(licenseTemplateFileName);
 				var solutionFile = new FileInfo(Path.Combine(root, "License.txt"));
 				File.WriteAllText(solutionFile.FullName, licenseContent);
@@ -78,7 +127,7 @@ namespace SolutionGenerator.Services
 			var projectNames = _fileSystemService.Files(root, "*.csproj").ToArray();
 			if (projectNames.Length == 0)
 			{
-				throw new ApplicationException(string.Format("Template {0} does not contain projects", solution.TemplateInfo.Name));
+				throw new ApplicationException($"Template {solution.TemplateInfo.Name} does not contain projects");
 			}
 
 			var baseProjectName = InferBaseProjectName(projectNames);
@@ -99,6 +148,8 @@ namespace SolutionGenerator.Services
 				{
 					"*.sln",
 					"*.csproj",
+					"*.projitems",
+					"*.shproj",
 					"*.user",
 					"*.user",
 					"*.pubxml",
@@ -148,7 +199,7 @@ namespace SolutionGenerator.Services
 			catch (Exception e)
 			{
 				Log.Error(e.Message);
-				throw new ApplicationException(string.Format("Can not create folder: '{0}'", root), e);
+				throw new ApplicationException($"Can not create folder: '{root}'", e);
 			}
 			return root;
 		}
@@ -172,7 +223,7 @@ namespace SolutionGenerator.Services
 			catch (Exception e)
 			{
 				Log.Error(e.Message);
-				throw new ApplicationException(string.Format("Can not create subfolders or files.: '{0}'", root), e);
+				throw new ApplicationException($"Can not create subfolders or files.: '{root}'", e);
 			}
 		}
 
@@ -193,7 +244,7 @@ namespace SolutionGenerator.Services
 					return lookFor.Trim().Trim('.').Trim();
 				}
 			}
-			throw new ApplicationException(string.Format(@"Can not infer base project name from the available project names: \n{0}", string.Join("\n", projectNameArray)));
+			throw new ApplicationException($@"Can not infer base project name from the available project names: \n{string.Join("\n", projectNameArray)}");
 		}
 
 		private string InferSolutionName(string root)

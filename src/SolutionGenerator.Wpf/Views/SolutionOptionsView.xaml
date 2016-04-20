@@ -10,6 +10,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="100" />
             </catel:StackGrid.RowDefinitions>
 
@@ -19,7 +20,7 @@
                 <ColumnDefinition Width="Auto" />
             </catel:StackGrid.ColumnDefinitions>
 
-            <Label Content="Root path" />
+            <Label Content="Root folder" />
             <TextBox Text="{Binding RootPath, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="..."
                 Command="{Binding SelectSolutionDirectory}" />
@@ -42,13 +43,19 @@
                 ToolTip="{Binding TemplateInfo.Description}"
                 DisplayMemberPath="Name"
                 SelectedValue="{Binding TemplateInfo, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
-                SelectedIndex="0"
+                SelectedIndex="{Binding TemplateIndex, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
                 catel:StackGrid.ColumnSpan="2" />
 
             <!--<Label Content="Target framework" />
         <ComboBox ItemsSource="{Binding AvailableTargetFrameworks}"
             Text="{Binding TargetFramework, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
             catel:StackGrid.ColumnSpan="2" />-->
+
+            <Label Content="Data folder" />
+            <TextBox IsEnabled="{Binding HasDataFolder}" Text="{Binding DataFolder, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+            <Button IsEnabled="{Binding HasDataFolder}" Content="..."
+                Command="{Binding SelectDataFolder}" />
+
 
             <Label Content="License name" />
             <ComboBox ItemsSource="{Binding AvailableLicenseNames}"

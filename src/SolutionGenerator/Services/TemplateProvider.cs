@@ -46,9 +46,10 @@ namespace SolutionGenerator.Services
 					{
 						return new TemplateInfo
 						{
-							Name = string.Format("{0} (no friendly name provided)", name),
-							Description = string.Format("{0} (no description provided)", name),
-							FileName = fileName
+							Name = $"{name} (no friendly name provided)",
+							Description = $"{name} (no description provided)",
+							FileName = fileName,
+							HasDataFolder = false
 						};
 					}
 					using (var stream = new MemoryStream())
@@ -89,10 +90,10 @@ namespace SolutionGenerator.Services
 					continue;
 				}
 				var kvpText = line.Split('\t');
-				if (kvpText.Length != 2)
-				{
-					kvpText = line.Split(',');
-				}
+				//if (kvpText.Length != 2)
+				//{
+				//	kvpText = line.Split(',');
+				//}
 				if (kvpText.Length != 2)
 				{
 					kvpText = line.Split('=');
@@ -117,17 +118,22 @@ namespace SolutionGenerator.Services
 			string description;
 			string isDefaultString;
 			bool isDefault;
+			string hasDataFolderString;
+			bool hasDataFolder;
 			properties.TryGetValue("name", out name);
 			properties.TryGetValue("description", out description);
 			properties.TryGetValue("isdefault", out isDefaultString);
 			bool.TryParse(isDefaultString, out isDefault);
+			properties.TryGetValue("hasdatafolder", out hasDataFolderString);
+			bool.TryParse(hasDataFolderString, out hasDataFolder);
 
 			return new TemplateInfo
 			{
-				Name = name ?? string.Format("{0} (no friendly name provided)", defaultName),
-				Description = (description ?? string.Format("{0} (no description provided)", defaultName)).Replace('@', '\n'),
+				Name = name ?? $"{defaultName} (no friendly name provided)",
+				Description = (description ?? $"{defaultName} (no description provided)").Replace('@', '\n'),
 				FileName = fileName,
-				IsDefault = isDefault
+				IsDefault = isDefault,
+				HasDataFolder = hasDataFolder
 			};
 		}
 	}

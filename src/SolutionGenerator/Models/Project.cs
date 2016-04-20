@@ -9,6 +9,7 @@ namespace SolutionGenerator.Models
 	using Catel;
 	using Catel.Data;
 
+	// ReSharper disable once UnusedMember.Global
 	public class Project : ModelBase
 	{
 		public Project(string projectGuid)

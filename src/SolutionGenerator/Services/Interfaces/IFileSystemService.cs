@@ -13,6 +13,11 @@ namespace SolutionGenerator.Services
 	{
 		IEnumerable<string> Files(string root, string pattern = "*.*", bool recurse = true);
 		IEnumerable<string> Files(string root, IEnumerable<string> patterns, bool recurse = true);
+		IEnumerable<string> Folders(string root, string pattern = "*.*", bool recurse = true);
+		IEnumerable<string> Folders(string root, IEnumerable<string> patterns, bool recurse = true);
+		void DeleteFolder(string folderName);
+
+
 		Stream ReadOnlyStream(string fileName);
 		void Rename(string from, string to, string root, IEnumerable<string> patterns, bool folders = true, bool recurse = true);
 		void Replace(string from, string to, string root, IEnumerable<string> patterns, bool recurse = true);

@@ -24,6 +24,22 @@ namespace SolutionGenerator.Services
 			return patterns.SelectMany(pattern => Files(root, pattern, recurse));
 		}
 
+		public IEnumerable<string> Folders(string root, string pattern = "*.*", bool recurse = true)
+		{
+			var files = Directory.GetDirectories(root, pattern, recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+			return files;
+		}
+
+		public IEnumerable<string> Folders(string root, IEnumerable<string> patterns, bool recurse = true)
+		{
+			return patterns.SelectMany(pattern => Folders(root, pattern, recurse));
+		}
+
+		public void DeleteFolder(string folderName)
+		{
+			Directory.Delete(folderName, true);
+		}
+
 		public Stream ReadOnlyStream(string fileName)
 		{
 			return new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -84,7 +100,7 @@ namespace SolutionGenerator.Services
 
 		public void CreateFolder(string parent, string name)
 		{
-			Directory.CreateDirectory(Path.GetFullPath(NormalizePath(string.Format(@"{0}\{1}", parent.Trim('\\'), name ?? string.Empty))));
+			Directory.CreateDirectory(Path.GetFullPath(NormalizePath($@"{parent.Trim('\\')}\{name ?? string.Empty}")));
 		}
 
 		public string NormalizePath(string path)

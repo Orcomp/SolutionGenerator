@@ -74,6 +74,9 @@ namespace SolutionGenerator.Models
 		[Required]
 		public string RootPath { get; set; }
 
+		public string DataFolder { get; set; }
+		public bool HasDataFolder { get; set; }
+
 		public string ProjectRootNameSpace { get; set; }
 
 		public string ProjectAssemblyName { get; set; }

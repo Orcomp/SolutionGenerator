@@ -12,6 +12,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 	using Catel.Logging;
 	using Catel.MVVM;
 	using Catel.MVVM.Services;
+	using Catel.Services;
 	using Models;
 	using SolutionGenerator.Services;
 
@@ -79,12 +80,12 @@ namespace SolutionGenerator.Wpf.ViewModels
 				return;
 			}
 
-			//_messageService.ShowAsync(string.Format("Solution {0} created with root path '{1}'", Solution.SolutionName, Solution.RootPath));
-			_messageService.Show(string.Format("Solution {0} created with root path '{1}'", Solution.SolutionName, Solution.RootPath));
+			_messageService.ShowAsync(string.Format("Solution {0} created with root path '{1}'", Solution.SolutionName, Solution.RootPath));
+			//_messageService.Show($"Solution {Solution.SolutionName} created with root path '{Solution.RootPath}'");
 
 			if (StartVisualStudio)
 			{
-				var fileName = Path.Combine(Solution.RootPath, "src", string.Format("{0}.sln", Solution.SolutionName));
+				var fileName = Path.Combine(Solution.RootPath, "src", $"{Solution.SolutionName}.sln");
 
 				Log.Info("Opening solution '{0}'", fileName);
 
