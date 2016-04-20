@@ -14,7 +14,6 @@ namespace SolutionGenerator.Wpf.ViewModels
 	using Catel;
 	using Catel.Logging;
 	using Catel.MVVM;
-	using Catel.MVVM.Services;
 	using Catel.Services;
 	using Models;
 	using SolutionGenerator.Services;

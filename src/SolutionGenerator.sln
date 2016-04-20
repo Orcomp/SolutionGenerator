@@ -18,13 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{C654E9B5-4
 		SolutionGenerator.sln.DotSettings = SolutionGenerator.sln.DotSettings
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{8A0D0E03-F513-4695-B15C-C2EB037AEA38}"
-	ProjectSection(SolutionItems) = preProject
-		..\scripts - Clean all.bat = ..\scripts - Clean all.bat
-		..\scripts - Restore packages.bat = ..\scripts - Restore packages.bat
-		..\scripts - Update NuGet.bat = ..\scripts - Update NuGet.bat
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AA51D3AF-8878-4B90-BF7E-E09C5E71CBAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Tests", "SolutionGenerator.Tests\SolutionGenerator.Tests.csproj", "{DA2ADBC7-BAA5-482F-A588-AA4BFDD692DB}"

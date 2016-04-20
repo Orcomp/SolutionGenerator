@@ -6,31 +6,31 @@
 
 namespace SolutionGenerator.Wpf.ViewModels
 {
-	using Catel;
-	using Catel.Logging;
-	using Catel.MVVM;
-	using Services.Interfaces;
-	using Environment = System.Environment;
+    using Catel;
+    using Catel.Logging;
+    using Catel.MVVM;
+    using Services.Interfaces;
+    using Environment = System.Environment;
 
-	public class ConsoleViewModel : ViewModelBase
-	{
-		private readonly IConsoleService _consoleService;
+    public class ConsoleViewModel : ViewModelBase
+    {
+        private readonly IConsoleService _consoleService;
 
-		public ConsoleViewModel(IConsoleService consoleService)
-		{
-			Argument.IsNotNull(() => consoleService);
+        public ConsoleViewModel(IConsoleService consoleService)
+        {
+            Argument.IsNotNull(() => consoleService);
 
-			Output = string.Empty;
+            Output = string.Empty;
 
-			_consoleService = consoleService;
-			_consoleService.LogMessage += OnConsoleServiceLogMessage;
-		}
+            _consoleService = consoleService;
+            _consoleService.LogMessage += OnConsoleServiceLogMessage;
+        }
 
-		public string Output { get; private set; }
+        public string Output { get; private set; }
 
-		private void OnConsoleServiceLogMessage(object sender, LogMessageEventArgs e)
-		{
-			Output += e.Message + Environment.NewLine;
-		}
-	}
+        private void OnConsoleServiceLogMessage(object sender, LogMessageEventArgs e)
+        {
+            Output += e.Message + Environment.NewLine;
+        }
+    }
 }
