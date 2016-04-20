@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ConsoleViewModel.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="ConsoleViewModel.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Wpf.ViewModels
 {
@@ -15,11 +14,8 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 	public class ConsoleViewModel : ViewModelBase
 	{
-		#region Fields
 		private readonly IConsoleService _consoleService;
-		#endregion
 
-		#region Constructors
 		public ConsoleViewModel(IConsoleService consoleService)
 		{
 			Argument.IsNotNull(() => consoleService);
@@ -29,17 +25,12 @@ namespace SolutionGenerator.Wpf.ViewModels
 			_consoleService = consoleService;
 			_consoleService.LogMessage += OnConsoleServiceLogMessage;
 		}
-		#endregion
 
-		#region Properties
 		public string Output { get; private set; }
-		#endregion
 
-		#region Methods
 		private void OnConsoleServiceLogMessage(object sender, LogMessageEventArgs e)
 		{
 			Output += e.Message + Environment.NewLine;
 		}
-		#endregion
 	}
 }

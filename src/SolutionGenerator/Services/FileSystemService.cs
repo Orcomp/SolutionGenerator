@@ -1,9 +1,8 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="FileSystemService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="FileSystemService.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Services
 {
@@ -14,7 +13,6 @@ namespace SolutionGenerator.Services
 
 	public class FileSystemService : IFileSystemService
 	{
-		#region IFileSystemService Members
 		public IEnumerable<string> Files(string root, string pattern = "*.*", bool recurse = true)
 		{
 			var files = Directory.GetFiles(root, pattern, recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
@@ -52,8 +50,7 @@ namespace SolutionGenerator.Services
 						// Restart:
 						break;
 					}
-				}
-				while (found);
+				} while (found);
 			}
 
 			foreach (var fileName in Files(root, patterns, recurse).ToArray())
@@ -78,6 +75,9 @@ namespace SolutionGenerator.Services
 				var fullFileName = Path.GetFullPath(file);
 				var text = File.ReadAllText(fullFileName);
 				text = text.Replace(from, to);
+				text = text.Replace(from.ToLower(), to.ToLower());
+				text = text.Replace(from.ToUpper(), to.ToUpper());
+
 				File.WriteAllText(fullFileName, text);
 			}
 		}
@@ -92,9 +92,7 @@ namespace SolutionGenerator.Services
 			return Path.GetFullPath(new Uri(path).LocalPath)
 				.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 		}
-		#endregion
 
-		#region Methods
 		private IEnumerable<string> Folders(string root, bool recurse = true)
 		{
 			return Directory.GetDirectories(root, "*", recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
@@ -110,6 +108,5 @@ namespace SolutionGenerator.Services
 			var result = source.Remove(index, @from.Length).Insert(index, to);
 			return result;
 		}
-		#endregion
 	}
 }

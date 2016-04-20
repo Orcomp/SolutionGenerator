@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ProjectReference.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="ProjectReference.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Models
 {
@@ -13,30 +12,24 @@ namespace SolutionGenerator.Models
 
 	public class ProjectReference : ModelBase
 	{
-		#region Constructors
 		public ProjectReference(string name)
 		{
 			Argument.IsNotNull(() => name);
 
 			Name = name;
 		}
-		#endregion
 
-		#region Properties
-		public string Name { get; private set; }
+		public string Name { get; }
 
 		[DefaultValue("")]
 		public string ProjectReferences { get; set; }
 
 		[DefaultValue("")]
 		public string FileIncludes { get; set; }
-		#endregion
 
-		#region Methods
 		public override string ToString()
 		{
 			return Name ?? string.Empty;
 		}
-		#endregion
 	}
 }

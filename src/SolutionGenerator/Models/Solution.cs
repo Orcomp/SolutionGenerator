@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Solution.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="Solution.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Models
 {
@@ -17,7 +16,6 @@ namespace SolutionGenerator.Models
 
 	public class Solution : ModelBase
 	{
-		#region Constructors
 		public Solution()
 		{
 			ProjectGuid = Guid.NewGuid().ToString("B");
@@ -28,9 +26,7 @@ namespace SolutionGenerator.Models
 			var licensesPath = Path.Combine(".", "Templates.Fixed", "Licenses");
 			AvailableLicenses = Directory.EnumerateFiles(licensesPath).Select(Path.GetFileNameWithoutExtension).ToList();
 		}
-		#endregion
 
-		#region Properties
 		[DefaultValue(true)]
 		public bool InitializeGit { get; set; }
 
@@ -89,13 +85,10 @@ namespace SolutionGenerator.Models
 		public ProjectTypes ProjectType { get; set; }
 
 		public TemplateInfo TemplateInfo { get; set; }
-		#endregion
 
-		#region Methods
 		public override string ToString()
 		{
 			return SolutionName ?? string.Empty;
 		}
-		#endregion
 	}
 }

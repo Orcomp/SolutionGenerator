@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SolutionAssemblyInfo.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="SolutionAssemblyInfo.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 using System.Reflection;
 using System.Resources;
@@ -14,8 +13,8 @@ using System.Resources;
 ////[assembly: AssemblyProduct("DEFINED IN ACTUAL ASSEMBLYINFO")]
 ////[assembly: AssemblyDescription("DEFINED IN ACTUAL ASSEMBLYINFO")]
 
-[assembly: AssemblyCompany("Simulation Modelling Services")]
-[assembly: AssemblyCopyright("Copyright © Simulation Modelling Services 2014 - 2014")]
+[assembly: AssemblyCompany("WildGums")]
+[assembly: AssemblyCopyright("Copyright © WildGums 2013 - 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]

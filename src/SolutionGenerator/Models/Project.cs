@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Project.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="Project.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Models
 {
@@ -12,7 +11,6 @@ namespace SolutionGenerator.Models
 
 	public class Project : ModelBase
 	{
-		#region Constructors
 		public Project(string projectGuid)
 		{
 			Argument.IsNotNullOrWhitespace(() => projectGuid);
@@ -21,9 +19,7 @@ namespace SolutionGenerator.Models
 			ProjectReferences = string.Empty;
 			FileIncludes = string.Empty;
 		}
-		#endregion
 
-		#region Properties
 		public string ProjectName { get; set; }
 		public string ProjectAssemblyName { get; set; }
 		public string ProjectRootNameSpace { get; set; }
@@ -39,13 +35,10 @@ namespace SolutionGenerator.Models
 
 		public string ProjectReferences { get; set; }
 		public string FileIncludes { get; set; }
-		#endregion
 
-		#region Methods
 		public override string ToString()
 		{
 			return ProjectName ?? string.Empty;
 		}
-		#endregion
 	}
 }

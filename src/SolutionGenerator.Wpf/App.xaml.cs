@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="App.xaml.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Wpf
 {
@@ -21,7 +20,6 @@ namespace SolutionGenerator.Wpf
 	/// </summary>
 	public partial class App : Application
 	{
-		#region Methods
 		/// <summary>
 		/// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
 		/// </summary>
@@ -43,6 +41,5 @@ namespace SolutionGenerator.Wpf
 
 			base.OnStartup(e);
 		}
-		#endregion
 	}
 }

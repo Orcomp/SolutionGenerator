@@ -1,9 +1,8 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TemplateProvider.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="TemplateProvider.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Services
 {
@@ -16,22 +15,15 @@ namespace SolutionGenerator.Services
 
 	public class TemplateProvider : ITemplateProvider
 	{
-		#region Constants
 		private const string DescriptionTxt = ".description";
-		#endregion
 
-		#region Fields
 		private readonly IFileSystemService _fileSystemService;
-		#endregion
 
-		#region Constructors
 		public TemplateProvider(IFileSystemService fileSystemService)
 		{
 			_fileSystemService = fileSystemService;
 		}
-		#endregion
 
-		#region ITemplateProvider Members
 		public IEnumerable<TemplateInfo> Templates
 		{
 			get
@@ -40,9 +32,7 @@ namespace SolutionGenerator.Services
 				return templateFileNames.Select(GetTemplateInfo).Where(ti => ti != null);
 			}
 		}
-		#endregion
 
-		#region Methods
 		private TemplateInfo GetTemplateInfo(string fileName)
 		{
 			try
@@ -140,6 +130,5 @@ namespace SolutionGenerator.Services
 				IsDefault = isDefault
 			};
 		}
-		#endregion
 	}
 }

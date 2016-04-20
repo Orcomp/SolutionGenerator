@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IFileSystemService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="IFileSystemService.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Services
 {
@@ -12,7 +11,6 @@ namespace SolutionGenerator.Services
 
 	public interface IFileSystemService
 	{
-		#region Methods
 		IEnumerable<string> Files(string root, string pattern = "*.*", bool recurse = true);
 		IEnumerable<string> Files(string root, IEnumerable<string> patterns, bool recurse = true);
 		Stream ReadOnlyStream(string fileName);
@@ -21,6 +19,5 @@ namespace SolutionGenerator.Services
 		void CreateFolder(string parent, string name = null);
 
 		string NormalizePath(string path);
-		#endregion
 	}
 }

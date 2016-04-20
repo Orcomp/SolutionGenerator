@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SolutionOptionsViewModel.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="SolutionOptionsViewModel.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Wpf.ViewModels
 {
@@ -20,16 +19,11 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 	public class SolutionOptionsViewModel : ViewModelBase
 	{
-		#region Constants
 		private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-		#endregion
 
-		#region Fields
 		private readonly ISelectDirectoryService _selectDirectoryService;
-		private ITemplateProvider _templateProvider;
-		#endregion
+		private readonly ITemplateProvider _templateProvider;
 
-		#region Constructors
 		public SolutionOptionsViewModel(Solution solution, ISelectDirectoryService selectDirectoryService, ITemplateProvider templateProvider)
 		{
 			Argument.IsNotNull(() => solution);
@@ -59,9 +53,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 			SelectSolutionDirectory = new Command(OnSelectSolutionDirectoryExecute);
 		}
-		#endregion
 
-		#region Properties
 		[Model]
 		[Catel.Fody.Expose("ProjectType")]
 		[Catel.Fody.Expose("TemplateInfo")]
@@ -91,18 +83,12 @@ namespace SolutionGenerator.Wpf.ViewModels
 		public ObservableCollection<string> AvailableTargetFrameworks { get; private set; }
 
 		public List<string> AvailableLicenseNames { get; private set; }
-		#endregion
 
-		#region Commands
-
-		#region Properties
 		/// <summary>
 		/// Gets the SelectSolutionDirectory command.
 		/// </summary>
 		public Command SelectSolutionDirectory { get; private set; }
-		#endregion
 
-		#region Methods
 		/// <summary>
 		/// Method to invoke when the SelectSolutionDirectory command is executed.
 		/// </summary>
@@ -115,11 +101,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 				Log.Info("Changed solution directory to '{0}'", RootPath);
 			}
 		}
-		#endregion
 
-		#endregion
-
-		#region Methods
 		private void OnRootPathChanged()
 		{
 			if (string.IsNullOrWhiteSpace(RootPath))
@@ -160,6 +142,5 @@ namespace SolutionGenerator.Wpf.ViewModels
 			ProjectRootNameSpace = projectName;
 			ProjectAssemblyName = projectName;
 		}
-		#endregion
 	}
 }

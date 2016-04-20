@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MainWindowViewModel.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="MainWindowViewModel.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Wpf.ViewModels
 {
@@ -21,17 +20,12 @@ namespace SolutionGenerator.Wpf.ViewModels
 	/// </summary>
 	public class MainWindowViewModel : ViewModelBase
 	{
-		#region Constants
 		private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-		#endregion
 
-		#region Fields
 		private readonly IMessageService _messageService;
 		private readonly IProcessService _processService;
 		private readonly ISolutionGeneratorService _solutionGeneratorService;
-		#endregion
 
-		#region Constructors
 		public MainWindowViewModel(IMessageService messageService, ISolutionGeneratorService solutionGeneratorService, IProcessService processService)
 		{
 			Argument.IsNotNull(() => messageService);
@@ -46,9 +40,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 
 			Solution = new Solution();
 		}
-		#endregion
 
-		#region Properties
 		/// <summary>
 		/// Gets the title of the view model.
 		/// </summary>
@@ -64,18 +56,12 @@ namespace SolutionGenerator.Wpf.ViewModels
 		public bool StartVisualStudio { get; set; }
 
 		public bool OpenFolderOnCreate { get; set; }
-		#endregion
 
-		#region Commands
-
-		#region Properties
 		/// <summary>
 		/// Gets the Generate command.
 		/// </summary>
 		public Command Generate { get; private set; }
-		#endregion
 
-		#region Methods
 		private bool OnGenerateCanExecute()
 		{
 			return !HasErrors;
@@ -93,6 +79,7 @@ namespace SolutionGenerator.Wpf.ViewModels
 				return;
 			}
 
+			//_messageService.ShowAsync(string.Format("Solution {0} created with root path '{1}'", Solution.SolutionName, Solution.RootPath));
 			_messageService.Show(string.Format("Solution {0} created with root path '{1}'", Solution.SolutionName, Solution.RootPath));
 
 			if (StartVisualStudio)
@@ -112,12 +99,10 @@ namespace SolutionGenerator.Wpf.ViewModels
 			}
 		}
 
-		protected override void Initialize()
-		{
-			Log.Info("Welcome to the Solution Generator");
-		}
-		#endregion
+		//}
+		//	Log.Info("Welcome to the Solution Generator");
+		//{
 
-		#endregion
+		//protected override void InitializeAsync()
 	}
 }

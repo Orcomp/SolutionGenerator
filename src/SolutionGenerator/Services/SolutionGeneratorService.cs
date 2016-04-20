@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SolutionGeneratorService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="SolutionGeneratorService.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Services
 {
@@ -18,18 +17,13 @@ namespace SolutionGenerator.Services
 
 	public class SolutionGeneratorService : ISolutionGeneratorService
 	{
-		#region Constants
 		private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-		#endregion
 
-		#region Fields
 		private readonly IFileSystemService _fileSystemService;
 		private readonly IGitService _gitService;
 		private readonly ITemplateProvider _templateProvider;
 		private readonly ITemplateRenderer _templateRenderer;
-		#endregion
 
-		#region Constructors
 		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, ITemplateRenderer templateRenderer, IGitService gitService)
 		{
 			_templateProvider = templateProvider;
@@ -37,9 +31,7 @@ namespace SolutionGenerator.Services
 			_templateRenderer = templateRenderer;
 			_gitService = gitService;
 		}
-		#endregion
 
-		#region Methods
 		public void DoWork(Solution solution)
 		{
 			var root = CreateRootFolder(solution);
@@ -103,7 +95,26 @@ namespace SolutionGenerator.Services
 
 			try
 			{
-				_fileSystemService.Replace(baseProjectName, solution.ProjectName, root, new[] {"*.sln", "*.csproj", "*.cs", "*.xml"});
+				_fileSystemService.Replace(baseProjectName, solution.ProjectName, root, new[]
+				{
+					"*.sln",
+					"*.csproj",
+					"*.user",
+					"*.user",
+					"*.pubxml",
+					"*.edmx",
+					"*.tt",
+					"*.config",
+					"*.settings",
+					"*.resx",
+					"*.cs",
+					"*.cshtml",
+					"*.xml",
+					"*.xaml",
+					"*.wxs",
+					"*.wxi",
+					"*.rtf"
+				});
 			}
 			catch (Exception e)
 			{
@@ -190,6 +201,5 @@ namespace SolutionGenerator.Services
 			var result = _fileSystemService.Files(root, "*.sln").FirstOrDefault();
 			return Path.GetFileNameWithoutExtension(result);
 		}
-		#endregion
 	}
 }

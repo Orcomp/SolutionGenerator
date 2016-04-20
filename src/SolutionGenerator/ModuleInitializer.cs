@@ -1,7 +1,13 @@
-﻿using Catel.IoC;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ModuleInitializer.cs" company="Orcomp development team">
+//   Copyright (c) 2012 - 2016 Orcomp development team. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 
 namespace SolutionGenerator
 {
+	using Catel.IoC;
 	using Services;
 
 	/// <summary>

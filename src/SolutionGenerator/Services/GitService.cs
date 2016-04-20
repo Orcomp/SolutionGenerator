@@ -1,9 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GitService.cs" company="Orcomp development team">
-//   Copyright (c) 2012 - 2014 Orcomp development team. All rights reserved.
+// <copyright file="GitService.cs" company="WildGums">
+//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-
 
 namespace SolutionGenerator.Services
 {
@@ -12,12 +11,10 @@ namespace SolutionGenerator.Services
 
 	public class GitService : IGitService
 	{
-		#region IGitService Members
 		public void InitGitRepository(string directoryName)
 		{
 			Argument.IsNotNullOrWhitespace(() => directoryName);
 			Repository.Init(directoryName);
 		}
-		#endregion
 	}
 }
