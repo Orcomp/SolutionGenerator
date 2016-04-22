@@ -40,6 +40,16 @@ namespace SolutionGenerator.Services
 			Directory.Delete(folderName, true);
 		}
 
+		public void DeleteFile(string fileName)
+		{
+			File.Delete(fileName);
+		}
+
+		public void Copy(string source, string target)
+		{
+			File.Copy(source, target);
+		}
+
 		public Stream ReadOnlyStream(string fileName)
 		{
 			return new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);

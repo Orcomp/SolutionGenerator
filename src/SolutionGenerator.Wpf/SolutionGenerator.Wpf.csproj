@@ -55,14 +55,17 @@
       <HintPath>..\..\lib\Catel.MVVM.4.5.0-unstable0254\lib\net46\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\CsvHelper.2.14.1\lib\net40\CsvHelper.dll</HintPath>
+    <Reference Include="CsvHelper">
+      <HintPath>..\..\lib\CsvHelper.2.13.5.0\lib\net40-client\CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Orc.CsvHelper">
+      <HintPath>..\..\lib\Orc.CsvHelper.1.2.0-unstable0009\lib\net46\Orc.CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -10,12 +10,13 @@ namespace SolutionGenerator.Services
 	using System.Collections.Generic;
 	using System.IO;
 	using System.Linq;
+	using System.Xml.Linq;
 	using Catel.IoC;
 	using Catel.Logging;
 	using Catel.Reflection;
 	using Ionic.Zip;
 	using Models;
-	
+	using Orc.Csv;
 
 	public class SolutionGeneratorService : ISolutionGeneratorService
 	{
@@ -25,13 +26,15 @@ namespace SolutionGenerator.Services
 		private readonly IGitService _gitService;
 		private readonly ITemplateProvider _templateProvider;
 		private readonly ITemplateRenderer _templateRenderer;
+		private readonly IProjectFileService _projectFileService;
 
-		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, ITemplateRenderer templateRenderer, IGitService gitService)
+		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, IProjectFileService projectFileService, ITemplateRenderer templateRenderer, IGitService gitService)
 		{
 			_templateProvider = templateProvider;
 			_fileSystemService = fileSystemService;
 			_templateRenderer = templateRenderer;
 			_gitService = gitService;
+			_projectFileService = projectFileService;
 		}
 
 		public void DoWork(Solution solution)
@@ -73,24 +76,116 @@ namespace SolutionGenerator.Services
 				return;
 			}
 			// TODO: Create pluggable action here by loading calling an assembly from the template
+			CreateModelFiles(solution, root);
+			CreateDataFiles(solution, root);
+			CreateTestClassFiles(solution, root);
+		}
+
+		private void CreateModelFiles(Solution solution, string root)
+		{
 			var modelFolder = _fileSystemService.Folders(root, "*.*").FirstOrDefault(f => f.ToLower().Contains("\\model"));
 			if (modelFolder == null)
 			{
 				return;
 			}
 
+			var nameSpace = GetNameSpace(solution, root);
+			CodeGeneration.CreateCSharpFilesForAllCsvFiles(solution.DataFolder, nameSpace, modelFolder);
+			var projectFileName = modelFolder.ToLower().Replace("model", $"{nameSpace}.Shared.projitems");
+
+			var referenceName = "operationx";
+
+			// Add generated files:
+			_projectFileService.Open(projectFileName);
+			var newFiles = _fileSystemService.Files(modelFolder, "*.cs").ToArray();
+
+			foreach (var file in newFiles)
+			{
+				if (file.ToLower().Contains(referenceName))
+				{
+					_fileSystemService.DeleteFile(file);
+					_projectFileService.RemoveItem("Compile", Path.GetFileName(file).ToLower());
+					continue;
+				}
+				_projectFileService.AddItem("Compile", $"{referenceName}.cs", Path.GetFileName(file));
+			}
+			
+			_projectFileService.Save();
+		}
+
+		private void CreateDataFiles(Solution solution, string root)
+		{
+			var testFilesFolder = _fileSystemService.Folders(root, "*.*").FirstOrDefault(f => f.ToLower().Contains("\\testfiles"));
+			if (testFilesFolder == null)
+			{
+				return;
+			}
+
+			var nameSpace = GetNameSpace(solution, root);
+			var projectFileName = testFilesFolder.ToLower().Replace("testfiles", $"{nameSpace}.Tests.Shared.projitems");
+
+			// Copy and Add generated files:
+			_projectFileService.Open(projectFileName);
+			var files = _fileSystemService.Files(solution.DataFolder, "*.csv").ToArray();
+
+			var referenceName = "operationx.csv";
+			foreach (var file in files)
+			{
+				var targetFileName = Path.Combine(testFilesFolder, Path.GetFileName(file));
+				_fileSystemService.Copy(file, targetFileName);
+				_projectFileService.AddItem("None", referenceName, Path.GetFileName(file));
+			}
+
+			_projectFileService.RemoveItem("None", referenceName);
+			_projectFileService.Save();
+
+			_fileSystemService.DeleteFile(Path.Combine(testFilesFolder, referenceName));
+		}
+
+		private void CreateTestClassFiles(Solution solution, string root)
+		{
+			var testFolder = _fileSystemService.Folders(root, "*.*")
+				.Where(f => f.ToLower().Contains("tests.shared"))
+				.OrderBy(f => f.Length)
+				.FirstOrDefault();
+
+			if (testFolder == null)
+			{
+				return;
+			}
+
+			var nameSpace = GetNameSpace(solution, root);
+			var projectFileName = testFolder.ToLower().Replace("shared", $"Shared\\{nameSpace}.Tests.Shared.projitems");
+
+			// Copy and Add generated files:
+			_projectFileService.Open(projectFileName);
+			var files = _fileSystemService.Files(solution.DataFolder, "*.csv").ToArray();
+
+			var referenceName = "operationxtests.cs";
+			var uniSourceFileName = Path.Combine(testFolder, referenceName);
+			foreach (var file in files)
+			{
+				var className = Path.GetFileNameWithoutExtension(file).ToCamelCase();
+				var targetFileName = Path.Combine(testFolder, className+"Tests.cs");
+				_fileSystemService.Copy(uniSourceFileName, targetFileName);
+				_fileSystemService.Replace("OperationX",className, testFolder, new [] {Path.GetFileName(targetFileName)}, false);
+				_projectFileService.AddItem("Compile", referenceName, Path.GetFileName(targetFileName));
+			}
+
+			_projectFileService.RemoveItem("Compile", referenceName);
+			_projectFileService.Save();
+			_fileSystemService.DeleteFile(Path.Combine(testFolder, referenceName));
+		}
+
+		private string GetNameSpace(Solution solution, string root)
+		{
 			var projectNames = _fileSystemService.Files(root, "*.csproj").ToArray();
 			if (projectNames.Length == 0)
 			{
 				throw new ApplicationException($"Template {solution.TemplateInfo.Name} does not contain projects");
 			}
 
-			//var nameSpace = InferBaseProjectName(projectNames);
-			//var serviceLocator = ServiceLocator.Default;
-			//var csvReaderService = serviceLocator.ResolveType<ICsvReaderService>();
-
-
-			//CodeGeneration.CreateCSharpFilesForAllCsvFiles(solution.DataFolder, nameSpace, modelFolder);
+			return InferBaseProjectName(projectNames);
 		}
 
 		private void ApplyGit(Solution solution, string root)

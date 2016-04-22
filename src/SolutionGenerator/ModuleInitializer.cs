@@ -33,6 +33,7 @@ namespace SolutionGenerator
 			serviceLocator.RegisterType<ISolutionGeneratorService, SolutionGeneratorService>();
 			serviceLocator.RegisterType<ITemplateProvider, TemplateProvider>();
 			serviceLocator.RegisterType<IFileSystemService, FileSystemService>();
+			serviceLocator.RegisterType<IProjectFileService, ProjectFileService>();
 		}
 	}
 }

@@ -17,12 +17,13 @@ namespace SolutionGenerator.Services
 		IEnumerable<string> Folders(string root, IEnumerable<string> patterns, bool recurse = true);
 		void DeleteFolder(string folderName);
 
-
 		Stream ReadOnlyStream(string fileName);
 		void Rename(string from, string to, string root, IEnumerable<string> patterns, bool folders = true, bool recurse = true);
 		void Replace(string from, string to, string root, IEnumerable<string> patterns, bool recurse = true);
 		void CreateFolder(string parent, string name = null);
 
 		string NormalizePath(string path);
+		void DeleteFile(string fileName);
+		void Copy(string source, string target);
 	}
 }
