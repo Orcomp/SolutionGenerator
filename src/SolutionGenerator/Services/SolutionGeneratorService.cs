@@ -99,17 +99,21 @@ namespace SolutionGenerator.Services
 			_projectFileService.Open(projectFileName);
 			var newFiles = _fileSystemService.Files(modelFolder, "*.cs").ToArray();
 
+			var toBeRemove = new List<string>();
 			foreach (var file in newFiles)
 			{
 				if (file.ToLower().Contains(referenceName))
 				{
-					_fileSystemService.DeleteFile(file);
-					_projectFileService.RemoveItem("Compile", Path.GetFileName(file).ToLower());
+					toBeRemove.Add(file);
 					continue;
 				}
 				_projectFileService.AddItem("Compile", $"{referenceName}.cs", Path.GetFileName(file));
 			}
-			
+			foreach (var file in toBeRemove)
+			{
+				_fileSystemService.DeleteFile(file);
+				_projectFileService.RemoveItem("Compile", Path.GetFileName(file).ToLower());
+			}
 			_projectFileService.Save();
 		}
 
