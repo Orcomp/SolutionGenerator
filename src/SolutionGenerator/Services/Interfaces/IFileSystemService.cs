@@ -25,5 +25,9 @@ namespace SolutionGenerator.Services
 		string NormalizePath(string path);
 		void DeleteFile(string fileName);
 		void Copy(string source, string target);
+
+		string[] ReadAllLines(string fileName);
+		void WriteAllLines(string fileName, IEnumerable<string> contents);
+		void Move(string source, string target);
 	}
 }

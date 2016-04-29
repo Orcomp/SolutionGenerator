@@ -10,8 +10,7 @@ namespace SolutionGenerator.Services
 	using System.Collections.Generic;
 	using System.IO;
 	using System.Linq;
-	using System.Xml.Linq;
-	using Catel.IoC;
+	using System.Text;
 	using Catel.Logging;
 	using Catel.Reflection;
 	using Ionic.Zip;
@@ -24,9 +23,9 @@ namespace SolutionGenerator.Services
 
 		private readonly IFileSystemService _fileSystemService;
 		private readonly IGitService _gitService;
+		private readonly IProjectFileService _projectFileService;
 		private readonly ITemplateProvider _templateProvider;
 		private readonly ITemplateRenderer _templateRenderer;
-		private readonly IProjectFileService _projectFileService;
 
 		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, IProjectFileService projectFileService, ITemplateRenderer templateRenderer, IGitService gitService)
 		{
@@ -52,7 +51,7 @@ namespace SolutionGenerator.Services
 
 		private void DeleteIgnorableFolders(Solution solution, string root)
 		{
-			var ignorableFolderPatterns = new string[] {"/bin/", "\\bin\\", "/.vs/", "\\.vs\\" };
+			var ignorableFolderPatterns = new string[] {"/bin/", "\\bin\\", "/.vs/", "\\.vs\\"};
 			var folders = _fileSystemService.Folders(root, "*.*").ToArray();
 			foreach (var folder in folders)
 			{
@@ -78,7 +77,8 @@ namespace SolutionGenerator.Services
 			// TODO: Create pluggable action here by loading calling an assembly from the template
 			CreateModelFiles(solution, root);
 			CreateDataFiles(solution, root);
-			CreateTestClassFiles(solution, root);
+			//CreateTestClassFiles(solution, root);
+			CreateSingleTestClassFile(solution, root);
 		}
 
 		private void CreateModelFiles(Solution solution, string root)
@@ -90,29 +90,66 @@ namespace SolutionGenerator.Services
 			}
 
 			var nameSpace = GetNameSpace(solution, root);
-			CodeGeneration.CreateCSharpFilesForAllCsvFiles(solution.DataFolder, nameSpace, modelFolder);
+
+			var files = _fileSystemService.Files(solution.DataFolder, "*.csv").ToArray();
+			foreach (var file in files)
+			{
+				try
+				{
+					CodeGeneration.CreateCSharpFiles(Path.GetFullPath(file), nameSpace, modelFolder);
+				}
+				catch (Exception exception)
+				{
+					Log.Error($"Can not generate Model and Map files for data file: '{Path.GetFileName(file)}'", exception);
+				}
+			}
+
+			//CodeGeneration.CreateCSharpFilesForAllCsvFiles(solution.DataFolder, nameSpace, modelFolder);
+
 			var projectFileName = modelFolder.ToLower().Replace("model", $"{nameSpace}.Shared.projitems");
 
 			var referenceName = "operationx";
 
-			// Add generated files:
 			_projectFileService.Open(projectFileName);
 			var newFiles = _fileSystemService.Files(modelFolder, "*.cs").ToArray();
 
 			var toBeRemove = new List<string>();
 			foreach (var file in newFiles)
 			{
-				if (file.ToLower().Contains(referenceName))
+				try
 				{
-					toBeRemove.Add(file);
-					continue;
+					if (file.ToLower().Contains(referenceName))
+					{
+						toBeRemove.Add(file);
+						continue;
+					}
+					if (file.ToLower().EndsWith("map.cs"))
+					{
+						_projectFileService.AddItem("Compile", $"{referenceName}.cs", $@"Import\{Path.GetFileName(file)}");
+						_fileSystemService.Move(file, file.Replace(@"\Model\", @"\Model\Import\"));
+					}
+					else
+					{
+						_projectFileService.AddItem("Compile", $"{referenceName}.cs", Path.GetFileName(file));
+					}
 				}
-				_projectFileService.AddItem("Compile", $"{referenceName}.cs", Path.GetFileName(file));
+				catch (Exception e)
+				{
+					Log.Error($"Can not process file: '{Path.GetFileName(file)}'", e);
+				}
+				
 			}
 			foreach (var file in toBeRemove)
 			{
-				_fileSystemService.DeleteFile(file);
-				_projectFileService.RemoveItem("Compile", Path.GetFileName(file).ToLower());
+				try
+				{
+					_fileSystemService.DeleteFile(file);
+					_projectFileService.RemoveItem("Compile", Path.GetFileName(file).ToLower());
+				}
+				catch (Exception e)
+				{
+					Log.Error($"Can delete file: '{file}'", e);
+				}
 			}
 			_projectFileService.Save();
 		}
@@ -135,15 +172,113 @@ namespace SolutionGenerator.Services
 			var referenceName = "operationx.csv";
 			foreach (var file in files)
 			{
-				var targetFileName = Path.Combine(testFilesFolder, Path.GetFileName(file));
-				_fileSystemService.Copy(file, targetFileName);
-				_projectFileService.AddItem("None", referenceName, Path.GetFileName(file));
+				try
+				{
+					var targetFileName = Path.Combine(testFilesFolder, Path.GetFileName(file));
+					_fileSystemService.Copy(file, targetFileName);
+					_projectFileService.AddItem("None", referenceName, Path.GetFileName(file));
+				}
+				catch (Exception e)
+				{
+					Log.Error($"Can not process data file: '{Path.GetFileName(file)}'", e);
+				}
 			}
 
 			_projectFileService.RemoveItem("None", referenceName);
 			_projectFileService.Save();
 
-			_fileSystemService.DeleteFile(Path.Combine(testFilesFolder, referenceName));
+			try
+			{
+				_fileSystemService.DeleteFile(Path.Combine(testFilesFolder, referenceName));
+			}
+			catch (Exception e)
+			{
+				Log.Error("Can not delete template file", e);
+			}
+		}
+
+		private void CreateSingleTestClassFile(Solution solution, string root)
+		{
+			var testFolder = _fileSystemService.Folders(root, "*.*")
+				.Where(f => f.ToLower().Contains("tests.shared"))
+				.OrderBy(f => f.Length)
+				.FirstOrDefault();
+
+			if (testFolder == null)
+			{
+				return;
+			}
+
+			var nameSpace = GetNameSpace(solution, root);
+			var projectFileName = testFolder.ToLower().Replace("shared", $"Shared\\{nameSpace}.Tests.Shared.projitems");
+
+			_projectFileService.Open(projectFileName);
+			var files = _fileSystemService.Files(solution.DataFolder, "*.csv").ToArray();
+
+			var testFileName = Path.Combine(testFolder, "CsvImportTests.cs");
+			var inputLines = _fileSystemService.ReadAllLines(testFileName);
+			var outputLines = new List<string>();
+
+			var prologueLines = GetPrologueLines(inputLines);
+			outputLines.AddRange(prologueLines);
+			
+			foreach (var file in files)
+			{
+				try
+				{
+					var className = Path.GetFileNameWithoutExtension(file).ToCamelCase().ToSingular();
+					var methodLines = GetTestLines(inputLines);
+					ReplaceInLines(methodLines, "OperationX.csv", Path.GetFileName(file));
+					ReplaceInLines(methodLines, "OperationX", className);
+					outputLines.AddRange(methodLines);
+				}
+				catch (Exception e)
+				{
+					Log.Error("Can add unit test for model class {className}", e);
+				}
+			}
+			outputLines.Add($"{Spaces(4)}}}");
+			outputLines.Add("}");
+
+			_fileSystemService.WriteAllLines(testFileName, outputLines);
+		}
+
+		private void ReplaceInLines(IList<string> testLines, string oldValue, string y)
+		{
+			for (int index = 0; index < testLines.Count; index++)
+			{
+				testLines[index] = testLines[index].Replace(oldValue, y);
+			}
+		}
+
+		private IList<string> GetTestLines(string[] sourceLines)
+		{
+			var result = new List<string>();
+			var isTestLine = false;
+			foreach (var line in sourceLines)
+			{
+				if (line.Contains("[Test]"))
+				{
+					isTestLine = true;
+				}
+				if (isTestLine)
+				{
+					result.Add((string)line.Clone());
+				}
+				if (line.Trim().Length == 1 && line.Contains("}"))
+				{
+					result.Add("");
+					break;
+				}
+			}
+			return result;
+		}
+
+		private IList<string> GetPrologueLines(IEnumerable<string> sourceLines)
+		{
+			return sourceLines
+				.TakeWhile(line => !line.Contains("[Test]"))
+				.Select(line => (string) line.Clone()).ToList();
 		}
 
 		private void CreateTestClassFiles(Solution solution, string root)
@@ -169,10 +304,12 @@ namespace SolutionGenerator.Services
 			var uniSourceFileName = Path.Combine(testFolder, referenceName);
 			foreach (var file in files)
 			{
-				var className = Path.GetFileNameWithoutExtension(file).ToCamelCase();
-				var targetFileName = Path.Combine(testFolder, className+"Tests.cs");
+				var className = Path.GetFileNameWithoutExtension(file).ToCamelCase().ToSingular();
+				var targetFileName = Path.Combine(testFolder, className + "Tests.cs");
 				_fileSystemService.Copy(uniSourceFileName, targetFileName);
-				_fileSystemService.Replace("OperationX",className, testFolder, new [] {Path.GetFileName(targetFileName)}, false);
+				
+				_fileSystemService.Replace("OperationX.csv", Path.GetFileName(file), testFolder, new[] { Path.GetFileName(targetFileName) }, false);
+				_fileSystemService.Replace("OperationX", className, testFolder, new[] {Path.GetFileName(targetFileName)}, false);
 				_projectFileService.AddItem("Compile", referenceName, Path.GetFileName(targetFileName));
 			}
 
@@ -350,6 +487,11 @@ namespace SolutionGenerator.Services
 		{
 			var result = _fileSystemService.Files(root, "*.sln").FirstOrDefault();
 			return Path.GetFileNameWithoutExtension(result);
+		}
+
+		private static string Spaces(int count)
+		{
+			return new string(' ', count);
 		}
 	}
 }

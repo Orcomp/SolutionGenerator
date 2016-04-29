@@ -10,6 +10,7 @@ namespace SolutionGenerator.Services
 	using System.Collections.Generic;
 	using System.IO;
 	using System.Linq;
+	using System.Text;
 
 	public class FileSystemService : IFileSystemService
 	{
@@ -50,9 +51,24 @@ namespace SolutionGenerator.Services
 			File.Copy(source, target);
 		}
 
+		public void Move(string source, string target)
+		{
+			File.Move(source, target);
+		}
+
 		public Stream ReadOnlyStream(string fileName)
 		{
 			return new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+		}
+
+		public string[] ReadAllLines(string fileName)
+		{
+			return File.ReadAllLines(fileName);
+		}
+
+		public void WriteAllLines(string fileName, IEnumerable<string> contents)
+		{
+			File.WriteAllLines(fileName, contents, Encoding.UTF8);
 		}
 
 		public void Rename(string @from, string to, string root, IEnumerable<string> patterns, bool folders, bool recurse = true)
