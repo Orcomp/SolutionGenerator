@@ -16,6 +16,7 @@ namespace SolutionGenerator.Services
 	using Ionic.Zip;
 	using Models;
 	using Orc.Csv;
+	
 
 	public class SolutionGeneratorService : ISolutionGeneratorService
 	{
@@ -26,14 +27,18 @@ namespace SolutionGenerator.Services
 		private readonly IProjectFileService _projectFileService;
 		private readonly ITemplateProvider _templateProvider;
 		private readonly ITemplateRenderer _templateRenderer;
+		private ICodeGenerationService _codeGenerationService;
+		private IEntityPluralService _entityPluralService;
 
-		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, IProjectFileService projectFileService, ITemplateRenderer templateRenderer, IGitService gitService)
+		public SolutionGeneratorService(ITemplateProvider templateProvider, IFileSystemService fileSystemService, IProjectFileService projectFileService, ITemplateRenderer templateRenderer, IGitService gitService, ICodeGenerationService codeGenerationService, IEntityPluralService entityPluralService)
 		{
 			_templateProvider = templateProvider;
 			_fileSystemService = fileSystemService;
 			_templateRenderer = templateRenderer;
 			_gitService = gitService;
 			_projectFileService = projectFileService;
+			_codeGenerationService = codeGenerationService;
+			_entityPluralService = entityPluralService;
 		}
 
 		public void DoWork(Solution solution)
@@ -96,7 +101,7 @@ namespace SolutionGenerator.Services
 			{
 				try
 				{
-					CodeGeneration.CreateCSharpFiles(Path.GetFullPath(file), nameSpace, modelFolder);
+					_codeGenerationService.CreateCSharpFiles(Path.GetFullPath(file), nameSpace, modelFolder);
 				}
 				catch (Exception exception)
 				{
@@ -226,7 +231,7 @@ namespace SolutionGenerator.Services
 			{
 				try
 				{
-					var className = Path.GetFileNameWithoutExtension(file).ToCamelCase().ToSingular();
+					var className = _entityPluralService.ToSingular(Path.GetFileNameWithoutExtension(file).ToCamelCase());
 					var methodLines = GetTestLines(inputLines);
 					ReplaceInLines(methodLines, "OperationX.csv", Path.GetFileName(file));
 					ReplaceInLines(methodLines, "OperationX", className);
@@ -304,7 +309,7 @@ namespace SolutionGenerator.Services
 			var uniSourceFileName = Path.Combine(testFolder, referenceName);
 			foreach (var file in files)
 			{
-				var className = Path.GetFileNameWithoutExtension(file).ToCamelCase().ToSingular();
+				var className = _entityPluralService.ToSingular(Path.GetFileNameWithoutExtension(file).ToCamelCase());
 				var targetFileName = Path.Combine(testFolder, className + "Tests.cs");
 				_fileSystemService.Copy(uniSourceFileName, targetFileName);
 				

@@ -7,7 +7,9 @@
 
 namespace SolutionGenerator
 {
+	using System.Data.Entity.Infrastructure.Pluralization;
 	using Catel.IoC;
+	using Orc.Csv;
 	using Services;
 
 	/// <summary>
@@ -34,6 +36,11 @@ namespace SolutionGenerator
 			serviceLocator.RegisterType<ITemplateProvider, TemplateProvider>();
 			serviceLocator.RegisterType<IFileSystemService, FileSystemService>();
 			serviceLocator.RegisterType<IProjectFileService, ProjectFileService>();
+
+			serviceLocator.RegisterType<ICodeGenerationService, CodeGenerationService>();
+			serviceLocator.RegisterType<IEntityPluralService, EfEntityPluralService>();
+			serviceLocator.RegisterType<IPluralizationService, EnglishPluralizationService>();
+
 		}
 	}
 }

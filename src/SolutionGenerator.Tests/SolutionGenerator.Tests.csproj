@@ -70,7 +70,7 @@
     </Reference>
     <Reference Include="Orc.CsvHelper, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Orc.CsvHelper.1.2.0-unstable0013\lib\net46\Orc.CsvHelper.dll</HintPath>
+      <HintPath>..\..\lib\Orc.CsvHelper.1.2.0-unstable0014\lib\net46\Orc.CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -119,6 +119,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="EfEntityPluralServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectFileServiceTest.cs" />
     <Compile Include="TemplateProviderTest.cs" />
