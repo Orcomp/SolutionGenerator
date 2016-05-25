@@ -6,9 +6,9 @@
 
 namespace SolutionGenerator.Services
 {
-	public interface ITemplateRenderer
-	{
-		string RenderFile<T>(string templateContent, T model);
-		string RenderContent<T>(string templateContent, T model);
-	}
+    public interface ITemplateRenderer
+    {
+        string RenderFile<T>(string templateContent, T model);
+        string RenderContent<T>(string templateContent, T model);
+    }
 }

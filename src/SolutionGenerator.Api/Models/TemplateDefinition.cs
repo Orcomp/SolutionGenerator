@@ -1,21 +1,22 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GitService.cs" company="WildGums">
+// <copyright file="TemplateDefinition.cs" company="WildGums">
 //   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Services
+namespace SolutionGenerator.Models
 {
-    using Catel;
-    using LibGit2Sharp;
-
-    public class GitService : IGitService
+    public class TemplateDefinition
     {
-        public void InitGitRepository(string directoryName)
+        public TemplateDefinition()
         {
-            Argument.IsNotNullOrWhitespace(() => directoryName);
-
-            Repository.Init(directoryName);
+            
         }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string Version { get; set; }
     }
 }

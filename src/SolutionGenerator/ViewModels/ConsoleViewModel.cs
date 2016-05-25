@@ -4,12 +4,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Wpf.ViewModels
+namespace SolutionGenerator.ViewModels
 {
     using Catel;
     using Catel.Logging;
     using Catel.MVVM;
-    using Services.Interfaces;
+    using SolutionGenerator.Services;
     using Environment = System.Environment;
 
     public class ConsoleViewModel : ViewModelBase

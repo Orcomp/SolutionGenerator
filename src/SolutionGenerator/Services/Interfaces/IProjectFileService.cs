@@ -6,11 +6,11 @@
 
 namespace SolutionGenerator.Services
 {
-	public interface IProjectFileService
-	{
-		void Open(string fileName);
-		void AddItem(string buildAction, string siblingNodeContains, string item);
-		void RemoveItem(string buildAction, string item);
-		void Save(string postfix = "");
-	}
+    public interface IProjectFileService
+    {
+        void Open(string fileName);
+        void AddItem(string buildAction, string siblingNodeContains, string item);
+        void RemoveItem(string buildAction, string item);
+        void Save(string postfix = "");
+    }
 }

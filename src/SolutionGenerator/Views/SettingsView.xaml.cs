@@ -1,16 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ITemplateProvider.cs" company="WildGums">
+// <copyright file="SettingsView.xaml.cs" company="WildGums">
 //   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Services
+namespace SolutionGenerator.Views
 {
-    using System.Collections.Generic;
-    using Models;
-
-    public interface ITemplateProvider
+    public partial class SettingsView
     {
-        IEnumerable<TemplateInfo> Templates { get; }
+        public SettingsView()
+        {
+            InitializeComponent();
+        }
     }
 }

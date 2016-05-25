@@ -15,9 +15,9 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("SolutionGenerator.Wpf")]
-[assembly: AssemblyDescription("SolutionGenerator.Wpf")]
-[assembly: AssemblyProduct("SolutionGenerator.Wpf")]
+[assembly: AssemblyTitle("SolutionGenerator.Api")]
+[assembly: AssemblyDescription("SolutionGenerator.Api")]
+[assembly: AssemblyProduct("SolutionGenerator.Api")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

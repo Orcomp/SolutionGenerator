@@ -1,16 +1,14 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ITemplateProvider.cs" company="WildGums">
+// <copyright file="SettingsViewModel.cs" company="WildGums">
 //   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Services
+namespace SolutionGenerator.ViewModels
 {
-    using System.Collections.Generic;
-    using Models;
+    using Catel.MVVM;
 
-    public interface ITemplateProvider
+    public class SettingsViewModel : ViewModelBase
     {
-        IEnumerable<TemplateInfo> Templates { get; }
     }
 }

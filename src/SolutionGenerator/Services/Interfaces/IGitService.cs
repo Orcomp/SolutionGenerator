@@ -6,8 +6,8 @@
 
 namespace SolutionGenerator.Services
 {
-	public interface IGitService
-	{
-		void InitGitRepository(string directoryName);
-	}
+    public interface IGitService
+    {
+        void InitGitRepository(string directoryName);
+    }
 }

@@ -4,13 +4,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Wpf.Services.Interfaces
+namespace SolutionGenerator.Services
 {
-	using System;
-	using Catel.Logging;
+    using System;
+    using Catel.Logging;
 
-	public interface IConsoleService
-	{
-		event EventHandler<LogMessageEventArgs> LogMessage;
-	}
+    public interface IConsoleService
+    {
+        event EventHandler<LogMessageEventArgs> LogMessage;
+    }
 }

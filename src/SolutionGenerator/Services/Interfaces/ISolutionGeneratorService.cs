@@ -6,10 +6,10 @@
 
 namespace SolutionGenerator.Services
 {
-	using Models;
+    using Models;
 
-	public interface ISolutionGeneratorService
-	{
-		void DoWork(Solution solution);
-	}
+    public interface ISolutionGeneratorService
+    {
+        void DoWork(Solution solution);
+    }
 }
