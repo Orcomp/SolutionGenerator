@@ -22,7 +22,6 @@ namespace Orc.Extensibility
 
             // Note: since reflection only, we need to have a custom reflection mechanism
             var customAssemblyAttributes = assembly.GetCustomAttributesData();
-            var customTypeAttributesData = type.GetCustomAttributesData();
 
             Name = customAssemblyAttributes.GetReflectionOnlyAttributeValue<AssemblyTitleAttribute>() as string ?? assembly.Title();
             Version = customAssemblyAttributes.GetReflectionOnlyAttributeValue<AssemblyInformationalVersionAttribute>() as string ?? assembly.Version();

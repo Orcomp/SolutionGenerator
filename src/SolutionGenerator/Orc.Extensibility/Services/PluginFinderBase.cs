@@ -205,7 +205,7 @@ namespace Orc.Extensibility
             {
                 var allTypes = assembly.GetAllTypesSafely();
                 var pluginTypes = (from type in allTypes
-                                   where IsPlugin(type)
+                                   where !type.IsAbstractEx() && IsPlugin(type)
                                    select type).ToList();
 
                 foreach (var type in pluginTypes)
@@ -276,6 +276,11 @@ namespace Orc.Extensibility
             }
 
             if (fileName.Contains(".resources.dll"))
+            {
+                return true;
+            }
+
+            if (fileName.EndsWith(".vshost.exe"))
             {
                 return true;
             }

@@ -9,10 +9,12 @@ namespace SolutionGenerator
 {
     using System.Data.Entity.Infrastructure.Pluralization;
     using Catel.IoC;
+    using Extensibility;
     using Orc.Csv;
     using Services;
     using Orchestra.Services;
     using Orc.Extensibility;
+
     /// <summary>
     /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
     /// </summary>
@@ -37,6 +39,9 @@ namespace SolutionGenerator
             serviceLocator.RegisterType<IMultiplePluginsService, MultiplePluginsService>();
 
             // Extensibility => to be moved - END
+
+            // App specific plugin stuff
+            serviceLocator.RegisterType<IPluginFinder, PluginFinder>();
 
             //serviceLocator.RegisterType<IDirectoryCreator, DirectoryCreator>();
             //serviceLocator.RegisterType<ISolutionGeneratorService, SolutionGeneratorService>();

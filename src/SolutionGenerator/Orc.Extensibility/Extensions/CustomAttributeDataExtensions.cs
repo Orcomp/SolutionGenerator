@@ -20,7 +20,6 @@ namespace Orc.Extensibility
             var attribute = (from customAttributeData in customAttributes
                              where customAttributeData.Constructor.DeclaringType.Name.EqualsIgnoreCase(typeof(TAttribute).Name)
                              select customAttributeData).FirstOrDefault();
-
             if (attribute != null)
             {
                 return attribute.ConstructorArguments[0].Value;

@@ -6,30 +6,30 @@
 
 namespace SolutionGenerator.Models
 {
-	using System.ComponentModel;
-	using Catel;
-	using Catel.Data;
+    using System.ComponentModel;
+    using Catel;
+    using Catel.Data;
 
-	public class ProjectReference : ModelBase
-	{
-		public ProjectReference(string name)
-		{
-			Argument.IsNotNull(() => name);
+    public class ProjectReference : ModelBase
+    {
+        public ProjectReference(string name)
+        {
+            Argument.IsNotNull(() => name);
 
-			Name = name;
-		}
+            Name = name;
+        }
 
-		public string Name { get; }
+        public string Name { get; }
 
-		[DefaultValue("")]
-		public string ProjectReferences { get; set; }
+        [DefaultValue("")]
+        public string ProjectReferences { get; set; }
 
-		[DefaultValue("")]
-		public string FileIncludes { get; set; }
+        [DefaultValue("")]
+        public string FileIncludes { get; set; }
 
-		public override string ToString()
-		{
-			return Name ?? string.Empty;
-		}
-	}
+        public override string ToString()
+        {
+            return Name ?? string.Empty;
+        }
+    }
 }

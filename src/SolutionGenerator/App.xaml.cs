@@ -25,7 +25,7 @@ namespace SolutionGenerator
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
-            LogManager.AddDebugListener();
+            LogManager.AddDebugListener(true);
 #endif
 
             try

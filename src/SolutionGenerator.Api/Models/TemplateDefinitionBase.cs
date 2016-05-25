@@ -10,7 +10,7 @@ namespace SolutionGenerator
 
     public abstract class TemplateDefinitionBase : ITemplateDefinition
     {
-        public TemplateDefinitionBase()
+        protected TemplateDefinitionBase()
         {
             
         }

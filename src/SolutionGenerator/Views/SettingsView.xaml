@@ -6,10 +6,12 @@
     <catel:StackGrid>
         <catel:StackGrid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MaxHeight="400" />
         </catel:StackGrid.RowDefinitions>
-        
 
+        <ComboBox ItemsSource="{Binding AvailablePlugins}" SelectedItem="{Binding SelectedPlugin}" />
+
+        <!--<ContentPresenter Content="{}" />-->
     </catel:StackGrid>
-    
+
 </catel:UserControl>

@@ -152,33 +152,34 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\SolutionGeneratorException.cs" />
-    <Compile Include="Extensibility\Extensions\CustomAttributeDataExtensions.cs" />
-    <Compile Include="Extensibility\Models\Extensions\PluginExtensions.cs" />
-    <Compile Include="Extensibility\Models\Interfaces\IPlugin.cs" />
-    <Compile Include="Extensibility\Models\Interfaces\IPluginConfiguration.cs" />
-    <Compile Include="Extensibility\Models\Interfaces\IPluginInfo.cs" />
-    <Compile Include="Extensibility\Models\Plugin.cs" />
-    <Compile Include="Extensibility\Models\PluginInfo.cs" />
-    <Compile Include="Extensibility\Services\EventArgs\PluginEventArgs.cs" />
-    <Compile Include="Extensibility\Services\Extensions\IPluginFinderExtensions.cs" />
-    <Compile Include="Extensibility\Services\Extensions\IPluginManagerExtensions.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IMultiplePluginsService.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginCleanupService.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginFactory.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginFinder.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginInfoProvider.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginLocationsProvider.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginManager.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\IPluginService.cs" />
-    <Compile Include="Extensibility\Services\Interfaces\ISinglePluginService.cs" />
-    <Compile Include="Extensibility\Services\MultiplePluginsService.cs" />
-    <Compile Include="Extensibility\Services\PluginCleanupService.cs" />
-    <Compile Include="Extensibility\Services\PluginFactory.cs" />
-    <Compile Include="Extensibility\Services\PluginFinderBase.cs" />
-    <Compile Include="Extensibility\Services\PluginInfoProvider.cs" />
-    <Compile Include="Extensibility\Services\PluginLocationsProvider.cs" />
-    <Compile Include="Extensibility\Services\PluginManager.cs" />
-    <Compile Include="Extensibility\Services\SinglePluginService.cs" />
+    <Compile Include="Extensibility\PluginFinder.cs" />
+    <Compile Include="Orc.Extensibility\Extensions\CustomAttributeDataExtensions.cs" />
+    <Compile Include="Orc.Extensibility\Models\Extensions\PluginExtensions.cs" />
+    <Compile Include="Orc.Extensibility\Models\Interfaces\IPlugin.cs" />
+    <Compile Include="Orc.Extensibility\Models\Interfaces\IPluginConfiguration.cs" />
+    <Compile Include="Orc.Extensibility\Models\Interfaces\IPluginInfo.cs" />
+    <Compile Include="Orc.Extensibility\Models\Plugin.cs" />
+    <Compile Include="Orc.Extensibility\Models\PluginInfo.cs" />
+    <Compile Include="Orc.Extensibility\Services\EventArgs\PluginEventArgs.cs" />
+    <Compile Include="Orc.Extensibility\Services\Extensions\IPluginFinderExtensions.cs" />
+    <Compile Include="Orc.Extensibility\Services\Extensions\IPluginManagerExtensions.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IMultiplePluginsService.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginCleanupService.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginFactory.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginFinder.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginInfoProvider.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginLocationsProvider.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginManager.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginService.cs" />
+    <Compile Include="Orc.Extensibility\Services\Interfaces\ISinglePluginService.cs" />
+    <Compile Include="Orc.Extensibility\Services\MultiplePluginsService.cs" />
+    <Compile Include="Orc.Extensibility\Services\PluginCleanupService.cs" />
+    <Compile Include="Orc.Extensibility\Services\PluginFactory.cs" />
+    <Compile Include="Orc.Extensibility\Services\PluginFinderBase.cs" />
+    <Compile Include="Orc.Extensibility\Services\PluginInfoProvider.cs" />
+    <Compile Include="Orc.Extensibility\Services\PluginLocationsProvider.cs" />
+    <Compile Include="Orc.Extensibility\Services\PluginManager.cs" />
+    <Compile Include="Orc.Extensibility\Services\SinglePluginService.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\TemplateInfo.cs" />
     <Compile Include="Models\ProjectReference.cs" />
@@ -357,7 +358,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensibility\Attributes\" />
+    <Folder Include="Orc.Extensibility\Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SolutionGenerator.Api\SolutionGenerator.Api.csproj">

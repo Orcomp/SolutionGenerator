@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator", "SolutionGenerator\SolutionGenerator.csproj", "{175BDF78-5F4E-407D-B63C-52F7DB65FFFA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3442E68-FAF4-4727-86BC-DFEE59A17623} = {F3442E68-FAF4-4727-86BC-DFEE59A17623}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8AED3657-3762-4B95-8434-71B300207011}"
 EndProject
