@@ -4,32 +4,64 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Wpf
+namespace SolutionGenerator
 {
+    using System;
     using System.Windows;
+    using Catel.ApiCop;
+    using Catel.ApiCop.Listeners;
     using Catel.IoC;
     using Catel.Logging;
+    using Catel.Reflection;
     using Orchestra.Services;
     using Orchestra.Views;
+    using Services;
 
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public partial class App
     {
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        #region Methods
         protected override void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
             LogManager.AddDebugListener();
 #endif
 
-            var serviceLocator = ServiceLocator.Default;
-            var shellService = serviceLocator.ResolveType<IShellService>();
-            shellService.CreateAsync<ShellWindow>();
+            try
+            {
+                var serviceLocator = ServiceLocator.Default;
+
+                serviceLocator.RegisterType<ITaskRunnerService, TaskRunnerService>();
+
+                var shellService = serviceLocator.ResolveType<IShellService>();
+                shellService.CreateAsync<ShellWindow>();
+
+                base.OnStartup(e);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+
+                var assemblyTitle = GetType().Assembly.Title();
+
+                MessageBox.Show($"A critical error has occurred in '{assemblyTitle}'.\n\nPlease contact support, they will know what to do.",
+                    $"Critical error in '{assemblyTitle}' - please contact support", MessageBoxButton.OK, MessageBoxImage.Stop);
+
+                LogManager.FlushAll();
+
+                Environment.Exit(1);
+            }
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            // Get advisory report in console
+            ApiCopManager.AddListener(new ConsoleApiCopListener());
+            ApiCopManager.WriteResults();
+
+            base.OnExit(e);
+        }
+        #endregion
     }
 }

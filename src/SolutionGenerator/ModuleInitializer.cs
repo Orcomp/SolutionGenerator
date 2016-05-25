@@ -12,7 +12,7 @@ namespace SolutionGenerator
     using Orc.Csv;
     using Services;
     using Orchestra.Services;
-
+    using Orc.Extensibility;
     /// <summary>
     /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
     /// </summary>
@@ -24,6 +24,19 @@ namespace SolutionGenerator
         public static void Initialize()
         {
             var serviceLocator = IoCConfiguration.DefaultServiceLocator;
+
+            // Extensibility => to be moved - START
+
+            serviceLocator.RegisterType<IPluginCleanupService, PluginCleanupService>();
+            serviceLocator.RegisterType<IPluginLocationsProvider, PluginLocationsProvider>();
+            serviceLocator.RegisterType<IPluginManager, PluginManager>();
+            serviceLocator.RegisterType<IPluginFactory, PluginFactory>();
+            serviceLocator.RegisterType<IPluginInfoProvider, PluginInfoProvider>();
+
+            serviceLocator.RegisterType<ISinglePluginService, SinglePluginService>();
+            serviceLocator.RegisterType<IMultiplePluginsService, MultiplePluginsService>();
+
+            // Extensibility => to be moved - END
 
             //serviceLocator.RegisterType<IDirectoryCreator, DirectoryCreator>();
             //serviceLocator.RegisterType<ISolutionGeneratorService, SolutionGeneratorService>();

@@ -90,6 +90,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SolutionGenerator.Api\SolutionGenerator.Api.csproj">
+      <Project>{14b74996-05f7-446f-aa49-d347f5c9b93b}</Project>
+      <Name>SolutionGenerator.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SolutionGenerator\SolutionGenerator.csproj">
       <Project>{175bdf78-5f4e-407d-b63c-52f7db65fffa}</Project>
       <Name>SolutionGenerator</Name>
