@@ -9,7 +9,7 @@ This project was born out of the need to have a "standard" for creating projects
 
 We follow the standards documented here: https://github.com/Orcomp/Standards, but the tool should be flexible enough to be customised to your own needs.
 
-![ScreenShot](/img/screenshot.png)
+![ScreenShot](/doc/img/screenshot.png)
 
 ## Features
 

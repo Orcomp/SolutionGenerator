@@ -10,12 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Wpf", "So
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{C654E9B5-4044-4BFA-B0BB-AA7C54A5F249}"
 	ProjectSection(SolutionItems) = preProject
-		..\.gitattributes = ..\.gitattributes
-		..\.gitignore = ..\.gitignore
-		..\License.txt = ..\License.txt
 		nuget.config = nuget.config
-		..\README.md = ..\README.md
-		SolutionGenerator.sln.DotSettings = SolutionGenerator.sln.DotSettings
+		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AA51D3AF-8878-4B90-BF7E-E09C5E71CBAF}"
