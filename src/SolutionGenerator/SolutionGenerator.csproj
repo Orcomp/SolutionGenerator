@@ -151,7 +151,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Exceptions\SolutionGeneratorException.cs" />
+    <Compile Include="Converters\TemplateDefinitionToViewConverter.cs" />
     <Compile Include="Extensibility\PluginFinder.cs" />
     <Compile Include="Orc.Extensibility\Extensions\CustomAttributeDataExtensions.cs" />
     <Compile Include="Orc.Extensibility\Models\Extensions\PluginExtensions.cs" />
@@ -180,9 +180,6 @@
     <Compile Include="Orc.Extensibility\Services\PluginLocationsProvider.cs" />
     <Compile Include="Orc.Extensibility\Services\PluginManager.cs" />
     <Compile Include="Orc.Extensibility\Services\SinglePluginService.cs" />
-    <Compile Include="Models\Settings.cs" />
-    <Compile Include="Models\TemplateInfo.cs" />
-    <Compile Include="Models\ProjectReference.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="ProjectOutputTypes.cs" />
     <Compile Include="ProjectTypes.cs" />
@@ -191,26 +188,14 @@
     <Compile Include="Services\ProjectFileService.cs" />
     <Compile Include="Services\SolutionGeneratorService.cs" />
     <Compile Include="Services\GitService.cs" />
-    <Compile Include="Models\Project.cs" />
     <Compile Include="Services\FileSystemService.cs" />
-    <Compile Include="Services\Interfaces\ITemplateProvider.cs" />
     <Compile Include="Services\Interfaces\ISolutionGeneratorService.cs" />
-    <Compile Include="Services\Interfaces\ITemplateRenderer.cs" />
     <Compile Include="Services\TaskRunnerService.cs" />
-    <Compile Include="Services\TemplateProvider.cs" />
-    <Compile Include="Models\Solution.cs" />
-    <Compile Include="Services\TemplateRenderer.cs" />
-    <Compile Include="ViewModels\IncludeOptionsViewModel.cs" />
+    <Compile Include="Templates\TemplateEngine.cs" />
+    <Compile Include="Templates\TemplateLoader.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\SolutionOptionsViewModel.cs" />
-    <Compile Include="Views\IncludeOptionsView.xaml.cs">
-      <DependentUpon>IncludeOptionsView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SolutionOptionsView.xaml.cs">
-      <DependentUpon>SolutionOptionsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -219,105 +204,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\logo.ico" />
-    <Content Include="Templates.Fixed\Licenses\Affero_GPL.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\Apache_v2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\Artistic_v2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\BSD_2_Clause.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\BSD_3_Clause.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\Eclipse_Public_License_v1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\GPL_v2.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\GPL_v3.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\LGPL_v2.1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\LGPL_v3.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\MIT.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\Mozilla.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\No_License.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Licenses\Public_Domain.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\consoleProgramClass.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\packagesConfigTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\SolutionWithTestTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\licenseTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\gitAttributeTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\gitIgnoreTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\ProjectTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\ReadmeTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\resharperSettingsTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\SolutionTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\styleCopTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Winform\programCs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Winform\form1Cs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\Winform\form1DesignerCs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\WPF\appXaml.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\WPF\appXamlCs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\WPF\mainWindowXaml.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\WPF\mainWindowXamlCs.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates.Fixed\WPF\ProjectTemplate.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -325,15 +211,6 @@
     <Content Include="script.csx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Templates\ClassLibrary45.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\ClassLibrary4.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\Data.Application.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -344,17 +221,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\IncludeOptionsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SolutionOptionsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

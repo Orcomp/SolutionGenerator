@@ -6,10 +6,10 @@
 
 namespace SolutionGenerator.Services
 {
-    using Models;
+    using System.Threading.Tasks;
 
     public interface ISolutionGeneratorService
     {
-        void DoWork(Solution solution);
+        Task GenerateAsync(ITemplateDefinition templateDefinition);
     }
 }

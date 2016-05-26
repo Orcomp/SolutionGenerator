@@ -6,13 +6,15 @@
 
 namespace SolutionGenerator
 {
+    using System.Collections.Generic;
     using System.Windows;
+    using Catel.Data;
 
     public abstract class TemplateDefinitionBase : ITemplateDefinition
     {
-        protected TemplateDefinitionBase()
+        protected TemplateDefinitionBase(ITemplateContext templateContext)
         {
-            
+            TemplateContext = templateContext;
         }
 
         public string Name { get; set; }
@@ -21,6 +23,33 @@ namespace SolutionGenerator
 
         public string Version { get; set; }
 
+        public ITemplateContext TemplateContext { get; private set; }
+
+        public virtual List<EmbeddedResource> GetExtractableResources()
+        {
+            var resources = ResourceHelper.FindEmbeddedResources(GetType().Assembly, "Files");
+            return resources;
+        }
+
+        public virtual IValidationContext Validate()
+        {
+            return new ValidationContext();
+        }
+
         public abstract FrameworkElement GetView();
+    }
+
+    public abstract class TemplateDefinitionBase<TTemplateContext> : TemplateDefinitionBase
+        where TTemplateContext : ITemplateContext, new()
+    {
+        protected TemplateDefinitionBase()
+            : this(new TTemplateContext())
+        {
+        }
+
+        protected TemplateDefinitionBase(ITemplateContext templateContext)
+            : base(templateContext)
+        {
+        }
     }
 }

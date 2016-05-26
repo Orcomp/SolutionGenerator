@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApprovalTests">
+      <HintPath>..\..\lib\ApprovalTests.3.0.11\lib\net40\ApprovalTests.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ApprovalUtilities">
+      <HintPath>..\..\lib\ApprovalUtilities.3.0.01\lib\net35\ApprovalUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Catel.Core, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Catel.Core.4.5.0-unstable0297\lib\net46\Catel.Core.dll</HintPath>
@@ -126,15 +134,17 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="EfEntityPluralServiceTest.cs" />
+    <Compile Include="GlobalInitialization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProjectFileServiceTest.cs" />
-    <Compile Include="TemplateProviderTest.cs" />
+    <Compile Include="Templates\TemplateEngineFacts.cs" />
+    <Compile Include="TemporaryFilesContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

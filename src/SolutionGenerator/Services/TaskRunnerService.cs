@@ -7,21 +7,36 @@
 namespace SolutionGenerator.Services
 {
     using System;
+    using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using Catel;
     using Catel.Logging;
-    using Models;
+    using Catel.MVVM;
     using Orchestra.Models;
     using Orchestra.Services;
+    using ViewModels;
     using Views;
 
     public class TaskRunnerService : ITaskRunnerService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        private readonly ISolutionGeneratorService _solutionGeneratorService;
+        private readonly IViewModelFactory _viewModelFactory;
+
         private string _title = "Solution Generator";
+
+        public TaskRunnerService(ISolutionGeneratorService solutionGeneratorService, IViewModelFactory viewModelFactory)
+        {
+            Argument.IsNotNull(() => solutionGeneratorService);
+            Argument.IsNotNull(() => viewModelFactory);
+
+            _solutionGeneratorService = solutionGeneratorService;
+            _viewModelFactory = viewModelFactory;
+        }
 
         public string Title
         {
@@ -42,7 +57,7 @@ namespace SolutionGenerator.Services
 
         public object GetViewDataContext()
         {
-            return new Settings();
+            return _viewModelFactory.CreateViewModel<SettingsViewModel>(null, null);
         }
 
         public FrameworkElement GetView()
@@ -52,27 +67,68 @@ namespace SolutionGenerator.Services
 
         public async Task RunAsync(object dataContext)
         {
-            var settings = (Settings) dataContext;
+            var settings = (SettingsViewModel)dataContext;
+            var templateDefinition = settings.ActivePlugin;
+            if (templateDefinition == null)
+            {
+                Log.Error("No template has been selected");
+                return;
+            }
 
-            Log.Info("Running action with the following settings:");
+            var directory = templateDefinition.TemplateContext.Solution.Directory;
+            if (string.IsNullOrWhiteSpace(directory))
+            {
+                Log.Error("No solution directory available");
+                return;
+            }
+
+            if (Directory.Exists(directory))
+            {
+                if (Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Any())
+                {
+                    // TODO: Turn this into a question later
+                    Log.Error($"Solution directory '{directory}' must be empty");
+                    return;
+                }
+            }
+
+            Log.Debug($"Ensuring that directory '{directory}' exists");
+
+            Directory.CreateDirectory(directory);
+
+            Log.Info("Validating template data");
+
+            var validationContext = templateDefinition.Validate();
+
+            foreach (var warning in validationContext.GetWarnings())
+            {
+                Log.Warning(warning.Message);
+            }
+
+            foreach (var error in validationContext.GetErrors())
+            {
+                Log.Error(error.Message);
+            }
+
+            if (validationContext.HasErrors)
+            {
+                Log.Error("1 or more errors occurred, cannot generate the solution");
+                return;
+            }
+
+            Log.Info("Generating the solution");
             Log.Indent();
-            //Log.Info("Working directory => {0}", settings.WorkingDirectory);
-            //Log.Info("Output directory => {0}", settings.OutputDirectory);
-            //Log.Info("Current time => {0}", settings.CurrentTime);
-            //Log.Info("Horizon start => {0}", settings.HorizonStart);
-            //Log.Info("Horizon end => {0}", settings.HorizonEnd);
+
+            await _solutionGeneratorService.GenerateAsync(templateDefinition);
+
             Log.Unindent();
-
-            Log.Info("Sleeping to show long running action with blocking thread");
-
-            Thread.Sleep(2500);
 
             Log.Info("Action is complete!");
         }
 
         public Size GetInitialWindowSize()
         {
-            return Size.Empty;
+            return new Size(800, 800);
         }
 
         public AboutInfo GetAboutInfo()

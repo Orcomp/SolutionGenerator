@@ -1,9 +1,11 @@
 ﻿<catel:UserControl x:Class="SolutionGenerator.Views.SettingsView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:catel="http://catel.codeplex.com">
+                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:converters="clr-namespace:SolutionGenerator.Converters"
+                   xmlns:orc="http://www.wildgums.net.au/orc">
 
-    <catel:StackGrid>
+    <catel:StackGrid x:Name="layoutRoot">
         <catel:StackGrid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" MaxHeight="400" />
@@ -11,7 +13,67 @@
 
         <ComboBox ItemsSource="{Binding AvailablePlugins}" SelectedItem="{Binding SelectedPlugin}" />
 
-        <!--<ContentPresenter Content="{}" />-->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding ActivePlugin.TemplateContext}">
+                <GroupBox Header="Company" DataContext="{Binding Company}">
+                    <catel:StackGrid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Name" />
+                        <TextBox Text="{Binding Name}" />
+                    </catel:StackGrid>
+                </GroupBox>
+
+                <GroupBox Header="Solution" DataContext="{Binding Solution}">
+                    <Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="125" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="0" Content="Name" />
+                            <TextBox Grid.Column="1" Text="{Binding Name}" />
+
+                            <orc:DirectoryPickerView Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" /> 
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="NuGet">
+                    <catel:StackGrid DataContext="{Binding NuGet}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Label Content="Package name" />
+                        <TextBox Text="{Binding PackageName}" />
+                    </catel:StackGrid>
+                </GroupBox>
+
+                <ContentControl x:Name="contentPresenter" Content="{Binding ElementName=layoutRoot, Path=DataContext.ActivePlugin, Converter={converters:TemplateDefinitionToViewConverter}}" />
+            </StackPanel>
+        </ScrollViewer>
+
     </catel:StackGrid>
 
 </catel:UserControl>

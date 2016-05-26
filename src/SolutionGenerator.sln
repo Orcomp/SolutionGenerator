@@ -5,6 +5,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator", "SolutionGenerator\SolutionGenerator.csproj", "{175BDF78-5F4E-407D-B63C-52F7DB65FFFA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F3442E68-FAF4-4727-86BC-DFEE59A17623} = {F3442E68-FAF4-4727-86BC-DFEE59A17623}
+		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9} = {9C69FD78-0EF3-4636-B23B-67C30B9D75E9}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8AED3657-3762-4B95-8434-71B300207011}"
@@ -28,9 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Api", "So
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{AAF798E2-0130-4400-ABE8-82A90DF2CFED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Templates.CatelWpfApp", "SolutionGenerator.Templates.CatelWpfApp\SolutionGenerator.Templates.CatelWpfApp.csproj", "{F3442E68-FAF4-4727-86BC-DFEE59A17623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Templates.OrcComponent", "SolutionGenerator.Templates.OrcComponent\SolutionGenerator.Templates.OrcComponent.csproj", "{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +57,10 @@ Global
 		{F3442E68-FAF4-4727-86BC-DFEE59A17623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3442E68-FAF4-4727-86BC-DFEE59A17623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3442E68-FAF4-4727-86BC-DFEE59A17623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,5 +75,6 @@ Global
 		{AAF798E2-0130-4400-ABE8-82A90DF2CFED} = {52B738FC-F0CB-4A3A-AC0C-CCF381C703B7}
 		{785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF} = {52B738FC-F0CB-4A3A-AC0C-CCF381C703B7}
 		{F3442E68-FAF4-4727-86BC-DFEE59A17623} = {785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}
+		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9} = {785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}
 	EndGlobalSection
 EndGlobal

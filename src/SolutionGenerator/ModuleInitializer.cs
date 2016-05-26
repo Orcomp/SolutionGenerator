@@ -48,11 +48,8 @@ namespace SolutionGenerator
             //serviceLocator.RegisterType<IReferencesService, ReferencesService>();
             //serviceLocator.RegisterType<IProjectTypeConverterService, ProjectTypeConverterService>();
 
-            serviceLocator.RegisterType<ITemplateRenderer, TemplateRenderer>();
             serviceLocator.RegisterType<IGitService, GitService>();
-
             serviceLocator.RegisterType<ISolutionGeneratorService, SolutionGeneratorService>();
-            serviceLocator.RegisterType<ITemplateProvider, TemplateProvider>();
             serviceLocator.RegisterType<IFileSystemService, FileSystemService>();
             serviceLocator.RegisterType<IProjectFileService, ProjectFileService>();
 

@@ -39,6 +39,10 @@
     <DocumentationFile>..\..\output\release\SolutionGenerator.Api\SolutionGenerator.Api.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Catel.Core">
+      <HintPath>..\..\lib\Catel.Core.4.5.0-unstable0297\lib\net46\Catel.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -55,14 +59,30 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Exceptions\SolutionGeneratorException.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Models\Interfaces\ITemplateDefinition.cs" />
+    <Compile Include="Models\Interfaces\ITemplateContext.cs" />
+    <Compile Include="Models\EmbeddedResource.cs" />
+    <Compile Include="Models\TemplateContextBase.cs" />
     <Compile Include="Models\TemplateDefinitionBase.cs" />
+    <Compile Include="Modifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IFileSystemService.cs" />
     <Compile Include="Services\Interfaces\IGitService.cs" />
     <Compile Include="Services\Interfaces\IProjectFileService.cs" />
+    <Compile Include="Templates\Interfaces\INestedTemplate.cs" />
+    <Compile Include="Templates\Interfaces\ITemplate.cs" />
+    <Compile Include="Templates\NestedTemplate.cs" />
+    <Compile Include="Templates\TemplateBase.cs" />
+    <Compile Include="Templates\Templates\CompanyTemplate.cs" />
+    <Compile Include="Templates\Templates\DateTimeTemplate.cs" />
+    <Compile Include="Templates\Templates\NuGetTemplate.cs" />
+    <Compile Include="Templates\Templates\SolutionTemplate.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
