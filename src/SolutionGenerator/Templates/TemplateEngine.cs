@@ -7,6 +7,7 @@
 namespace SolutionGenerator.Templates
 {
     using System;
+    using System.Collections.Generic;
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
@@ -19,6 +20,8 @@ namespace SolutionGenerator.Templates
         private const char ModifierSeparator = '|';
 
         private readonly TemplateLoader _templateLoader;
+
+        private readonly Dictionary<string, Guid> _guids = new Dictionary<string, Guid>();
 
         public TemplateEngine(TemplateLoader templateLoader)
         {
@@ -136,6 +139,21 @@ namespace SolutionGenerator.Templates
             else if (modifier.EqualsIgnoreCase(Modifiers.Uppercase))
             {
                 value = value.ToUpperInvariant();
+            }
+            else if (modifier.StartsWithIgnoreCase(Modifiers.Guid))
+            {
+                lock (_guids)
+                {
+                    Guid guid;
+
+                    if (!_guids.TryGetValue(modifier, out guid))
+                    {
+                        guid = Guid.NewGuid();
+                        _guids[modifier] = guid;
+                    }
+
+                    value = guid.ToString();
+                }
             }
             else
             {

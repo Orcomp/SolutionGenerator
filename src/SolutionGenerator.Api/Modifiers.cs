@@ -10,5 +10,6 @@ namespace SolutionGenerator
     {
         public const string Lowercase = "lowercase";
         public const string Uppercase = "uppercase";
+        public const string Guid = "guid";
     }
 }

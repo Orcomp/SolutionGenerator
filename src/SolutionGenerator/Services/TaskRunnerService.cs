@@ -112,18 +112,27 @@ namespace SolutionGenerator.Services
 
             if (validationContext.HasErrors)
             {
-                Log.Error("1 or more errors occurred, cannot generate the solution");
+                Log.Error("1 or more validation errors occurred, cannot generate the solution");
                 return;
             }
 
             Log.Info("Generating the solution");
             Log.Indent();
 
-            await _solutionGeneratorService.GenerateAsync(templateDefinition);
+            try
+            {
+                await _solutionGeneratorService.GenerateAsync(templateDefinition);
 
-            Log.Unindent();
+                Log.Unindent();
 
-            Log.Info("Action is complete!");
+                Log.Info("Generated the solution");
+            }
+            catch (Exception ex)
+            {
+                Log.Unindent();
+
+                Log.Error(ex, "Failed to generate the solution");
+            }
         }
 
         public Size GetInitialWindowSize()
