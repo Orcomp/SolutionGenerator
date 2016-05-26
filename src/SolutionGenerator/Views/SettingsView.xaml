@@ -15,23 +15,6 @@
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding ActivePlugin.TemplateContext}">
-                <GroupBox Header="Company" DataContext="{Binding Company}">
-                    <catel:StackGrid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="125" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <Label Content="Name" />
-                        <TextBox Text="{Binding Name}" />
-                    </catel:StackGrid>
-                </GroupBox>
-
                 <GroupBox Header="Solution" DataContext="{Binding Solution}">
                     <Grid>
                         <Grid>
@@ -48,9 +31,26 @@
                             <Label Grid.Column="0" Content="Name" />
                             <TextBox Grid.Column="1" Text="{Binding Name}" />
 
-                            <orc:DirectoryPickerView Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" /> 
+                            <orc:DirectoryPickerView Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" />
                         </Grid>
                     </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Company" DataContext="{Binding Company}">
+                    <catel:StackGrid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="125" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Name" />
+                        <TextBox Text="{Binding Name}" />
+                    </catel:StackGrid>
                 </GroupBox>
 
                 <GroupBox Header="NuGet">
