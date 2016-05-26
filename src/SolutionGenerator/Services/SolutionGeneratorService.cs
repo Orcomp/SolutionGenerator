@@ -66,6 +66,10 @@ namespace SolutionGenerator.Services
 
             var fullTargetFileName = Path.Combine(templateContext.Solution.Directory, targetFileName);
 
+            var directory = Path.GetDirectoryName(fullTargetFileName);
+
+            Directory.CreateDirectory(directory);
+        
             // TODO: Check if binary streams don't break by this code
             using (var fileStream = File.Create(fullTargetFileName))
             {
