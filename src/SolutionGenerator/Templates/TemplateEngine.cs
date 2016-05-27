@@ -21,8 +21,6 @@ namespace SolutionGenerator.Templates
 
         private readonly TemplateLoader _templateLoader;
 
-        private readonly Dictionary<string, Guid> _guids = new Dictionary<string, Guid>();
-
         public TemplateEngine(TemplateLoader templateLoader)
         {
             Argument.IsNotNull(() => templateLoader);
@@ -45,73 +43,55 @@ namespace SolutionGenerator.Templates
                 templateContainer = templateContainer.Substring(0, templateContainer.Length - "Template".Length);
             }
 
-            foreach (var templateProperty in templateModelType.GetPropertiesEx())
-            {
-                var templateKeyPrefix = $"[[{templateContainer.ToUpper()}.{templateProperty.Name.ToUpper()}";
+            var keyPrefix = $"[[{templateContainer}.";
 
-                var templateValue = string.Empty;
-
-                if (templateProperty.PropertyType.ImplementsInterfaceEx(typeof(INestedTemplate)))
-                {
-                    var nestedTemplateModel = PropertyHelper.GetPropertyValue<INestedTemplate>(templateModel, templateProperty.Name, false);
-                    if (nestedTemplateModel != null)
-                    {
-                        templateValue = nestedTemplateModel.Callback(nestedTemplateModel.Tag);
-                    }
-                }
-                else
-                {
-                    var templateObject = PropertyHelper.GetPropertyValue(templateModel, templateProperty.Name, false);
-                    if (templateObject != null)
-                    {
-                        templateValue = ObjectToStringHelper.ToString(templateObject);
-                    }
-                }
-
-                templateContent = ReplaceTemplateValue(templateContent, templateKeyPrefix, templateValue);
-            }
-
-            return templateContent;
-        }
-
-        protected virtual string ReplaceTemplateValue(string templateContent, string templateKeyPrefix, string templateValue)
-        {
-            var index = templateContent.IndexOfIgnoreCase(templateKeyPrefix);
+            var index = templateContent.IndexOfIgnoreCase(keyPrefix);
 
             // TODO: Optimize by using regular expressions
 
             while (index >= 0)
             {
-                Log.Debug($"Found template key '{templateKeyPrefix}' at position '{index}'");
+                // Search for the whole key
+                var keyStart = index + keyPrefix.Length;
+                var keyEnd = templateContent.IndexOfAny(new [] { '|', ']' }, keyStart);
+                if (keyEnd < 0)
+                {
+                    throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key prefix '{keyPrefix}' at position '{index}'");
+                }
 
+                var key = templateContent.Substring(keyStart, keyEnd - keyStart);
+
+                Log.Debug($"Found template key '{templateContainer}.{key}' at position '{index}'");
+
+                var value = templateModel.GetValue(key);
+
+                // Retrieve modifiers that are located after the key
                 var endPos = templateContent.IndexOf(TemplateKeyEnd, index);
                 if (endPos < 0)
                 {
-                    throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key '{templateKeyPrefix}' at position '{index}'");
+                    throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key '{key}' at position '{index}'");
                 }
 
                 endPos += TemplateKeyEnd.Length;
 
-                var length = endPos - index;
-
-                var key = templateContent.Substring(index, length);
-                templateContent = templateContent.Remove(index, length);
-
-                var modifiersString = key.Remove(0, templateKeyPrefix.Length).Replace(TemplateKeyEnd, string.Empty);
-                var modifiers = modifiersString.Split(new [] { ModifierSeparator }, StringSplitOptions.RemoveEmptyEntries);
-
-                var value = templateValue;
+                var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
+                var modifiers = modifiersString.Split(new[] { ModifierSeparator }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var modifier in modifiers)
                 {
                     value = ApplyModifier(value, modifier);
                 }
 
+                // Remove the key from the content
+                var length = endPos - index;
+                templateContent = templateContent.Remove(index, length);
+
+                // Insert new value
                 templateContent = templateContent.Insert(index, value);
 
-                Log.Debug($"Replaced template key '{templateKeyPrefix}' at position '{index}'");
+                Log.Debug($"Replaced template key '{templateContainer}.{key}' at position '{index}'");
 
-                index = templateContent.IndexOfIgnoreCase(templateKeyPrefix);
+                index = templateContent.IndexOfIgnoreCase(keyPrefix);
             }
 
             return templateContent;
@@ -128,21 +108,6 @@ namespace SolutionGenerator.Templates
             else if (modifier.EqualsIgnoreCase(Modifiers.Uppercase))
             {
                 value = value.ToUpperInvariant();
-            }
-            else if (modifier.StartsWithIgnoreCase(Modifiers.Guid))
-            {
-                lock (_guids)
-                {
-                    Guid guid;
-
-                    if (!_guids.TryGetValue(modifier, out guid))
-                    {
-                        guid = Guid.NewGuid();
-                        _guids[modifier] = guid;
-                    }
-
-                    value = guid.ToString();
-                }
             }
             else
             {

@@ -79,12 +79,11 @@
     <Compile Include="Services\Interfaces\IFileSystemService.cs" />
     <Compile Include="Services\Interfaces\IGitService.cs" />
     <Compile Include="Services\Interfaces\IProjectFileService.cs" />
-    <Compile Include="Templates\Interfaces\INestedTemplate.cs" />
     <Compile Include="Templates\Interfaces\ITemplate.cs" />
-    <Compile Include="Templates\NestedTemplate.cs" />
     <Compile Include="Templates\TemplateBase.cs" />
     <Compile Include="Templates\Templates\CompanyTemplate.cs" />
     <Compile Include="Templates\Templates\DateTimeTemplate.cs" />
+    <Compile Include="Templates\Templates\GuidTemplate.cs" />
     <Compile Include="Templates\Templates\NuGetTemplate.cs" />
     <Compile Include="Templates\Templates\SolutionTemplate.cs" />
   </ItemGroup>

@@ -6,7 +6,11 @@
 
 namespace SolutionGenerator.Templates
 {
+    using System.Collections.Generic;
+
     public interface ITemplate
     {
+        string GetValue(string key);
+        List<string> GetKeys();
     }
 }

@@ -16,6 +16,7 @@ namespace SolutionGenerator
             Solution = new SolutionTemplate();
             NuGet = new NuGetTemplate();
             DateTime = new DateTimeTemplate();
+            Guid = new GuidTemplate();
         }
 
         public CompanyTemplate Company { get; protected set; }
@@ -25,5 +26,7 @@ namespace SolutionGenerator
         public NuGetTemplate NuGet { get; protected set; }
 
         public DateTimeTemplate DateTime { get; protected set; }
+
+        public GuidTemplate Guid { get; protected set; }
     }
 }

@@ -147,4 +147,3 @@ For now the following modifiers are supported:
 
 * Uppercase => Make the value uppercase
 * Lowercase => Make the value lowercase
-* Guid123 => Generate a unique guid and use this everywhere for this modifier id (so it can be Guid1, Guid2, Guid3, etc)

@@ -6,7 +6,6 @@
 
 namespace SolutionGenerator
 {
-    using System.Reflection;
     using Catel;
 
     public class FileTemplateFile : ITemplateFile
