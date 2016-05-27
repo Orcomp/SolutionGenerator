@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EmbeddedResource.cs" company="WildGums">
+// <copyright file="ResourceTemplateFile.cs" company="WildGums">
 //   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,28 +9,28 @@ namespace SolutionGenerator
     using System.Reflection;
     using Catel;
 
-    public class EmbeddedResource
+    public class ResourceTemplateFile : ITemplateFile
     {
-        public EmbeddedResource(Assembly assembly, string resourceName, string relativeResourceName)
+        public ResourceTemplateFile(Assembly assembly, string resourceName, string relativeName)
         {
             Argument.IsNotNull(() => assembly);
             Argument.IsNotNull(() => resourceName);
-            Argument.IsNotNull(() => relativeResourceName);
+            Argument.IsNotNull(() => relativeName);
 
             Assembly = assembly;
             ResourceName = resourceName;
-            RelativeResourceName = relativeResourceName;
+            RelativeName = relativeName;
         }
 
         public Assembly Assembly { get; private set; }
 
         public string ResourceName { get; private set; }
 
-        public string RelativeResourceName { get; private set; }
+        public string RelativeName { get; private set; }
 
         public override string ToString()
         {
-            return RelativeResourceName;
+            return RelativeName;
         }
     }
 }

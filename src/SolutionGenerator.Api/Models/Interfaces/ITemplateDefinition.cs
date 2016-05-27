@@ -20,6 +20,6 @@ namespace SolutionGenerator
 
         FrameworkElement GetView();
         IValidationContext Validate();
-        List<EmbeddedResource> GetExtractableResources();
+        List<ITemplateFile> GetTemplateFiles();
     }
 }

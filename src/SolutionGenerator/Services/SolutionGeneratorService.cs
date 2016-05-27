@@ -28,7 +28,7 @@ namespace SolutionGenerator.Services
             var templateEngine = new TemplateEngine(templateLoader);
 
             var templates = GetTemplates(templateDefinition);
-            var resources = templateDefinition.GetExtractableResources();
+            var resources = templateDefinition.GetTemplateFiles();
 
             Log.Debug($"Found '{resources.Count}' resources");
 
@@ -40,24 +40,24 @@ namespace SolutionGenerator.Services
         }
 
         private async Task ExtractResourceAndReplaceValuesAsync(ITemplateDefinition templateDefinition, TemplateEngine engine, 
-            TemplateLoader templateLoader, List<ITemplate> templates, EmbeddedResource resource)
+            TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile)
         {
             var templateContext = templateDefinition.TemplateContext;
 
-            Log.Debug($"Determining final name for '{resource}'");
+            Log.Debug($"Determining final name for '{templateFile}'");
 
-            var targetFileName = resource.RelativeResourceName;
+            var targetFileName = templateFile.RelativeName;
 
             foreach (var template in templates)
             {
                 targetFileName = engine.ReplaceValues(targetFileName, template);
             }
 
-            Log.Debug($"Extracting content for '{resource}'");
+            Log.Debug($"Extracting content for '{templateFile}'");
 
-            var content = templateLoader.LoadTemplate(resource.ResourceName);
+            var content = templateLoader.LoadTemplate(templateFile);
 
-            Log.Debug($"Replacing template values in content for '{resource}'");
+            Log.Debug($"Replacing template values in content for '{templateFile}'");
 
             foreach (var template in templates)
             {
@@ -79,7 +79,7 @@ namespace SolutionGenerator.Services
                 }
             }
 
-            Log.Debug($"Extracted resource '{resource}' to '{targetFileName}'");
+            Log.Debug($"Extracted resource '{templateFile}' to '{targetFileName}'");
         }
 
         private List<ITemplate> GetTemplates(ITemplateDefinition templateDefinition)

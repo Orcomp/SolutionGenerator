@@ -47,6 +47,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,9 +62,12 @@
     </Compile>
     <Compile Include="Exceptions\SolutionGeneratorException.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Models\ResourceTemplateFile.cs" />
+    <Compile Include="Models\FileTemplateFile.cs" />
     <Compile Include="Models\Interfaces\ITemplateDefinition.cs" />
     <Compile Include="Models\Interfaces\ITemplateContext.cs" />
-    <Compile Include="Models\EmbeddedResource.cs" />
+    <Compile Include="Models\EmbeddedResourceTemplateFile.cs" />
+    <Compile Include="Models\Interfaces\ITemplateFile.cs" />
     <Compile Include="Models\TemplateContextBase.cs" />
     <Compile Include="Models\TemplateDefinitionBase.cs" />
     <Compile Include="Modifiers.cs" />

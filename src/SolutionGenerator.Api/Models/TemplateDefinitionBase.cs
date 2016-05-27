@@ -25,9 +25,9 @@ namespace SolutionGenerator
 
         public ITemplateContext TemplateContext { get; private set; }
 
-        public virtual List<EmbeddedResource> GetExtractableResources()
+        public virtual List<ITemplateFile> GetTemplateFiles()
         {
-            var resources = ResourceHelper.FindEmbeddedResources(GetType().Assembly, "Files");
+            var resources = ResourceHelper.FindResources(GetType().Assembly, "Files");
             return resources;
         }
 

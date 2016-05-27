@@ -114,7 +114,7 @@ If no settings are required, return `null` in the `GetView` method of the templa
 
 The actual content are just files. These can be based on an already existing project that has been set up and works very well. The only thing left is to create a subfolder in the 
 class library called `Files` (can be customized if required, but this is the default). Copy all files that should be used for template creation into this directory and set the
-build action to `Embedded Resource`.
+build action to `Resource`.
 
 The last step is to replace any important values by template keys. Below is an example for a license:
 

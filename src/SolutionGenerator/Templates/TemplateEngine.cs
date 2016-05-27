@@ -74,20 +74,9 @@ namespace SolutionGenerator.Templates
             return templateContent;
         }
 
-        public string ExtractResourceAndReplaceValues(string templateResourceName, ITemplate templateModel)
-        {
-            Argument.IsNotNullOrWhitespace(() => templateResourceName);
-            Argument.IsNotNull(() => templateModel);
-
-            Log.Debug("Loading template data from '{0}'", templateResourceName);
-
-            var templateContent = _templateLoader.LoadTemplate(templateResourceName);
-            return ReplaceValues(templateContent, templateModel);
-        }
-
         protected virtual string ReplaceTemplateValue(string templateContent, string templateKeyPrefix, string templateValue)
         {
-            var index = templateContent.IndexOf(templateKeyPrefix);
+            var index = templateContent.IndexOfIgnoreCase(templateKeyPrefix);
 
             // TODO: Optimize by using regular expressions
 
@@ -108,7 +97,7 @@ namespace SolutionGenerator.Templates
                 var key = templateContent.Substring(index, length);
                 templateContent = templateContent.Remove(index, length);
 
-                var modifiersString = key.Replace(templateKeyPrefix, string.Empty).Replace(TemplateKeyEnd, string.Empty);
+                var modifiersString = key.Remove(0, templateKeyPrefix.Length).Replace(TemplateKeyEnd, string.Empty);
                 var modifiers = modifiersString.Split(new [] { ModifierSeparator }, StringSplitOptions.RemoveEmptyEntries);
 
                 var value = templateValue;
@@ -122,7 +111,7 @@ namespace SolutionGenerator.Templates
 
                 Log.Debug($"Replaced template key '{templateKeyPrefix}' at position '{index}'");
 
-                index = templateContent.IndexOf(templateKeyPrefix);
+                index = templateContent.IndexOfIgnoreCase(templateKeyPrefix);
             }
 
             return templateContent;
