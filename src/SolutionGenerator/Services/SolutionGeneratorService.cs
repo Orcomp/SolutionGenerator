@@ -14,7 +14,6 @@ namespace SolutionGenerator.Services
     using Catel.Logging;
     using Catel.Reflection;
     using Templates;
-    using ResourceHelper = SolutionGenerator.ResourceHelper;
 
     public class SolutionGeneratorService : ISolutionGeneratorService
     {

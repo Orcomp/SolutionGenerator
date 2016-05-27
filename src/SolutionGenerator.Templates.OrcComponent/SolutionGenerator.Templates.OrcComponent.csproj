@@ -86,21 +86,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Files\.gitattributes" />
-    <Resource Include="Files\.gitignore" />
-    <Resource Include="Files\AUTHORS" />
-    <Resource Include="Files\CONTRIBUTING.md" />
-    <Resource Include="Files\CONTRIBUTORS" />
-    <Resource Include="Files\deployment\FinalBuilder\[[SOLUTION.NAME]].CreatePackages.fbp7" />
-    <Resource Include="Files\deployment\NuGet\template\[[NUGET.PACKAGENAME]]\[[NUGET.PACKAGENAME]].nuspec" />
-    <Resource Include="Files\GitVersionConfig.yaml" />
-    <Resource Include="Files\LICENSE" />
-    <Resource Include="Files\README.md" />
-    <Resource Include="Files\scripts - Build - Debug.bat" />
-    <Resource Include="Files\scripts - Build - Release.bat" />
-    <Resource Include="Files\scripts - Clean all.bat" />
-    <Resource Include="Files\scripts - Restore packages.bat" />
-    <Resource Include="Files\scripts - Update NuGet.bat" />
+    <Content Include="Files\.gitattributes" />
+    <Content Include="Files\.gitignore" />
+    <Content Include="Files\AUTHORS" />
+    <Content Include="Files\CONTRIBUTING.md" />
+    <Content Include="Files\CONTRIBUTORS" />
+    <Content Include="Files\deployment\FinalBuilder\[[SOLUTION.NAME]].CreatePackages.fbp7" />
+    <Content Include="Files\deployment\NuGet\template\[[NUGET.PACKAGENAME]]\[[NUGET.PACKAGENAME]].nuspec" />
+    <Content Include="Files\GitVersionConfig.yaml" />
+    <Content Include="Files\LICENSE" />
+    <Content Include="Files\README.md" />
+    <Content Include="Files\scripts - Build - Debug.bat" />
+    <Content Include="Files\scripts - Build - Release.bat" />
+    <Content Include="Files\scripts - Clean all.bat" />
+    <Content Include="Files\scripts - Restore packages.bat" />
+    <Content Include="Files\scripts - Update NuGet.bat" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

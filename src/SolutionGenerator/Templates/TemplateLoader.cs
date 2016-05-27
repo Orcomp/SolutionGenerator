@@ -11,7 +11,6 @@ namespace SolutionGenerator.Templates
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
-    using Models;
 
     public class TemplateLoader
     {
@@ -40,14 +39,14 @@ namespace SolutionGenerator.Templates
             var resource = templateFile as ResourceTemplateFile;
             if (resource != null)
             {
-                var content = SolutionGenerator.ResourceHelper.ExtractResource(_assembly, resource.ResourceName);
+                var content = SolutionGenerator.TemplateFileHelper.ExtractResource(_assembly, resource.ResourceName);
                 return content;
             }
 
             var embeddedResource = templateFile as EmbeddedResourceTemplateFile;
             if (embeddedResource != null)
             {
-                var content = SolutionGenerator.ResourceHelper.ExtractEmbeddedResource(_assembly, embeddedResource.ResourceName);
+                var content = SolutionGenerator.TemplateFileHelper.ExtractEmbeddedResource(_assembly, embeddedResource.ResourceName);
                 return content;
             }
 

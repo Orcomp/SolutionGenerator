@@ -27,7 +27,7 @@ namespace SolutionGenerator
 
         public virtual List<ITemplateFile> GetTemplateFiles()
         {
-            var resources = ResourceHelper.FindResources(GetType().Assembly, "Files");
+            var resources = TemplateFileHelper.FindResources(GetType().Assembly, "Files");
             return resources;
         }
 

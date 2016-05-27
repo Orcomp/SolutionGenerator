@@ -61,7 +61,10 @@
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Exceptions\SolutionGeneratorException.cs" />
-    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.embeddedresources.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.zippedfiles.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.resources.cs" />
     <Compile Include="Models\ResourceTemplateFile.cs" />
     <Compile Include="Models\FileTemplateFile.cs" />
     <Compile Include="Models\Interfaces\ITemplateDefinition.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Models\Interfaces\ITemplateFile.cs" />
     <Compile Include="Models\TemplateContextBase.cs" />
     <Compile Include="Models\TemplateDefinitionBase.cs" />
+    <Compile Include="Models\ZippedFileTemplate.cs" />
     <Compile Include="Modifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IFileSystemService.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="Templates\Templates\SolutionTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\TemplateFileHelper.files.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
