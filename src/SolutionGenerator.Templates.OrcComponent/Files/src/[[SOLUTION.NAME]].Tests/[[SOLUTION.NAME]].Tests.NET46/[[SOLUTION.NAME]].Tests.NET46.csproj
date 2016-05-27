@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BA32A221-62E5-46F8-999B-62D8464E47F3}</ProjectGuid>
+    <ProjectGuid>{[[GUID.TESTS_NET46]]}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>[[SOLUTION.NAME]].Tests</RootNamespace>
@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\[[SOLUTION.NAME]].NET46.csproj">
-      <Project>{b2de8e5a-4cfb-4aef-a083-9afd5ba8cebe}</Project>
+      <Project>{[[GUID.COMPONENT_NET46]]}</Project>
       <Name>[[SOLUTION.NAME]].NET46</Name>
     </ProjectReference>
   </ItemGroup>

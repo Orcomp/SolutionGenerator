@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98CFDE61-0912-4646-A2EE-AB09E3AB1543}</ProjectGuid>
+    <ProjectGuid>{[[GUID.TESTS_NET45]]}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>[[SOLUTION.NAME]].Tests</RootNamespace>
@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\[[SOLUTION.NAME]].NET45.csproj">
-      <Project>{2df17927-6654-421c-83f9-db184f7d43f1}</Project>
+      <Project>{[[GUID.COMPONENT_NET45]]}</Project>
       <Name>[[SOLUTION.NAME]].NET45</Name>
     </ProjectReference>
   </ItemGroup>

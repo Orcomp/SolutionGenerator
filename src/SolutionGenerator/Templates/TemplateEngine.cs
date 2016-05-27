@@ -7,10 +7,8 @@
 namespace SolutionGenerator.Templates
 {
     using System;
-    using System.Collections.Generic;
     using Catel;
     using Catel.Logging;
-    using Catel.Reflection;
 
     public class TemplateEngine
     {

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>a6f7531d-8256-4c27-9049-50c27ab337e2</SharedGUID>
+    <SharedGUID>[[GUID.COMPONENT_SHARED]]</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>[[SOLUTION.NAME]]</Import_RootNamespace>

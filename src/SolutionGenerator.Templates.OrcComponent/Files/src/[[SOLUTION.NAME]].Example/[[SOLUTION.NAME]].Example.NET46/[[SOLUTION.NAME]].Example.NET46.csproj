@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{958ABA16-6986-4C2A-A2AF-398A1F8B497D}</ProjectGuid>
+    <ProjectGuid>{[[GUID.EXAMPLE_NET46]]}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>[[SOLUTION.NAME]].Example</RootNamespace>
@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\[[SOLUTION.NAME]].NET46.csproj">
-      <Project>{bb0555b4-9021-4e71-9b82-3c63e9424166}</Project>
+      <Project>{[[GUID.COMPONENT_NET46]]}</Project>
       <Name>[[SOLUTION.NAME]].NET46</Name>
     </ProjectReference>
   </ItemGroup>
