@@ -8,7 +8,7 @@
     <Grid x:Name="layoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="350" />
+            <RowDefinition Height="500" />
         </Grid.RowDefinitions>
 
         <ComboBox Grid.Row="0" ItemsSource="{Binding AvailablePlugins}" SelectedItem="{Binding SelectedPlugin}" />
