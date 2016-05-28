@@ -5,15 +5,15 @@
                    xmlns:converters="clr-namespace:SolutionGenerator.Converters"
                    xmlns:orc="http://www.wildgums.net.au/orc">
 
-    <catel:StackGrid x:Name="layoutRoot">
-        <catel:StackGrid.RowDefinitions>
+    <Grid x:Name="layoutRoot">
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" MaxHeight="400" />
-        </catel:StackGrid.RowDefinitions>
+            <RowDefinition Height="350" />
+        </Grid.RowDefinitions>
 
-        <ComboBox ItemsSource="{Binding AvailablePlugins}" SelectedItem="{Binding SelectedPlugin}" />
+        <ComboBox Grid.Row="0" ItemsSource="{Binding AvailablePlugins}" SelectedItem="{Binding SelectedPlugin}" />
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" DataContext="{Binding ActivePlugin.TemplateContext}">
                 <GroupBox Header="Solution" DataContext="{Binding Solution}">
                     <Grid>
@@ -53,27 +53,9 @@
                     </catel:StackGrid>
                 </GroupBox>
 
-                <GroupBox Header="NuGet">
-                    <catel:StackGrid DataContext="{Binding NuGet}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="125" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        
-                        <Label Content="Package name" />
-                        <TextBox Text="{Binding PackageName}" />
-                    </catel:StackGrid>
-                </GroupBox>
-
                 <ContentControl x:Name="contentPresenter" Content="{Binding ElementName=layoutRoot, Path=DataContext.ActivePlugin, Converter={converters:TemplateDefinitionToViewConverter}}" />
             </StackPanel>
         </ScrollViewer>
-
-    </catel:StackGrid>
+    </Grid>
 
 </catel:UserControl>

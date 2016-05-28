@@ -7,8 +7,11 @@
 namespace SolutionGenerator
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows;
     using Catel.Data;
+    using Catel.Reflection;
+    using Templates;
 
     public abstract class TemplateDefinitionBase : ITemplateDefinition
     {
@@ -33,7 +36,33 @@ namespace SolutionGenerator
 
         public virtual IValidationContext Validate()
         {
-            return new ValidationContext();
+            var validationContext = new ValidationContext();
+
+            var templateProperties = (from property in GetType().GetPropertiesEx()
+                                      where property.PropertyType.ImplementsInterfaceEx<ITemplate>()
+                                      select property).ToList();
+
+            foreach (var templateProperty in templateProperties)
+            {
+                var template = PropertyHelper.GetPropertyValue(this, templateProperty.Name, false) as ITemplate;
+                if (template != null)
+                {
+                    var contextValidationContext = template.Validate();
+                    validationContext.SynchronizeWithContext(contextValidationContext, true);
+                }
+            }
+
+            return validationContext;
+        }
+
+        public virtual void PreGenerate()
+        {
+
+        }
+
+        public virtual void PostGenerate()
+        {
+
         }
 
         public abstract FrameworkElement GetView();

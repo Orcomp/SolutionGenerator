@@ -11,7 +11,7 @@ namespace SolutionGenerator
     public interface ITemplateContext
     {
         SolutionTemplate Solution { get; }
-        NuGetTemplate NuGet { get; }
         DateTimeTemplate DateTime { get; }
+        GuidTemplate Guid { get; }
     }
 }

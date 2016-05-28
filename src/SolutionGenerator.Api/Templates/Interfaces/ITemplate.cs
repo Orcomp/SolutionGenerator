@@ -7,10 +7,13 @@
 namespace SolutionGenerator.Templates
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using Catel.Data;
 
-    public interface ITemplate
+    public interface ITemplate : INotifyPropertyChanged
     {
         string GetValue(string key);
         List<string> GetKeys();
+        IValidationContext Validate();
     }
 }

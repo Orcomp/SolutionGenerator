@@ -6,6 +6,7 @@
 
 namespace Orc.Extensibility
 {
+    using System;
     using System.Collections.Generic;
     using Catel.IO;
     using Catel.Reflection;
@@ -17,6 +18,7 @@ namespace Orc.Extensibility
             var directories = new List<string>();
 
             directories.Add(Path.Combine(Path.GetApplicationDataDirectory(), "plugins"));
+            directories.Add(Environment.CurrentDirectory);
             directories.Add(AssemblyHelper.GetEntryAssembly().GetDirectory());
 
             return directories;

@@ -121,7 +121,11 @@ namespace SolutionGenerator.Services
 
             try
             {
+                templateDefinition.PreGenerate();
+
                 await _solutionGeneratorService.GenerateAsync(templateDefinition);
+
+                templateDefinition.PostGenerate();
 
                 Log.Unindent();
 

@@ -7,6 +7,23 @@
                    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+        <GroupBox Header="NuGet">
+            <catel:StackGrid DataContext="{Binding NuGet}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Content="Package name" />
+                <TextBox Text="{Binding PackageName}" />
+            </catel:StackGrid>
+        </GroupBox>
+
         <GroupBox Header="GitHub" DataContext="{Binding GitHub}">
             <catel:StackGrid>
                 <Grid.ColumnDefinitions>

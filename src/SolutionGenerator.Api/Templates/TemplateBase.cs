@@ -9,9 +9,13 @@ namespace SolutionGenerator.Templates
     using System.Collections.Generic;
     using System.Linq;
     using Catel;
+    using Catel.Data;
     using Catel.Reflection;
 
-    public abstract class TemplateBase : ITemplate
+    /// <summary>
+    /// Convenient implementation of the ITemplate interface that supports Catel properties out of the box.
+    /// </summary>
+    public abstract class TemplateBase : ModelBase, ITemplate
     {
         public virtual List<string> GetKeys()
         {
@@ -20,7 +24,7 @@ namespace SolutionGenerator.Templates
                     select property.Name).ToList();
         }
 
-        public virtual string GetValue(string key)
+        string ITemplate.GetValue(string key)
         {
             var templateObject = PropertyHelper.GetPropertyValue(this, key, true);
             if (templateObject != null)
@@ -30,6 +34,13 @@ namespace SolutionGenerator.Templates
             }
 
             return string.Empty;
+        }
+
+        public virtual IValidationContext Validate()
+        {
+            var validationContext = new ValidationContext();
+
+            return validationContext;
         }
     }
 }

@@ -19,12 +19,15 @@ namespace SolutionGenerator.Templates.OrcComponent
 
             Solution.Name = "Orc.";
 
+            NuGet = new NuGetTemplate();
             NuGet.PackageName = "Orc.";
 
             GitHub = new GitHubTemplate();
             GitHub.Company = assembly.Company();
             GitHub.RepositoryName = "Orc.";
         }
+
+        public NuGetTemplate NuGet { get; protected set; }
 
         public GitHubTemplate GitHub { get; protected set; }
     }

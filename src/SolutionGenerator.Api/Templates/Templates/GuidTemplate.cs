@@ -9,12 +9,13 @@ namespace SolutionGenerator.Templates
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Catel.Data;
 
-    public class GuidTemplate : TemplateBase
+    public class GuidTemplate : ObservableObject, ITemplate
     {
         private readonly Dictionary<string, Guid> _guids = new Dictionary<string, Guid>();
 
-        public override string GetValue(string key)
+        public string GetValue(string key)
         {
             lock (_guids)
             {
@@ -28,6 +29,20 @@ namespace SolutionGenerator.Templates
 
                 return guid.ToString();
             }
+        }
+
+        public List<string> GetKeys()
+        {
+            lock (_guids)
+            {
+                return _guids.Keys.ToList();
+            }
+        }
+
+        public IValidationContext Validate()
+        {
+            var validationContext = new ValidationContext();
+            return validationContext;
         }
 
         public List<KeyValuePair<string, Guid>> GetAllGuids()

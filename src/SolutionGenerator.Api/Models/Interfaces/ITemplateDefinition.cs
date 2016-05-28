@@ -21,5 +21,7 @@ namespace SolutionGenerator
         FrameworkElement GetView();
         IValidationContext Validate();
         List<ITemplateFile> GetTemplateFiles();
+        void PreGenerate();
+        void PostGenerate();
     }
 }
