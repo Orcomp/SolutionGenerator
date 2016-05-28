@@ -182,8 +182,6 @@
     <Compile Include="Orc.Extensibility\Services\PluginManager.cs" />
     <Compile Include="Orc.Extensibility\Services\SinglePluginService.cs" />
     <Compile Include="ModuleInitializer.cs" />
-    <Compile Include="ProjectOutputTypes.cs" />
-    <Compile Include="ProjectTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EFEntityPluralService.cs" />
     <Compile Include="Services\ProjectFileService.cs" />
@@ -201,17 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="folders.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Icons\logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Content Include="script.csx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

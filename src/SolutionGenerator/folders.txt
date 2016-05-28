@@ -1,9 +1,0 @@
-﻿src
-lib
-docs
-output
-output\Debug
-output\Release
-tools
-deployment
-img

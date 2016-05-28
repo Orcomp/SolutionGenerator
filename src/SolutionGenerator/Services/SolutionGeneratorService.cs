@@ -34,12 +34,19 @@ namespace SolutionGenerator.Services
             // TODO: Consider multithreading
             foreach (var resource in resources)
             {
-                await ExtractResourceAndReplaceValuesAsync(templateDefinition, templateEngine, templateLoader, templates, resource);
+                var isBinary = false;
+
+                if (resource.RelativeName.EndsWithIgnoreCase(".exe") || resource.RelativeName.EndsWithIgnoreCase(".dll"))
+                {
+                    isBinary = true;
+                }
+
+                await ExtractResourceAndReplaceValuesAsync(templateDefinition, templateEngine, templateLoader, templates, resource, isBinary);
             }
         }
 
-        private async Task ExtractResourceAndReplaceValuesAsync(ITemplateDefinition templateDefinition, TemplateEngine engine, 
-            TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile)
+        private async Task ExtractResourceAndReplaceValuesAsync(ITemplateDefinition templateDefinition, TemplateEngine engine,
+            TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile, bool isBinary)
         {
             var templateContext = templateDefinition.TemplateContext;
 
@@ -52,29 +59,43 @@ namespace SolutionGenerator.Services
                 targetFileName = engine.ReplaceValues(targetFileName, template);
             }
 
-            Log.Debug($"Extracting content for '{templateFile}'");
-
-            var content = templateLoader.LoadTemplate(templateFile);
-
-            Log.Debug($"Replacing template values in content for '{templateFile}'");
-
-            foreach (var template in templates)
-            {
-                content = engine.ReplaceValues(content, template);
-            }
-
             var fullTargetFileName = Path.Combine(templateContext.Solution.Directory, targetFileName);
 
             var directory = Path.GetDirectoryName(fullTargetFileName);
 
             Directory.CreateDirectory(directory);
-        
-            // TODO: Check if binary streams don't break by this code
-            using (var fileStream = File.Create(fullTargetFileName))
+
+            using (var sourceStream = await templateLoader.LoadTemplateStreamAsync(templateFile))
             {
-                using (var streamWriter = new StreamWriter(fileStream))
+                using (var targetStream = File.Create(fullTargetFileName))
                 {
-                    await streamWriter.WriteAsync(content);
+                    if (!isBinary)
+                    {
+                        Log.Debug($"Extracting content for '{templateFile}'");
+
+                        using (var streamReader = new StreamReader(sourceStream))
+                        {
+                            var content = await streamReader.ReadToEndAsync();
+
+                            Log.Debug($"Replacing template values in content for '{templateFile}'");
+
+                            foreach (var template in templates)
+                            {
+                                content = engine.ReplaceValues(content, template);
+                            }
+
+                            using (var streamWriter = new StreamWriter(targetStream))
+                            {
+                                await streamWriter.WriteAsync(content);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Log.Debug($"Copying binary content for '{templateFile}'");
+
+                        await sourceStream.CopyToAsync(targetStream);
+                    }
                 }
             }
 

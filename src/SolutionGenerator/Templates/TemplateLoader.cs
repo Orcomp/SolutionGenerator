@@ -8,6 +8,7 @@ namespace SolutionGenerator.Templates
 {
     using System.IO;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
@@ -30,7 +31,7 @@ namespace SolutionGenerator.Templates
             _assembly = assembly;
         }
 
-        public string LoadTemplate(ITemplateFile templateFile)
+        public async Task<Stream> LoadTemplateStreamAsync(ITemplateFile templateFile)
         {
             Argument.IsNotNull(() => templateFile);
 
@@ -39,25 +40,43 @@ namespace SolutionGenerator.Templates
             var resource = templateFile as ResourceTemplateFile;
             if (resource != null)
             {
-                var content = SolutionGenerator.TemplateFileHelper.ExtractResource(_assembly, resource.ResourceName);
-                return content;
+                var memoryStream = new MemoryStream();
+
+                TemplateFileHelper.ExtractResource(_assembly, resource.ResourceName, memoryStream);
+
+                return memoryStream;
             }
 
             var embeddedResource = templateFile as EmbeddedResourceTemplateFile;
             if (embeddedResource != null)
             {
-                var content = SolutionGenerator.TemplateFileHelper.ExtractEmbeddedResource(_assembly, embeddedResource.ResourceName);
-                return content;
+                var memoryStream = new MemoryStream();
+
+                TemplateFileHelper.ExtractEmbeddedResource(_assembly, embeddedResource.ResourceName, memoryStream);
+
+                return memoryStream;
             }
 
             var file = templateFile as FileTemplateFile;
             if (file != null)
             {
-                var content = File.ReadAllText(file.FileName);
-                return content;
+                return File.OpenRead(file.FileName);
             }
 
             throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Template file type '{templateFile.GetType().Name}' is not yet supported");
+        }
+
+        public async Task<string> LoadTemplateAsync(ITemplateFile templateFile)
+        {
+            Argument.IsNotNull(() => templateFile);
+
+            using (var stream = await LoadTemplateStreamAsync(templateFile))
+            {
+                using (var streamReader = new StreamReader(stream))
+                {
+                    return await streamReader.ReadToEndAsync();
+                }
+            }
         }
     }
 }
