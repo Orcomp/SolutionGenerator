@@ -7,8 +7,11 @@
 namespace SolutionGenerator.Templates
 {
     using System;
+    using System.Collections.Generic;
+    using System.Reflection;
     using Catel;
     using Catel.Logging;
+    using Catel.Reflection;
 
     public class TemplateEngine
     {
@@ -41,55 +44,67 @@ namespace SolutionGenerator.Templates
                 templateContainer = templateContainer.Substring(0, templateContainer.Length - "Template".Length);
             }
 
-            var keyPrefix = $"[[{templateContainer}.";
+            var possiblePrefixes = new List<string>();
+            possiblePrefixes.Add($"[[{templateContainer}.");
 
-            var index = templateContent.IndexOfIgnoreCase(keyPrefix);
-
-            // TODO: Optimize by using regular expressions
-
-            while (index >= 0)
+            var abbreviationAttributes = templateModelType.GetCustomAttributes<AbbreviationAttribute>();
+            foreach (var abbreviationAttribute in abbreviationAttributes)
             {
-                // Search for the whole key
-                var keyStart = index + keyPrefix.Length;
-                var keyEnd = templateContent.IndexOfAny(new [] { '|', ']' }, keyStart);
-                if (keyEnd < 0)
+                possiblePrefixes.Add($"[[{abbreviationAttribute.Abbreviation}.");
+            }
+
+            foreach (var possiblePrefix in possiblePrefixes)
+            {
+                var keyPrefix = possiblePrefix;
+
+                var index = templateContent.IndexOfIgnoreCase(keyPrefix);
+
+                // TODO: Optimize by using regular expressions
+
+                while (index >= 0)
                 {
-                    throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key prefix '{keyPrefix}' at position '{index}'");
+                    // Search for the whole key
+                    var keyStart = index + keyPrefix.Length;
+                    var keyEnd = templateContent.IndexOfAny(new[] {'|', ']'}, keyStart);
+                    if (keyEnd < 0)
+                    {
+                        throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key prefix '{keyPrefix}' at position '{index}'");
+                    }
+
+                    var key = templateContent.Substring(keyStart, keyEnd - keyStart);
+
+                    Log.Debug($"Found template key '{templateContainer}.{key}' at position '{index}'");
+
+                    var value = templateModel.GetValue(key);
+
+                    // Retrieve modifiers that are located after the key
+                    var endPos = templateContent.IndexOf(TemplateKeyEnd, index);
+                    if (endPos < 0)
+                    {
+                        throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key '{key}' at position '{index}'");
+                    }
+
+                    endPos += TemplateKeyEnd.Length;
+
+                    var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
+                    var modifiers = modifiersString.Split(new[] {ModifierSeparator}, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var modifier in modifiers)
+                    {
+                        value = ApplyModifier(value, modifier);
+                    }
+
+                    // Remove the key from the content
+                    var length = endPos - index;
+                    templateContent = templateContent.Remove(index, length);
+
+                    // Insert new value
+                    templateContent = templateContent.Insert(index, value);
+
+                    Log.Debug($"Replaced template key '{templateContainer}.{key}' at position '{index}'");
+
+                    index = templateContent.IndexOfIgnoreCase(keyPrefix);
                 }
-
-                var key = templateContent.Substring(keyStart, keyEnd - keyStart);
-
-                Log.Debug($"Found template key '{templateContainer}.{key}' at position '{index}'");
-
-                var value = templateModel.GetValue(key);
-
-                // Retrieve modifiers that are located after the key
-                var endPos = templateContent.IndexOf(TemplateKeyEnd, index);
-                if (endPos < 0)
-                {
-                    throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key '{key}' at position '{index}'");
-                }
-
-                endPos += TemplateKeyEnd.Length;
-
-                var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
-                var modifiers = modifiersString.Split(new[] { ModifierSeparator }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var modifier in modifiers)
-                {
-                    value = ApplyModifier(value, modifier);
-                }
-
-                // Remove the key from the content
-                var length = endPos - index;
-                templateContent = templateContent.Remove(index, length);
-
-                // Insert new value
-                templateContent = templateContent.Insert(index, value);
-
-                Log.Debug($"Replaced template key '{templateContainer}.{key}' at position '{index}'");
-
-                index = templateContent.IndexOfIgnoreCase(keyPrefix);
             }
 
             return templateContent;

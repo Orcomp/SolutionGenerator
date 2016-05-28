@@ -66,6 +66,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Attributes\AbbreviationAttribute.cs" />
     <Compile Include="Exceptions\SolutionGeneratorException.cs" />
     <Compile Include="Helpers\TemplateFileHelper.cs" />
     <Compile Include="Helpers\TemplateFileHelper.embeddedresources.cs" />
