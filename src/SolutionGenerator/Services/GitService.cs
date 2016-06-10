@@ -6,15 +6,16 @@
 
 namespace SolutionGenerator.Services
 {
-	using Catel;
-	using LibGit2Sharp;
+    using Catel;
+    using LibGit2Sharp;
 
-	public class GitService : IGitService
-	{
-		public void InitGitRepository(string directoryName)
-		{
-			Argument.IsNotNullOrWhitespace(() => directoryName);
-			Repository.Init(directoryName);
-		}
-	}
+    public class GitService : IGitService
+    {
+        public void InitGitRepository(string directoryName)
+        {
+            Argument.IsNotNullOrWhitespace(() => directoryName);
+
+            Repository.Init(directoryName);
+        }
+    }
 }

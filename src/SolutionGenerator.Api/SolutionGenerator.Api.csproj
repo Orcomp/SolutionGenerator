@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14B74996-05F7-446F-AA49-D347F5C9B93B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SolutionGenerator</RootNamespace>
+    <AssemblyName>SolutionGenerator.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\output\debug\SolutionGenerator.Api\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591;1998</NoWarn>
+    <DocumentationFile>..\..\output\debug\SolutionGenerator.Api\SolutionGenerator.Api.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\output\release\SolutionGenerator.Api\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591;1998</NoWarn>
+    <DocumentationFile>..\..\output\release\SolutionGenerator.Api\SolutionGenerator.Api.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Catel.Core">
+      <HintPath>..\..\lib\Catel.Core.4.5.0-unstable0297\lib\net46\Catel.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Catel.Fody.Attributes">
+      <HintPath>..\..\lib\Catel.Fody.2.14.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Attributes\AbbreviationAttribute.cs" />
+    <Compile Include="Exceptions\SolutionGeneratorException.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.embeddedresources.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.zippedfiles.cs" />
+    <Compile Include="Helpers\TemplateFileHelper.resources.cs" />
+    <Compile Include="Models\ResourceTemplateFile.cs" />
+    <Compile Include="Models\FileTemplateFile.cs" />
+    <Compile Include="Models\Interfaces\ITemplateDefinition.cs" />
+    <Compile Include="Models\Interfaces\ITemplateContext.cs" />
+    <Compile Include="Models\EmbeddedResourceTemplateFile.cs" />
+    <Compile Include="Models\Interfaces\ITemplateFile.cs" />
+    <Compile Include="Models\TemplateContextBase.cs" />
+    <Compile Include="Models\TemplateDefinitionBase.cs" />
+    <Compile Include="Models\ZippedFileTemplate.cs" />
+    <Compile Include="Modifiers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IFileSystemService.cs" />
+    <Compile Include="Services\Interfaces\IGitService.cs" />
+    <Compile Include="Services\Interfaces\IProjectFileService.cs" />
+    <Compile Include="Templates\Interfaces\ITemplate.cs" />
+    <Compile Include="Templates\TemplateBase.cs" />
+    <Compile Include="Templates\Templates\CompanyTemplate.cs" />
+    <Compile Include="Templates\Templates\DateTimeTemplate.cs" />
+    <Compile Include="Templates\Templates\GuidTemplate.cs" />
+    <Compile Include="Templates\Templates\NuGetTemplate.cs" />
+    <Compile Include="Templates\Templates\SolutionTemplate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\TemplateFileHelper.files.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

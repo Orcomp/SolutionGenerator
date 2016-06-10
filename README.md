@@ -1,9 +1,9 @@
-SolutionGenerator
-=================
+Solution Generator
+==================
 
 Simple application that will create the project structure, solution and project files as well as other artifacts to start working on a new project at the click of a button.
 
-There are a lot of projects out there that make building and releasing code easier, but there is not a lot out there that makes creating new projects easier. Our aim is to fill this gap with SolutionGenerator.
+There are a lot of projects out there that make building and releasing code easier, but there is not a lot out there that makes creating new projects easier. Our aim is to fill this gap with Solution Generator.
 
 This project was born out of the need to have a "standard" for creating projects quickly.
 
@@ -11,78 +11,139 @@ We follow the standards documented here: https://github.com/Orcomp/Standards, bu
 
 ![ScreenShot](/doc/img/screenshot.png)
 
-## Features
+# How to use
 
-Things SolutionGenerator will do for you **at the click of a button**:
+## Creating a solution
 
-- Runtime solution template discovery. 
-- Create your own solution template with unlimited number of projects
-- This repo has 2 simple templates out of the box
-- Create the following files (and populates them):
-    - Editable Readme.md
-    - Pick Licence.txt from more than a dozen well known licence types
-    - .gitignore (currently comes from the template)
-    - .gitattributes (currently comes from the template)
-    - stlylecop settings (currently comes from the template)
-    - Resharper settings (currently comes from the template)
-    - Initializes a git repository (files not added yet)
+To use this app, please templates (in the form of assemblies) into one of the following directories:
 
+* [exeDirectory]\Templates
+* [exeDirectory]\Plugins
+* %appdata%\WildGums\Solution Generator
 
-Out of the box templates include the following features: 
+Run the app, select your template generator plugin and enter the required values.
 
-- All sources are under the /src folder
-- All projects are configured to build artifacts into an "/output/configname/projectname" folder.
-- NuGet are configured to use the /lib folder
-- NuGet.exe included in the /tools/nuget folder
-- Utility scripts included in the repository root:
-	- Update NuGet.exe
-    - Restore packages
-    - Clean all
+## Creating a template
+
+To create a new template, you need to create a .NET 4.6 library assembly and reference the `SolutionGenerator.Api` assembly.
+
+### Creating a template part
+
+The template parts are separated parts in the template system that take care of replacing the template keys by actual values. The Solution Generator provides some template parts out of
+the box, but below is an extended one showing how to define additional data for a GitHub repository.
 
 
-Once you click the button to create the solution, it will do all of the above, and  immediately start Visual Studio, so you can start working on your project in no time ;)
+    public class GitHubTemplate : TemplateBase
+    {
+        public GitHubTemplate()
+        {
+            // This could be used for additional data
+        }
 
-## Customising
+        public string Company { get; set; }
 
-Adding a new template to the template set is as easy as:
-
-- create a VS solution interactively using your favorite tool
-- remove some folders to spare with space like 'obj'. (optional, recommended) 
-- place a text file named '.description' into the root (optional, recommended). For syntax please refer to the included template zips in SolutionGenerator project's /Templates folder.
-- ZIP the whole folder, name according your preference
-- place the zip file to the executable's folder under ./templates
-- if you would like to make your template to an out of the box template, include the .zip file into the SolutionValidator project's Templates folder as content file, and set its property 'Copy to Output Directory'  to 'Copy if newer'
-
-The tool will pick up the .zip templates at run time.
-The solution name and 'base' project name will be inferred from the template, no magic macros are used.
-To allow this simple infer to work there is a simple rule about project naming: The longest common project name starting part will be inferred as 'base' project name and will replaced with the new project name. For example in case the template contains 4 projects like:
-
-- AnyName.Core.csproj
-- AnyName.Core.Tests.csproj
-- AnyName.Wpf..csproj
-- AnyName.Wpf.Tests.csproj
-
-then AnyName will be inferred as 'base' project name. In case your input for generation is MyNewApp then you will get a new solution with projects:
-
-- MyNewApp.Core.csproj
-- MyNewApp.Core.Tests.csproj
-- MyNewApp.Wpf..csproj
-- MyNewApp.Wpf.Tests.csproj
-
-Solution name is infrerred and replaced independently from 'base' project name.
-Solution root folder name (repository root) is also an independent input.
+        public string RepositoryName { get; set; }
+    }
 
 
-## Building The Solution
+Template parts are very important because they automatically map to the keys that are available in the template system:
 
-The first time you build the solution, NuGet will fetch the required packages to the /lib folder. In case of any error please do not enable NuGet restore on the solution, instead close VS, go to the repository root folder and execute 'scripts - Restore packages.bat' 
+`[TemplateContainerName].[PropertyName]'
 
-## Roadmap
+In the example above, the following constants are available to the template files:
 
-- **SolutionChecker** : will be used to check whether the solution structure and code conforms to a set of standards.
+* GitHub.Company
+* GitHub.RepositoryName
 
-## License
+Template keys are always surrounded by double block quotes, so the keys become:
 
-This project is open source and released under the MIT license.
+* [[GitHub.Company]]
+* [[GitHub.RepositoryName]]
 
-Please contribute to make it better ;)
+### Creating a template context
+
+The template context describes the context of the template every time it is being run. It's a container store for the settings of the template. The default `TemplateContextBase` already
+implements the basics. If more values are needed, additional `ITemplate` implementations can be added (as we created in the previous part).
+
+The template context below defines an additional template part on the context, but also sets some default values for the existing ones.
+
+
+    public class OrcComponentTemplateContext : TemplateContextBase
+    {
+        public OrcComponentTemplateContext()
+        {
+            var assembly = GetType().GetAssemblyEx();
+
+            Company.Name = assembly.Company();
+
+            Solution.Name = "Orc.";
+
+            NuGet.PackageName = "Orc.";
+
+            GitHub = new GitHubTemplate();
+            GitHub.Company = assembly.Company();
+            GitHub.RepositoryName = "Orc.";
+        }
+
+        public GitHubTemplate GitHub { get; protected set; }
+    }
+
+
+### Creating a template definition
+
+The template definition describes the plugin model of the Solution Generator. Below is an example of a template definition that uses the template context created in the previous 
+steps. It also returns a settings view so the options can be customized.
+
+
+	public class OrcComponentTemplateDefinition : TemplateDefinitionBase<OrcComponentTemplateContext>
+	{
+		public override FrameworkElement GetView()
+		{
+			return new SettingsView();
+		}
+	}
+
+
+### Creating a custom settings view
+
+If a custom settings view is required, just create any WPF user control. The `DataContext` of the control will automatically be set to the template context. 
+
+If no settings are required, return `null` in the `GetView` method of the template definition.
+
+### Creating the template content
+
+The actual content are just files. These can be based on an already existing project that has been set up and works very well. The only thing left is to create a subfolder in the 
+class library called `Files` (can be customized if required, but this is the default). Copy all files that should be used for template creation into this directory and set the
+build action to `Resource` (the default type).
+
+The supported file template file types are:
+
+* EmbeddedResource
+* FileResource
+* ZippedFileResource
+* Resource
+
+The last step is to replace any important values by template keys. Below is an example for a license:
+
+
+	The MIT License (MIT)
+	
+	Copyright (c) 2014-[[DATETIME.YEAR]] [[COMPANY.NAME]]
+	
+	Permission is hereby granted, free of charge, ... etc
+
+
+
+### Using modifiers
+
+The template keys support modifiers. Modifiers are placed after the template key (but inside the block) and the values will be modified in the order in which they appear. The
+template key in the following example will use the template value `Solution.Name` and will then convert it to upper case:
+
+[[Solution.Name|uppercase]]
+
+Multiple modifiers are supported, they must be separated by a `|`.
+
+For now the following modifiers are supported:
+
+* Uppercase => Make the value uppercase
+* Lowercase => Make the value lowercase

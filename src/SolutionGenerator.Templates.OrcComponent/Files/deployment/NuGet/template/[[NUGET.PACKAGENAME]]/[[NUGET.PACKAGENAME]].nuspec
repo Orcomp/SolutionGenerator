@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>[[NUGET.PACKAGENAME]]</id>
+    <version>[VERSION]</version>
+    <title>[[NUGET.PACKAGENAME]]</title>
+    <authors>[[COMPANY.NAME]]</authors>
+    <owners>[[COMPANY.NAME]]</owners>
+
+	<description>
+	  [[NUGET.PACKAGENAME]] description.
+	</description>
+	<summary>
+	</summary>
+
+	<tags></tags>
+
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright [[COMPANY.NAME]] 2015 - [[DATETIME.YEAR]]</copyright>
+
+	<language>en-US</language>
+	<projectUrl>https://github.com/[[GITHUB.COMPANY]]/[[GITHUB.REPOSITORYNAME]]</projectUrl>
+	<!--<licenseUrl>http://catel.codeplex.com/license</licenseUrl>-->
+	<!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
+    
+    <dependencies>
+      <!-- <dependency id="Catel.Core" version="[replaced]" /> -->
+    </dependencies>
+  </metadata>
+</package>
