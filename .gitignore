@@ -119,7 +119,8 @@ obj
 # mstest test results
 TestResults
 
-lib/
+[Ll]ib/*
+![Ll]ib/repositories.config
 [Oo]utput/
 packages/
 
