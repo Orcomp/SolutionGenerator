@@ -113,6 +113,10 @@
       <HintPath>..\..\lib\Orc.CsvHelper.1.2.0-unstable0014\lib\net46\Orc.CsvHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Orc.Extensibility">
+      <HintPath>..\..\lib\Orc.Extensibility.1.0.0-unstable0005\lib\net46\Orc.Extensibility.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Orc.LogViewer">
       <HintPath>..\..\lib\Orc.LogViewer.1.2.0-unstable0005\lib\net46\Orc.LogViewer.dll</HintPath>
       <Private>True</Private>
@@ -154,33 +158,6 @@
     </Compile>
     <Compile Include="Converters\TemplateDefinitionToViewConverter.cs" />
     <Compile Include="Extensibility\PluginFinder.cs" />
-    <Compile Include="Orc.Extensibility\Extensions\CustomAttributeDataExtensions.cs" />
-    <Compile Include="Orc.Extensibility\Models\Extensions\PluginExtensions.cs" />
-    <Compile Include="Orc.Extensibility\Models\Interfaces\IPlugin.cs" />
-    <Compile Include="Orc.Extensibility\Models\Interfaces\IPluginConfiguration.cs" />
-    <Compile Include="Orc.Extensibility\Models\Interfaces\IPluginInfo.cs" />
-    <Compile Include="Orc.Extensibility\Models\Plugin.cs" />
-    <Compile Include="Orc.Extensibility\Models\PluginInfo.cs" />
-    <Compile Include="Orc.Extensibility\Services\EventArgs\PluginEventArgs.cs" />
-    <Compile Include="Orc.Extensibility\Services\Extensions\IPluginFinderExtensions.cs" />
-    <Compile Include="Orc.Extensibility\Services\Extensions\IPluginManagerExtensions.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IMultiplePluginsService.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginCleanupService.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginFactory.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginFinder.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginInfoProvider.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginLocationsProvider.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginManager.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\IPluginService.cs" />
-    <Compile Include="Orc.Extensibility\Services\Interfaces\ISinglePluginService.cs" />
-    <Compile Include="Orc.Extensibility\Services\MultiplePluginsService.cs" />
-    <Compile Include="Orc.Extensibility\Services\PluginCleanupService.cs" />
-    <Compile Include="Orc.Extensibility\Services\PluginFactory.cs" />
-    <Compile Include="Orc.Extensibility\Services\PluginFinderBase.cs" />
-    <Compile Include="Orc.Extensibility\Services\PluginInfoProvider.cs" />
-    <Compile Include="Orc.Extensibility\Services\PluginLocationsProvider.cs" />
-    <Compile Include="Orc.Extensibility\Services\PluginManager.cs" />
-    <Compile Include="Orc.Extensibility\Services\SinglePluginService.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EFEntityPluralService.cs" />
@@ -219,9 +196,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Orc.Extensibility\Attributes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SolutionGenerator.Api\SolutionGenerator.Api.csproj">
       <Project>{14b74996-05f7-446f-aa49-d347f5c9b93b}</Project>
