@@ -73,6 +73,77 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Content Include="Files\src\SolutionAssemblyInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET46\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\Properties\AssemblyInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\ViewModels\MainViewModel.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\DummyFacts.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\Properties\AssemblyInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\AssemblyInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET40.Designer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET45.Designer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET46.Designer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="OrcComponentTemplateDefinition.cs" />
     <Compile Include="OrcComponentTemplateContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,35 +163,222 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\.gitattributes" />
-    <Content Include="Files\.gitignore" />
-    <Content Include="Files\AUTHORS" />
-    <Content Include="Files\CONTRIBUTING.md" />
-    <Content Include="Files\CONTRIBUTORS" />
-    <Content Include="Files\deployment\FinalBuilder\[[SOLUTION.NAME]].CreatePackages.fbp7" />
-    <Content Include="Files\deployment\NuGet\template\[[NUGET.PACKAGENAME]]\[[NUGET.PACKAGENAME]].nuspec" />
-    <Content Include="Files\GitVersionConfig.yaml" />
-    <Content Include="Files\LICENSE" />
-    <Content Include="Files\README.md" />
-    <Content Include="Files\scripts - Build - Debug.bat" />
-    <Content Include="Files\scripts - Build - Release.bat" />
-    <Content Include="Files\scripts - Clean all.bat" />
-    <Content Include="Files\scripts - Restore packages.bat" />
-    <Content Include="Files\scripts - Update NuGet.bat" />
+    <Content Include="Files\.gitattributes">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\.gitignore">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\AUTHORS">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\CONTRIBUTING.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\CONTRIBUTORS">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\deployment\FinalBuilder\[[SOLUTION.NAME]].CreatePackages.fbp7">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\deployment\NuGet\template\[[NUGET.PACKAGENAME]]\[[NUGET.PACKAGENAME]].nuspec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\GitVersionConfig.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\scripts - Build - Debug.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\scripts - Build - Release.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\scripts - Clean all.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\scripts - Restore packages.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\scripts - Update NuGet.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\[[SOLUTION.NAME]].Example.NET40.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\[[SOLUTION.NAME]].Example.NET45.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET46\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET46\[[SOLUTION.NAME]].Example.NET46.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\[[SOLUTION.NAME]].Tests.NET40.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\[[SOLUTION.NAME]].Tests.NET45.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\[[SOLUTION.NAME]].Tests.NET46.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\[[SOLUTION.NAME]].NET40.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\[[SOLUTION.NAME]].NET45.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\[[SOLUTION.NAME]].NET46.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\tools\NuGet\NuGet.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\src\nuget.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET46\App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET46\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.projitems">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.shproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].sln.DotSettings">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.projitems">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.shproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.projitems">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.shproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.de.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.es.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.fr.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.nl.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.ru.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /f /y "$(TargetDir)\$(TargetFileName)" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /s /f /y "$(TargetDir)\$(TargetFileName)" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\"
+xcopy /s /f /y "$(TargetDir)Files" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\Files\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\..\lib\Fody.1.29.3\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
