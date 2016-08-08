@@ -27,7 +27,7 @@
     <DefineConstants>TRACE;DEBUG;NET;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\output\debug\NET40\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.XML</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,7 +36,7 @@
     <DefineConstants>TRACE;NET;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\output\release\NET40\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.XML</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\[[SOLUTION.NAME]].NET40.csproj">
-      <Project>{[[GUID.EXAMPLE_SHARED]]}</Project>
+      <Project>{[[GUID.COMPONENT_NET40]]}</Project>
       <Name>[[SOLUTION.NAME]].NET40</Name>
     </ProjectReference>
   </ItemGroup>

@@ -109,7 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\[[SOLUTION.NAME]].NET40.csproj">
-      <Project>{[[GUID.EXAMPLE_SHARED]]}</Project>
+      <Project>{[[GUID.COMPONENT_NET40]]}</Project>
       <Name>[[SOLUTION.NAME]].NET40</Name>
     </ProjectReference>
   </ItemGroup>

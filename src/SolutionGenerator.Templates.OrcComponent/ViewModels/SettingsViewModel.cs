@@ -19,8 +19,11 @@ namespace SolutionGenerator.Templates.OrcComponent.ViewModels
 
             _templateContext = templateContext;
 
+            NuGet = templateContext.NuGet;
             GitHub = templateContext.GitHub;
         }
+
+        public NuGetTemplate NuGet { get; private set; }
 
         public GitHubTemplate GitHub { get; private set; }
     }
