@@ -6,7 +6,7 @@
     <SharedGUID>487b10aa-91ba-44b2-a73b-8af281efc6a5</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Data.Application.Tests</Import_RootNamespace>
+    <Import_RootNamespace>[[SOLUTION.NAME]].Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />

@@ -6,7 +6,7 @@
     <SharedGUID>86a2ed98-8615-43e7-bb48-ffd6bfe6a3f1</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Data.Application</Import_RootNamespace>
+    <Import_RootNamespace>[[SOLUTION.NAME]]</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Model\OperationXMap.cs" />

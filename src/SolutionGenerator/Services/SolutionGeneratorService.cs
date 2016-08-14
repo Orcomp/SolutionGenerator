@@ -31,19 +31,19 @@ namespace SolutionGenerator.Services
 
             Log.Debug($"Found '{resources.Count}' resources");
 
-            // TODO: Consider multithreading
-            foreach (var resource in resources)
-            {
-                var isBinary = false;
+			// TODO: Consider multithreading
+			foreach (var resource in resources)
+			{
+				var isBinary = false;
 
-                if (resource.RelativeName.EndsWithIgnoreCase(".exe") || resource.RelativeName.EndsWithIgnoreCase(".dll"))
-                {
-                    isBinary = true;
-                }
+				if (resource.RelativeName.EndsWithIgnoreCase(".exe") || resource.RelativeName.EndsWithIgnoreCase(".dll"))
+				{
+					isBinary = true;
+				}
 
-                await ExtractResourceAndReplaceValuesAsync(templateDefinition, templateEngine, templateLoader, templates, resource, isBinary);
-            }
-        }
+				await ExtractResourceAndReplaceValuesAsync(templateDefinition, templateEngine, templateLoader, templates, resource, isBinary);
+			}
+		}
 
         private async Task ExtractResourceAndReplaceValuesAsync(ITemplateDefinition templateDefinition, TemplateEngine engine,
             TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile, bool isBinary)
@@ -77,7 +77,8 @@ namespace SolutionGenerator.Services
                         {
                             var content = await streamReader.ReadToEndAsync();
 
-                            Log.Debug($"Replacing template values in content for '{templateFile}'");
+							
+							Log.Debug($"Replacing template values in content for '{templateFile}'");
 
                             foreach (var template in templates)
                             {

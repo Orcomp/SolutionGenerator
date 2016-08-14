@@ -91,6 +91,7 @@
     <Compile Include="Templates\Templates\CompanyTemplate.cs" />
     <Compile Include="Templates\Templates\DateTimeTemplate.cs" />
     <Compile Include="Templates\Templates\GuidTemplate.cs" />
+    <Compile Include="Templates\Templates\DataTemplate.cs" />
     <Compile Include="Templates\Templates\NuGetTemplate.cs" />
     <Compile Include="Templates\Templates\SolutionTemplate.cs" />
   </ItemGroup>

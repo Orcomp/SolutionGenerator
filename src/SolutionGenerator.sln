@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Templates
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Templates.OrcComponent", "SolutionGenerator.Templates.OrcComponent\SolutionGenerator.Templates.OrcComponent.csproj", "{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionGenerator.Templates.DataApplication", "SolutionGenerator.Templates.DataApplication\SolutionGenerator.Templates.DataApplication.csproj", "{8E1E7A12-C015-40E2-B3E0-25CA96DCE5DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E1E7A12-C015-40E2-B3E0-25CA96DCE5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E1E7A12-C015-40E2-B3E0-25CA96DCE5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E1E7A12-C015-40E2-B3E0-25CA96DCE5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1E7A12-C015-40E2-B3E0-25CA96DCE5DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +82,6 @@ Global
 		{785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF} = {52B738FC-F0CB-4A3A-AC0C-CCF381C703B7}
 		{F3442E68-FAF4-4727-86BC-DFEE59A17623} = {785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}
 		{9C69FD78-0EF3-4636-B23B-67C30B9D75E9} = {785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}
+		{8E1E7A12-C015-40E2-B3E0-25CA96DCE5DC} = {785D9AB2-B17E-4BDE-AFEB-EBF57B7541DF}
 	EndGlobalSection
 EndGlobal
