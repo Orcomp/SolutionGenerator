@@ -12,6 +12,7 @@
 [Bb]in/
 [Dd]ebug/
 [Rr]elease/
+.vs/
 *_i.c
 *_p.c
 *.ilk
