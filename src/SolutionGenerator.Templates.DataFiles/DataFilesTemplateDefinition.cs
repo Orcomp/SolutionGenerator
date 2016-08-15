@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DataApplicationTemplate.cs" company="WildGums">
+// <copyright file="DataFilesTemplate.cs" company="WildGums">
 //   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Templates.DataApplication
+namespace SolutionGenerator.Templates.DataFiles
 {
 	using System;
 	using System.Collections.Generic;
@@ -20,10 +20,10 @@ namespace SolutionGenerator.Templates.DataApplication
 	using Services;
 	using Views;
 
-    public class DataApplicationTemplateDefinition : TemplateDefinitionBase<DataApplicationTemplateContext>
+    public class DataFilesTemplateDefinition : TemplateDefinitionBase<DataFilesTemplateContext>
     {
 		private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-		private DataApplicationTemplateContext _templateContext = null;
+		private DataFilesTemplateContext _templateContext = null;
 
 
 	    public override List<ITemplateFile> GetTemplateFiles()
@@ -43,15 +43,13 @@ namespace SolutionGenerator.Templates.DataApplication
 	    public override void PostGenerate()
 	    {
 			ProcessDataFolder(TemplateContext.Solution.Directory);
-			var gitService = ServiceLocator.Default.ResolveType<IGitService>();
-			gitService.InitGitRepository(TemplateContext.Solution.Directory);
 			base.PostGenerate();
 	    }
 
 
 		private void ProcessDataFolder(string root)
 		{
-			_templateContext = (DataApplicationTemplateContext) TemplateContext;
+			_templateContext = (DataFilesTemplateContext) TemplateContext;
 
 			var fileSystemService = ServiceLocator.Default.ResolveType<IFileSystemService>();
 			var codeGenerationService = ServiceLocator.Default.ResolveType<ICodeGenerationService>();
@@ -59,8 +57,6 @@ namespace SolutionGenerator.Templates.DataApplication
 			var entityPluralService = ServiceLocator.Default.ResolveType<IEntityPluralService>();
 
 			CreateModelFiles(root, fileSystemService, codeGenerationService, projectFileService);
-			CreateDataFiles(root, fileSystemService, projectFileService);
-			CreateSingleTestClassFile(root, fileSystemService, entityPluralService);
 			CreateProgramClassFile(root, fileSystemService, entityPluralService);
 		}
 
@@ -85,14 +81,7 @@ namespace SolutionGenerator.Templates.DataApplication
 				}
 			}
 
-			// Old version
-			//CodeGeneration.CreateCSharpFilesForAllCsvFiles(solution.DataFolder, nameSpace, modelFolder);
-
-			var projectFileName = modelFolder.ToLower().Replace("model", $"{TemplateContext.Solution.Name}.Shared.projitems");
-
 			var referenceName = "operationx";
-
-			projectFileService.Open(projectFileName);
 			var newFiles = fileSystemService.Files(modelFolder, "*.cs").ToArray();
 
 			var toBeRemove = new List<string>();
@@ -105,14 +94,9 @@ namespace SolutionGenerator.Templates.DataApplication
 						toBeRemove.Add(file);
 						continue;
 					}
-					if (file.ToLower().EndsWith("map.cs"))
+                    if (file.ToLower().EndsWith("map.cs"))
 					{
-						projectFileService.AddItem("Compile", $"{referenceName}.cs", $@"Import\{Path.GetFileName(file)}");
 						fileSystemService.Move(file, file.Replace(@"\Model\", @"\Model\Import\"));
-					}
-					else
-					{
-						projectFileService.AddItem("Compile", $"{referenceName}.cs", Path.GetFileName(file));
 					}
 				}
 				catch (Exception e)
@@ -121,78 +105,27 @@ namespace SolutionGenerator.Templates.DataApplication
 				}
 
 			}
+            var placeHolderFiles = fileSystemService.Files(modelFolder, ".placeholder.txt").ToArray();
+            toBeRemove.AddRange(placeHolderFiles);
 
             foreach (var file in toBeRemove)
 			{
 				try
 				{
 					fileSystemService.DeleteFile(file);
-					projectFileService.RemoveItem("Compile", Path.GetFileName(file).ToLower());
 				}
 				catch (Exception e)
 				{
 					Log.Error($"Can not delete file: '{file}'", e);
 				}
 			}
-			projectFileService.Save();
-		}
-
-		private void CreateDataFiles(string root, IFileSystemService fileSystemService, IProjectFileService projectFileService)
-		{
-			var testFilesFolder = fileSystemService.Folders(root, "*.*").FirstOrDefault(f => f.ToLower().Contains("\\testfiles"));
-			if (testFilesFolder == null)
-			{
-				return;
-			}
-
-			var projectFileName = testFilesFolder.ToLower().Replace("testfiles", $"{TemplateContext.Solution.Name}.Tests.Shared.projitems");
-
-			// Copy and Add generated files:
-			projectFileService.Open(projectFileName);
-			var files = fileSystemService.Files(_templateContext.Data.DataFolder, "*.csv").ToArray();
-
-			var referenceName = "operationx.csv";
-			foreach (var file in files)
-			{
-				try
-				{
-					var targetFileName = Path.Combine(testFilesFolder, Path.GetFileName(file));
-					fileSystemService.Copy(file, targetFileName);
-					projectFileService.AddItem("None", referenceName, Path.GetFileName(file));
-				}
-				catch (Exception e)
-				{
-					Log.Error($"Can not process data file: '{Path.GetFileName(file)}'", e);
-				}
-			}
-
-			projectFileService.RemoveItem("None", referenceName);
-			projectFileService.Save();
-
-			try
-			{
-				fileSystemService.DeleteFile(Path.Combine(testFilesFolder, referenceName));
-			}
-			catch (Exception e)
-			{
-				Log.Error("Can not delete template file", e);
-			}
 		}
 
 		private void CreateProgramClassFile(string root, IFileSystemService fileSystemService, IEntityPluralService entityPluralService)
 		{
-			var projectFolder = fileSystemService.Folders(root, "*.*")
-				.Where(f => f.ToLower().Contains("console.shared"))
-				.OrderBy(f => f.Length)
-				.FirstOrDefault();
-
-			if (projectFolder == null)
-			{
-				return;
-			}
 			var files = fileSystemService.Files(_templateContext.Data.DataFolder, "*.csv").ToArray();
 
-			var programFileName = Path.Combine(projectFolder, "Program.cs");
+			var programFileName = Path.Combine(root, "Program.cs");
 			var inputLines = fileSystemService.ReadAllLines(programFileName);
 			var outputLines = new List<string>();
 
@@ -222,84 +155,12 @@ namespace SolutionGenerator.Templates.DataApplication
 			fileSystemService.WriteAllLines(programFileName, outputLines);
 		}
 
-		private void CreateSingleTestClassFile(string root, IFileSystemService fileSystemService, IEntityPluralService entityPluralService)
-		{
-			var testFolder = fileSystemService.Folders(root, "*.*")
-				.Where(f => f.ToLower().Contains("tests.shared"))
-				.OrderBy(f => f.Length)
-				.FirstOrDefault();
-
-			if (testFolder == null)
-			{
-				return;
-			}
-
-			var files = fileSystemService.Files(_templateContext.Data.DataFolder, "*.csv").ToArray();
-
-			var testFileName = Path.Combine(testFolder, "CsvImportTests.cs");
-			var inputLines = fileSystemService.ReadAllLines(testFileName);
-			var outputLines = new List<string>();
-
-			var prologueLines = GetPrologueLines(inputLines);
-			outputLines.AddRange(prologueLines);
-
-			foreach (var file in files)
-			{
-				try
-				{
-					var className = entityPluralService.ToSingular(Path.GetFileNameWithoutExtension(file).ToCamelCase());
-					var methodLines = GetTestLines(inputLines);
-					ReplaceInLines(methodLines, "OperationX.csv", Path.GetFileName(file));
-					ReplaceInLines(methodLines, "OperationX", className);
-					outputLines.AddRange(methodLines);
-				}
-				catch (Exception e)
-				{
-					Log.Error("Can not add unit test for model class {className}", e);
-				}
-			}
-			outputLines.Add($"{new string(' ', 4)}}}");
-			outputLines.Add("}");
-
-			fileSystemService.WriteAllLines(testFileName, outputLines);
-		}
-
 		private void ReplaceInLines(IList<string> testLines, string oldValue, string y)
 		{
 			for (int index = 0; index < testLines.Count; index++)
 			{
 				testLines[index] = testLines[index].Replace(oldValue, y);
 			}
-		}
-
-		private IList<string> GetTestLines(string[] sourceLines)
-		{
-			var result = new List<string>();
-			var isTestLine = false;
-			foreach (var line in sourceLines)
-			{
-				if (line.Contains("[Test]"))
-				{
-					isTestLine = true;
-				}
-				if (isTestLine)
-				{
-					result.Add((string)line.Clone());
-				}
-				if (line.Trim().Length == 1 && line.Contains("}"))
-				{
-					result.Add("");
-					break;
-				}
-			}
-			return result;
-		}
-
-		private IList<string> GetPrologueLines(IEnumerable<string> sourceLines)
-		{
-			return sourceLines
-				.TakeWhile(line => !line.Contains("[Test]"))
-				.Select(line => (string)line.Clone()).ToList();
 		}
 
 		private IList<string> GetProgramPrologueLines(IEnumerable<string> sourceLines)

@@ -1,19 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DataApplicationTemplateContext.cs" company="WildGums">
+// <copyright file="DataFilesTemplateContext.cs" company="WildGums">
 //   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SolutionGenerator.Templates.DataApplication
+namespace SolutionGenerator.Templates.DataFiles
 {
 
-    public class DataApplicationTemplateContext : TemplateContextBase
+    public class DataFilesTemplateContext : TemplateContextBase
     {
-        public DataApplicationTemplateContext()
+        public DataFilesTemplateContext()
         {
             Company.Name = "MyCompanyName";
 
-            Solution.Name = "MySolutionName";
+            Solution.Name = "MyNamespace";
 
 			Data = new DataTemplate();
 			Data.DataFolder = "";
