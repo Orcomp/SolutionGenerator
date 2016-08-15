@@ -15,20 +15,14 @@ namespace SolutionGenerator.Templates.DataApplication
         {
             var assembly = GetType().GetAssemblyEx();
 
-            Company.Name = assembly.Company();
+            Company.Name = "MyCompanyName";
 
-            Solution.Name = "Orc.";
+            Solution.Name = "MySolutionName";
 
 			Data = new DataTemplate();
 			Data.DataFolder = "";
-
-			GitHub = new GitHubTemplate();
-            GitHub.Company = assembly.Company();
-            GitHub.RepositoryName = "Orc.";
         }
 
 		public DataTemplate Data { get; protected set; }
-
-		public GitHubTemplate GitHub { get; protected set; }
     }
 }

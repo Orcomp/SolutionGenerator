@@ -20,12 +20,9 @@ namespace SolutionGenerator.Templates.DataApplication.ViewModels
             _templateContext = templateContext;
 
             Data = templateContext.Data;
-            GitHub = templateContext.GitHub;
         }
 
-		//public NuGetTemplate NuGet { get; private set; }
+		
 		public DataTemplate Data { get; private set; }
-
-		public GitHubTemplate GitHub { get; private set; }
     }
 }

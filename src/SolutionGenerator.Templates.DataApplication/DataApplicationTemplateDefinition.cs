@@ -60,7 +60,8 @@ namespace SolutionGenerator.Templates.DataApplication
 
 			CreateModelFiles(root, fileSystemService, codeGenerationService, projectFileService);
 			CreateDataFiles(root, fileSystemService, projectFileService);
-			CreateSingleTestClassFile(root, fileSystemService, projectFileService, entityPluralService);
+			CreateSingleTestClassFile(root, fileSystemService, entityPluralService);
+			CreateProgramClassFile(root, fileSystemService, entityPluralService);
 		}
 
 		private void CreateModelFiles(string root, IFileSystemService fileSystemService, ICodeGenerationService codeGenerationService, IProjectFileService projectFileService)
@@ -177,7 +178,50 @@ namespace SolutionGenerator.Templates.DataApplication
 			}
 		}
 
-		private void CreateSingleTestClassFile(string root, IFileSystemService fileSystemService, IProjectFileService projectFileService, IEntityPluralService entityPluralService)
+		private void CreateProgramClassFile(string root, IFileSystemService fileSystemService, IEntityPluralService entityPluralService)
+		{
+			var projectFolder = fileSystemService.Folders(root, "*.*")
+				.Where(f => f.ToLower().Contains("console.shared"))
+				.OrderBy(f => f.Length)
+				.FirstOrDefault();
+
+			if (projectFolder == null)
+			{
+				return;
+			}
+			var files = fileSystemService.Files(_templateContext.Data.DataFolder, "*.csv").ToArray();
+
+			var programFileName = Path.Combine(projectFolder, "Program.cs");
+			var inputLines = fileSystemService.ReadAllLines(programFileName);
+			var outputLines = new List<string>();
+
+			var prologueLines = GetProgramPrologueLines(inputLines);
+			outputLines.AddRange(prologueLines);
+
+			foreach (var file in files)
+			{
+				try
+				{
+					var className = entityPluralService.ToSingular(Path.GetFileNameWithoutExtension(file).ToCamelCase());
+					var programLines = GetProgramLines(inputLines);
+					ReplaceInLines(programLines, "OperationX.csv", Path.GetFileName(file));
+					ReplaceInLines(programLines, "OperationX", className);
+					ReplaceInLines(programLines, "operationX", Char.ToLowerInvariant(className[0]) + className.Substring(1));
+					outputLines.AddRange(programLines);
+				}
+				catch (Exception e)
+				{
+					Log.Error("Can not add program line for model class {className}", e);
+				}
+			}
+            outputLines.Add($"{new string(' ', 8)}}}");
+            outputLines.Add($"{new string(' ', 4)}}}");
+			outputLines.Add("}");
+
+			fileSystemService.WriteAllLines(programFileName, outputLines);
+		}
+
+		private void CreateSingleTestClassFile(string root, IFileSystemService fileSystemService, IEntityPluralService entityPluralService)
 		{
 			var testFolder = fileSystemService.Folders(root, "*.*")
 				.Where(f => f.ToLower().Contains("tests.shared"))
@@ -188,9 +232,7 @@ namespace SolutionGenerator.Templates.DataApplication
 			{
 				return;
 			}
-			var projectFileName = testFolder.ToLower().Replace("shared", $"Shared\\{TemplateContext.Solution.Name}.Tests.Shared.projitems");
 
-			projectFileService.Open(projectFileName);
 			var files = fileSystemService.Files(_templateContext.Data.DataFolder, "*.csv").ToArray();
 
 			var testFileName = Path.Combine(testFolder, "CsvImportTests.cs");
@@ -212,7 +254,7 @@ namespace SolutionGenerator.Templates.DataApplication
 				}
 				catch (Exception e)
 				{
-					Log.Error("Can add unit test for model class {className}", e);
+					Log.Error("Can not add unit test for model class {className}", e);
 				}
 			}
 			outputLines.Add($"{new string(' ', 4)}}}");
@@ -257,6 +299,35 @@ namespace SolutionGenerator.Templates.DataApplication
 			return sourceLines
 				.TakeWhile(line => !line.Contains("[Test]"))
 				.Select(line => (string)line.Clone()).ToList();
+		}
+
+		private IList<string> GetProgramPrologueLines(IEnumerable<string> sourceLines)
+		{
+			return sourceLines
+				.TakeWhile(line => !line.Contains("var operationXCollection"))
+				.Select(line => (string)line.Clone()).ToList();
+		}
+
+		private IList<string> GetProgramLines(string[] sourceLines)
+		{
+			var result = new List<string>();
+			var isBodyLine = false;
+			foreach (var line in sourceLines)
+			{
+				if (line.Contains("var operationXCollection"))
+				{
+					isBodyLine = true;
+				}
+				if (isBodyLine)
+				{
+					result.Add((string)line.Clone());
+				}
+				if (line.Contains("}"))
+				{
+					break;
+				}
+			}
+			return result;
 		}
 	}
 }

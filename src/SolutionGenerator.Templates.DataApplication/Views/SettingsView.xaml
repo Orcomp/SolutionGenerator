@@ -26,7 +26,7 @@
             </catel:StackGrid>
         </GroupBox>
 
-        <GroupBox Header="GitHub" DataContext="{Binding GitHub}">
+        <!--<GroupBox Header="GitHub" DataContext="{Binding GitHub}">
             <catel:StackGrid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="125" />
@@ -44,7 +44,7 @@
                 <Label Content="Repository name" />
                 <TextBox Text="{Binding RepositoryName}" />
             </catel:StackGrid>
-        </GroupBox>
+        </GroupBox>-->
     </StackPanel>
 
 </catel:UserControl>

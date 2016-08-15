@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="OperationXMap.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
+// <copyright file="OperationXMap.cs" company="[[COMPANY.NAME]]">
+//   Copyright (c) [[DATETIME.YEAR]] [[COMPANY.NAME]]. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 

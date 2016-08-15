@@ -1,8 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="WildGums">
-//   Copyright (c) 2008 - 2016 WildGums. All rights reserved.
+// <copyright file="AssemblyInfo.cs" company="[[COMPANY.NAME]]">
+//   Copyright (c) [[DATETIME.YEAR]] [[COMPANY.NAME]]. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 
 using System.Reflection;
 using System.Runtime.CompilerServices;
