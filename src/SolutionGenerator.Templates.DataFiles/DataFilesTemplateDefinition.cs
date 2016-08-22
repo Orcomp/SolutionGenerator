@@ -52,12 +52,48 @@ namespace SolutionGenerator.Templates.DataFiles
 			_templateContext = (DataFilesTemplateContext) TemplateContext;
 
 			var fileSystemService = ServiceLocator.Default.ResolveType<IFileSystemService>();
+			var validationService = ServiceLocator.Default.ResolveType<ICsvValidationService>();
 			var codeGenerationService = ServiceLocator.Default.ResolveType<ICodeGenerationService>();
 			var projectFileService = ServiceLocator.Default.ResolveType<IProjectFileService>();
 			var entityPluralService = ServiceLocator.Default.ResolveType<IEntityPluralService>();
 
+			if (ValidateFiles(root, fileSystemService, validationService))
+			{
+				throw new ApplicationException("Invalid data file(s) found, see log for details");
+			}
+
+
 			CreateModelFiles(root, fileSystemService, codeGenerationService, projectFileService);
 			CreateProgramClassFile(root, fileSystemService, entityPluralService);
+		}
+
+		private bool ValidateFiles(string root, IFileSystemService fileSystemService, ICsvValidationService validationService)
+		{
+			var modelFolder = fileSystemService.Folders(root, "*.*").FirstOrDefault(f => f.ToLower().Contains("\\model"));
+			if (modelFolder == null)
+			{
+				return true;
+			}
+
+			var hasErrors = false;
+			var files = fileSystemService.Files(_templateContext.Data.DataFolder, "*.csv").ToArray();
+			foreach (var file in files)
+			{
+				try
+				{
+					var validationContext = validationService.Validate(file);
+					foreach (var error in validationContext.GetErrors())
+					{
+						hasErrors = true;
+						Log.Error(error.Message);
+					}
+				}
+				catch (Exception exception)
+				{
+					Log.Error($"Can not validate data file: '{Path.GetFileName(file)}'", exception);
+				}
+			}
+			return hasErrors;
 		}
 
 		private void CreateModelFiles(string root, IFileSystemService fileSystemService, ICodeGenerationService codeGenerationService, IProjectFileService projectFileService)

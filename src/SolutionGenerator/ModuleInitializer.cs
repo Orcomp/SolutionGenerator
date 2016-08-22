@@ -54,7 +54,8 @@ namespace SolutionGenerator
             serviceLocator.RegisterType<IProjectFileService, ProjectFileService>();
 
             serviceLocator.RegisterType<ICodeGenerationService, CodeGenerationService>();
-            serviceLocator.RegisterType<IEntityPluralService, EfEntityPluralService>();
+			serviceLocator.RegisterType<ICsvValidationService, CsvValidationService>();
+			serviceLocator.RegisterType<IEntityPluralService, EfEntityPluralService>();
             serviceLocator.RegisterType<IPluralizationService, EnglishPluralizationService>();
 
             serviceLocator.RegisterType<ITaskRunnerService, TaskRunnerService>();
