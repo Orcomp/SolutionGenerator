@@ -63,8 +63,9 @@ namespace SolutionGenerator.Templates.DataApplication
 
 			if (ValidateFiles(root, fileSystemService, validationService))
 			{
-				throw new ApplicationException("Invalid data file(s) found, see log for details");
+				throw new ApplicationException("Invalid data file(s) found, see log for details. Please fix and try again.");
 			}
+
 			CreateModelFiles(root, fileSystemService, codeGenerationService, projectFileService);
 			CreateDataFiles(root, fileSystemService, projectFileService);
 			CreateSingleTestClassFile(root, fileSystemService, entityPluralService);
