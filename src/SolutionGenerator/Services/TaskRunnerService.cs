@@ -84,7 +84,7 @@ namespace SolutionGenerator.Services
 
             if (Directory.Exists(directory))
             {
-                if (Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Any())
+                if (Directory.GetFiles(directory, "*", SearchOption.TopDirectoryOnly).Any())
                 {
                     // TODO: Turn this into a question later
                     Log.Error($"Solution directory '{directory}' must be empty");
