@@ -63,7 +63,7 @@ namespace SolutionGenerator.Extensibility
         {
             // Note: we are in reflection only context here, we must check against the name, not the type
             if ((from iface in type.GetInterfacesEx()
-                 where iface.FullName.Equals(ExpectedInterfaceName)
+                 where string.Equals(iface.FullName, ExpectedInterfaceName)
                  select iface).Any())
             {
                 return true;
