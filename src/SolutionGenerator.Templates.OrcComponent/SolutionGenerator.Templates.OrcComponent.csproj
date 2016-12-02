@@ -337,6 +337,12 @@
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.shproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Files\.github\ISSUE_TEMPLATE.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\.github\PULL_REQUEST_TEMPLATE.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
