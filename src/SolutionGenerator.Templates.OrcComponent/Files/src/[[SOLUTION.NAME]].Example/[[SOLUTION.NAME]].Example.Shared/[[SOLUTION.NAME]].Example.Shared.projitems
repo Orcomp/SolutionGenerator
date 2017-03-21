@@ -20,11 +20,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ModuleInitializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
 	<Compile Include="$(MSBuildThisFileDirectory)..\..\SolutionAssemblyInfo.cs" />
 	<Compile Include="$(MSBuildThisFileDirectory)..\..\GlobalSuppressions.cs" />
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

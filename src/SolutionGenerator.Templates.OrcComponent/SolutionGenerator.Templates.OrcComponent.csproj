@@ -144,6 +144,12 @@
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET46.Designer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Files\src\GlobalSuppressions.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\MethodTimeLogger.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="OrcComponentTemplateDefinition.cs" />
     <Compile Include="OrcComponentTemplateContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
