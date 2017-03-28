@@ -41,32 +41,11 @@ namespace SolutionGenerator.Templates
 
             Log.Debug("Filling template with template data");
 
-            var templateModelType = templateModel.GetType();
+            var possibleDataPrefixes = templateModel.GetPossibleDataPrefixes();
 
-            var templateContainer = templateModelType.Name;
-            if (templateContainer.EndsWith("Template"))
-            {
-                templateContainer = templateContainer.Substring(0, templateContainer.Length - "Template".Length);
-            }
-
-            var possibleDataPrefixes = new List<string>();
-
-            if (templateModel is CollectionItemTemplate)
-            {
-                // Direct scope (scope is collection item)
-                possibleDataPrefixes.Add(string.Empty);
-            }
-
-            possibleDataPrefixes.Add($"{templateContainer}.");
-
-            var abbreviationAttributes = templateModelType.GetCustomAttributes<AbbreviationAttribute>();
-            foreach (var abbreviationAttribute in abbreviationAttributes)
-            {
-                possibleDataPrefixes.Add($"{abbreviationAttribute.Abbreviation}.");
-            }
-
-            var allPossiblePrefixes = new List<string>(possibleDataPrefixes.Select(x => $"[[{x}"));
+            var allPossiblePrefixes = new List<string>();
             allPossiblePrefixes.Add(TemplateBeginForeachKey);
+            allPossiblePrefixes.AddRange(possibleDataPrefixes.Select(x => $"[[{x}"));
 
             foreach (var possiblePrefix in allPossiblePrefixes)
             {
@@ -88,7 +67,7 @@ namespace SolutionGenerator.Templates
 
                     var key = templateContent.Substring(keyStart, keyEnd - keyStart).Trim();
 
-                    Log.Debug($"Found template key '{templateContainer}.{key}' at position '{index}'");
+                    Log.Debug($"Found template key '{keyPrefix}{key}' at position '{index}'");
 
                     // Retrieve modifiers that are located after the key
                     var endPos = templateContent.IndexOf(TemplateKeyEnd, index);
@@ -105,10 +84,8 @@ namespace SolutionGenerator.Templates
 
                     if (keyPrefix.EqualsIgnoreCase(TemplateBeginForeachKey))
                     {
-                        var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
-                                          where key.StartsWithIgnoreCase(possibleDataPrefix)
-                                          select possibleDataPrefix).FirstOrDefault();
-                        if (string.IsNullOrWhiteSpace(usedPrefix))
+                        var collection = (new[] { templateModel }).GetForEachCollection(key);
+                        if (collection == null)
                         {
                             // Foreach is not for this template, ignore
                             index = FindNextKeyIndex(templateContent, keyPrefix, index);
@@ -122,23 +99,29 @@ namespace SolutionGenerator.Templates
                             throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of foreach key '{key}' at position '{index}'");
                         }
 
-                        key = key.Replace(usedPrefix, string.Empty);
                         var foreachTemplate = templateContent.Substring(endPos, foreachEnd - endPos);
 
-                        var collection = templateModel.GetCollectionValue(key);
-                        if (collection != null)
+                        foreach (var collectionItem in collection)
                         {
-                            foreach (var collectionItem in collection)
-                            {
-                                contentToReplaceWith = GenerateForeachContent(collectionItem, foreachTemplate);
-                            }
+                            contentToReplaceWith = GenerateForeachContent(collectionItem, foreachTemplate);
                         }
 
                         foreachEnd += TemplateEndForeachKey.Length;
                         partToReplaceLength = foreachEnd - index;
                     }
+
+                    // TODO: Add other special cases here if necessary
+
                     else
                     {
+                        // Regular replacement
+                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix)))
+                        {
+                            // Not a value for this template
+                            index = FindNextKeyIndex(templateContent, keyPrefix, index);
+                            continue;
+                        }
+
                         var value = templateModel.GetValue(key);
                         var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
 
@@ -150,7 +133,7 @@ namespace SolutionGenerator.Templates
                     templateContent = templateContent.Remove(partToReplaceStart, partToReplaceLength);
                     templateContent = templateContent.Insert(partToReplaceStart, contentToReplaceWith);
 
-                    Log.Debug($"Replaced template key '{templateContainer}.{key}' at position '{index}'");
+                    Log.Debug($"Replaced template key '{keyPrefix}{key}' at position '{index}'");
 
                     index = FindNextKeyIndex(templateContent, keyPrefix, index);
                 }

@@ -29,7 +29,8 @@ namespace SolutionGenerator.Templates
 
         public ICollection GetCollectionValue(string key)
         {
-            throw new NotImplementedException();
+            var value = PropertyHelper.GetPropertyValue(_collectionItem, key, true) as ICollection;
+            return value;
         }
 
         string ITemplate.GetValue(string key)

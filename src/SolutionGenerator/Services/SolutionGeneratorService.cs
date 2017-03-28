@@ -13,11 +13,24 @@ namespace SolutionGenerator.Services
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
+    using Orc.FileSystem;
     using Templates;
 
     public class SolutionGeneratorService : ISolutionGeneratorService
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private readonly IDirectoryService _directoryService;
+        private readonly IFileService _fileService;
+        
+        public SolutionGeneratorService(IDirectoryService directoryService, IFileService fileService)
+        {
+            Argument.IsNotNull(() => directoryService);
+            Argument.IsNotNull(() => fileService);
+
+            _directoryService = directoryService;
+            _fileService = fileService;
+        }
 
         public async Task GenerateAsync(ITemplateDefinition templateDefinition)
         {
@@ -48,26 +61,57 @@ namespace SolutionGenerator.Services
         private async Task ExtractResourceAndReplaceValuesAsync(ITemplateDefinition templateDefinition, TemplateEngine engine,
             TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile, bool isBinary)
         {
-            var templateContext = templateDefinition.TemplateContext;
-
-            Log.Debug($"Determining final name for '{templateFile}'");
-
             var targetFileName = templateFile.RelativeName;
 
-            foreach (var template in templates)
+            if (targetFileName.ContainsIgnoreCase("[[ForEach "))
             {
-                targetFileName = engine.ReplaceValues(targetFileName, template);
+                var keyStart = targetFileName.IndexOfIgnoreCase("[[ForEach ");
+                var keyCoreStart = keyStart + "[[ForEach ".Length;
+                var keyCoreEnd = targetFileName.IndexOf("]]", keyStart);
+                var keyEnd = keyCoreEnd + "]]".Length;
+                var keyLength = keyEnd - keyStart;
+                var keyCoreLength = keyCoreEnd - keyCoreStart;
+                var key = templateFile.RelativeName.Substring(keyCoreStart, keyCoreLength);
+
+                foreach (var item in templates.GetForEachCollection(key))
+                {
+                    var subTemplates = new List<ITemplate>(templates);
+
+                    // Note: important, this one must be last because it allows replacement without a prefix
+                    subTemplates.Add(new CollectionItemTemplate(item));
+
+                    var subTargetFileName = targetFileName.Remove(keyStart, keyLength).Insert(keyStart, item.ToString());
+
+                    await ExtractResourceToTargetFileAsync(templateDefinition, engine, templateLoader, 
+                        subTemplates, templateFile, isBinary, subTargetFileName);
+                }
             }
+            else
+            {
+                foreach (var template in templates)
+                {
+                    targetFileName = engine.ReplaceValues(targetFileName, template);
+                }
+
+                await ExtractResourceToTargetFileAsync(templateDefinition, engine, templateLoader,
+                    templates, templateFile, isBinary, targetFileName);
+            }
+        }
+
+        private async Task ExtractResourceToTargetFileAsync(ITemplateDefinition templateDefinition, TemplateEngine engine,
+            TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile, bool isBinary, string targetFileName)
+        {
+            var templateContext = templateDefinition.TemplateContext;
 
             var fullTargetFileName = Path.Combine(templateContext.Solution.Directory, targetFileName);
 
             var directory = Path.GetDirectoryName(fullTargetFileName);
 
-            Directory.CreateDirectory(directory);
+            _directoryService.Create(directory);
 
             using (var sourceStream = await templateLoader.LoadTemplateStreamAsync(templateFile))
             {
-                using (var targetStream = File.Create(fullTargetFileName))
+                using (var targetStream = _fileService.Create(fullTargetFileName))
                 {
                     if (!isBinary)
                     {
@@ -76,8 +120,8 @@ namespace SolutionGenerator.Services
                         using (var streamReader = new StreamReader(sourceStream))
                         {
                             var content = await streamReader.ReadToEndAsync();
-							
-							Log.Debug($"Replacing template values in content for '{templateFile}'");
+
+                            Log.Debug($"Replacing template values in content for '{templateFile}'");
 
                             foreach (var template in templates)
                             {

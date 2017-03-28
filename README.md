@@ -132,21 +132,6 @@ The last step is to replace any important values by template keys. Below is an e
 	
 	Permission is hereby granted, free of charge, ... etc
 
-
-### Using loops
-
-It's possible to use loops inside the templates.
-
-	[[BeginForeach D.RECORDS]]
-	
-	[[RECORDNAME]]s = new List<[[RECORDNAME]]>();
-	
-	[[EndForeach]]
-
-`D.RECORDS` is the template property to bind to (this should be a collection of any type). Inside the `Foreach` template, the scope is the item itself (so the type of the collection items).
-
-**Nested foreach templates are not yet supported, feel free to add support using a PR**
-
 ### Using modifiers
 
 The template keys support modifiers. Modifiers are placed after the template key (but inside the block) and the values will be modified in the order in which they appear. The
@@ -161,3 +146,25 @@ For now the following modifiers are supported:
 * Uppercase => Make the value uppercase
 * Lowercase => Make the value lowercase
 * Camelcase => USe camelcase (e.g. 'SomeValue' becomes 'someValue')
+
+## Using loops
+
+### For template files
+
+To create a template for a loop, use variable names that return a collection and prefix them with `Foreach`:
+
+	[[ForEach D.RECORDS]]Map
+
+This will generate a file for each item returned by `D.RECORDS` (which should return a collection). The containing item should implement a `ToString()` method because that will be used to generate the file name.
+
+### Inside template files
+
+It's possible to use loops inside the templates.
+
+	[[BeginForeach D.RECORDS]]
+	[[RECORDNAME]]s = new List<[[RECORDNAME]]>();
+	[[EndForeach]]
+
+`D.RECORDS` is the template property to bind to (this should be a collection of any type). Inside the `Foreach` template, the scope is the item itself (so the type of the collection items).
+
+**Nested foreach templates are not yet supported, feel free to add support using a PR**
