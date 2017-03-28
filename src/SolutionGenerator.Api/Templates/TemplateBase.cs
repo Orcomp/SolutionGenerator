@@ -6,6 +6,7 @@
 
 namespace SolutionGenerator.Templates
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Catel;
@@ -22,6 +23,12 @@ namespace SolutionGenerator.Templates
             var properties = GetType().GetPropertiesEx();
             return (from property in properties
                     select property.Name).ToList();
+        }
+
+        public ICollection GetCollectionValue(string key)
+        {
+            var templateObject = PropertyHelper.GetPropertyValue(this, key, true) as ICollection;
+            return templateObject;
         }
 
         string ITemplate.GetValue(string key)

@@ -76,7 +76,6 @@ namespace SolutionGenerator.Services
                         using (var streamReader = new StreamReader(sourceStream))
                         {
                             var content = await streamReader.ReadToEndAsync();
-
 							
 							Log.Debug($"Replacing template values in content for '{templateFile}'");
 

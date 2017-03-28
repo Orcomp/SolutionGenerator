@@ -152,6 +152,7 @@
     <Compile Include="Services\FileSystemService.cs" />
     <Compile Include="Services\Interfaces\ISolutionGeneratorService.cs" />
     <Compile Include="Services\TaskRunnerService.cs" />
+    <Compile Include="Templates\CollectionItemTemplate.cs" />
     <Compile Include="Templates\TemplateEngine.cs" />
     <Compile Include="Templates\TemplateLoader.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

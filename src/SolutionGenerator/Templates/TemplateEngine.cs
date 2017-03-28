@@ -8,7 +8,9 @@ namespace SolutionGenerator.Templates
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
+    using System.Text;
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
@@ -18,6 +20,9 @@ namespace SolutionGenerator.Templates
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         private const string TemplateKeyEnd = "]]";
+        private const string TemplateBeginForeach = "BeginForeach ";
+        private static readonly string TemplateBeginForeachKey = $"[[{TemplateBeginForeach}";
+        private const string TemplateEndForeachKey = "[[EndForeach]]";
         private const char ModifierSeparator = '|';
 
         private readonly TemplateLoader _templateLoader;
@@ -44,16 +49,26 @@ namespace SolutionGenerator.Templates
                 templateContainer = templateContainer.Substring(0, templateContainer.Length - "Template".Length);
             }
 
-            var possiblePrefixes = new List<string>();
-            possiblePrefixes.Add($"[[{templateContainer}.");
+            var possibleDataPrefixes = new List<string>();
+
+            if (templateModel is CollectionItemTemplate)
+            {
+                // Direct scope (scope is collection item)
+                possibleDataPrefixes.Add(string.Empty);
+            }
+
+            possibleDataPrefixes.Add($"{templateContainer}.");
 
             var abbreviationAttributes = templateModelType.GetCustomAttributes<AbbreviationAttribute>();
             foreach (var abbreviationAttribute in abbreviationAttributes)
             {
-                possiblePrefixes.Add($"[[{abbreviationAttribute.Abbreviation}.");
+                possibleDataPrefixes.Add($"{abbreviationAttribute.Abbreviation}.");
             }
 
-            foreach (var possiblePrefix in possiblePrefixes)
+            var allPossiblePrefixes = new List<string>(possibleDataPrefixes.Select(x => $"[[{x}"));
+            allPossiblePrefixes.Add(TemplateBeginForeachKey);
+
+            foreach (var possiblePrefix in allPossiblePrefixes)
             {
                 var keyPrefix = possiblePrefix;
 
@@ -65,17 +80,15 @@ namespace SolutionGenerator.Templates
                 {
                     // Search for the whole key
                     var keyStart = index + keyPrefix.Length;
-                    var keyEnd = templateContent.IndexOfAny(new[] {'|', ']'}, keyStart);
+                    var keyEnd = templateContent.IndexOfAny(new[] { '|', ']' }, keyStart);
                     if (keyEnd < 0)
                     {
                         throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of key prefix '{keyPrefix}' at position '{index}'");
                     }
 
-                    var key = templateContent.Substring(keyStart, keyEnd - keyStart);
+                    var key = templateContent.Substring(keyStart, keyEnd - keyStart).Trim();
 
                     Log.Debug($"Found template key '{templateContainer}.{key}' at position '{index}'");
-
-                    var value = templateModel.GetValue(key);
 
                     // Retrieve modifiers that are located after the key
                     var endPos = templateContent.IndexOf(TemplateKeyEnd, index);
@@ -86,32 +99,98 @@ namespace SolutionGenerator.Templates
 
                     endPos += TemplateKeyEnd.Length;
 
-                    var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
-                    var modifiers = modifiersString.Split(new[] {ModifierSeparator}, StringSplitOptions.RemoveEmptyEntries);
+                    var partToReplaceStart = index;
+                    var partToReplaceLength = 0;
+                    var contentToReplaceWith = string.Empty;
 
-                    foreach (var modifier in modifiers)
+                    if (keyPrefix.EqualsIgnoreCase(TemplateBeginForeachKey))
                     {
-                        value = ApplyModifier(value, modifier);
+                        var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
+                                          where key.StartsWithIgnoreCase(possibleDataPrefix)
+                                          select possibleDataPrefix).FirstOrDefault();
+                        if (string.IsNullOrWhiteSpace(usedPrefix))
+                        {
+                            // Foreach is not for this template, ignore
+                            index = FindNextKeyIndex(templateContent, keyPrefix, index);
+                            continue;
+                        }
+
+                        // Search for the end
+                        var foreachEnd = templateContent.IndexOf(TemplateEndForeachKey, endPos, StringComparison.OrdinalIgnoreCase);
+                        if (foreachEnd < 0)
+                        {
+                            throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of foreach key '{key}' at position '{index}'");
+                        }
+
+                        key = key.Replace(usedPrefix, string.Empty);
+                        var foreachTemplate = templateContent.Substring(endPos, foreachEnd - endPos);
+
+                        var collection = templateModel.GetCollectionValue(key);
+                        if (collection != null)
+                        {
+                            foreach (var collectionItem in collection)
+                            {
+                                contentToReplaceWith = GenerateForeachContent(collectionItem, foreachTemplate);
+                            }
+                        }
+
+                        foreachEnd += TemplateEndForeachKey.Length;
+                        partToReplaceLength = foreachEnd - index;
+                    }
+                    else
+                    {
+                        var value = templateModel.GetValue(key);
+                        var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
+
+                        contentToReplaceWith = ApplyModifiers(value, modifiersString);
+                        partToReplaceLength = endPos - index;
                     }
 
-                    // Remove the key from the content
-                    var length = endPos - index;
-                    templateContent = templateContent.Remove(index, length);
-
-                    // Insert new value
-                    templateContent = templateContent.Insert(index, value);
+                    // Replace template content by value
+                    templateContent = templateContent.Remove(partToReplaceStart, partToReplaceLength);
+                    templateContent = templateContent.Insert(partToReplaceStart, contentToReplaceWith);
 
                     Log.Debug($"Replaced template key '{templateContainer}.{key}' at position '{index}'");
 
-                    index = templateContent.IndexOfIgnoreCase(keyPrefix);
+                    index = FindNextKeyIndex(templateContent, keyPrefix, index);
                 }
             }
 
             return templateContent;
         }
 
+        private int FindNextKeyIndex(string content, string keyPrefix, int currentIndex)
+        {
+            return content.IndexOf(keyPrefix, currentIndex + 1, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string GenerateForeachContent(object scope, string foreachTemplate)
+        {
+            var template = new CollectionItemTemplate(scope);
+
+            var value = ReplaceValues(foreachTemplate, template);
+            return value;
+        }
+
+        private string ApplyModifiers(string value, string modifiersString)
+        {
+            var modifiers = modifiersString.Split(new[] { ModifierSeparator }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var modifier in modifiers)
+            {
+                value = ApplyModifier(value, modifier);
+            }
+
+            return value;
+        }
+
         protected virtual string ApplyModifier(string value, string modifier)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return string.Empty;
+            }
+
             modifier = modifier.Trim(ModifierSeparator);
 
             if (modifier.EqualsIgnoreCase(Modifiers.Lowercase))
@@ -121,6 +200,12 @@ namespace SolutionGenerator.Templates
             else if (modifier.EqualsIgnoreCase(Modifiers.Uppercase))
             {
                 value = value.ToUpperInvariant();
+            }
+            else if (modifier.EqualsIgnoreCase(Modifiers.Camelcase))
+            {
+                var character = value[0];
+                value = value.Remove(0, 1);
+                value = value.Insert(0, char.ToLower(character).ToString());
             }
             else
             {

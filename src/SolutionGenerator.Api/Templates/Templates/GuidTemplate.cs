@@ -7,6 +7,7 @@
 namespace SolutionGenerator.Templates
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Catel.Data;
@@ -29,6 +30,11 @@ namespace SolutionGenerator.Templates
 
                 return guid.ToString();
             }
+        }
+
+        public ICollection GetCollectionValue(string key)
+        {
+            throw new NotSupportedException();
         }
 
         public List<string> GetKeys()

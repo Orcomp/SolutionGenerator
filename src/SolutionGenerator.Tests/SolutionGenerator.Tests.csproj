@@ -118,6 +118,9 @@
     <None Include="TestFiles\test1.projitems.additem_new">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\test3.projitems.foreach">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\test2.projitems.additem_new">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

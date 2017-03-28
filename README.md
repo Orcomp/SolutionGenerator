@@ -133,6 +133,19 @@ The last step is to replace any important values by template keys. Below is an e
 	Permission is hereby granted, free of charge, ... etc
 
 
+### Using loops
+
+It's possible to use loops inside the templates.
+
+	[[BeginForeach D.RECORDS]]
+	
+	[[RECORDNAME]]s = new List<[[RECORDNAME]]>();
+	
+	[[EndForeach]]
+
+`D.RECORDS` is the template property to bind to (this should be a collection of any type). Inside the `Foreach` template, the scope is the item itself (so the type of the collection items).
+
+**Nested foreach templates are not yet supported, feel free to add support using a PR**
 
 ### Using modifiers
 
@@ -147,3 +160,4 @@ For now the following modifiers are supported:
 
 * Uppercase => Make the value uppercase
 * Lowercase => Make the value lowercase
+* Camelcase => USe camelcase (e.g. 'SomeValue' becomes 'someValue')
