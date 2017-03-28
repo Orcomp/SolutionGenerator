@@ -12,6 +12,7 @@ namespace SolutionGenerator.Templates
     using System.Reflection;
     using System.Text;
     using Catel;
+    using Catel.Collections;
     using Catel.Logging;
     using Catel.Reflection;
 
@@ -38,8 +39,6 @@ namespace SolutionGenerator.Templates
         {
             Argument.IsNotNullOrWhitespace(() => templateContent);
             Argument.IsNotNull(() => templateModel);
-
-            Log.Debug("Filling template with template data");
 
             var possibleDataPrefixes = templateModel.GetPossibleDataPrefixes();
 
@@ -78,10 +77,6 @@ namespace SolutionGenerator.Templates
 
                     endPos += TemplateKeyEnd.Length;
 
-                    var partToReplaceStart = index;
-                    var partToReplaceLength = 0;
-                    var contentToReplaceWith = string.Empty;
-
                     if (keyPrefix.EqualsIgnoreCase(TemplateBeginForeachKey))
                     {
                         var collection = (new[] { templateModel }).GetForEachCollection(key);
@@ -100,14 +95,23 @@ namespace SolutionGenerator.Templates
                         }
 
                         var foreachTemplate = templateContent.Substring(endPos, foreachEnd - endPos);
-
-                        foreach (var collectionItem in collection)
-                        {
-                            contentToReplaceWith = GenerateForeachContent(collectionItem, foreachTemplate);
-                        }
-
+                        
+                        // Strip the template content
                         foreachEnd += TemplateEndForeachKey.Length;
-                        partToReplaceLength = foreachEnd - index;
+                        var partToReplaceLength = foreachEnd - index;
+                        templateContent = templateContent.Remove(index, partToReplaceLength);
+
+                        var collectionArray = collection.Cast<object>().ToArray();
+                        for (var i = collectionArray.Length- 1; i >= 0; i--)
+                        {
+                            var collectionItem = collectionArray[i];
+
+                            var itemContent = GenerateForeachContent(collectionItem, foreachTemplate);
+                            if (itemContent != null)
+                            {
+                                templateContent = templateContent.Insert(index, itemContent);
+                            }
+                        }
                     }
 
                     // TODO: Add other special cases here if necessary
@@ -125,13 +129,15 @@ namespace SolutionGenerator.Templates
                         var value = templateModel.GetValue(key);
                         var modifiersString = templateContent.Substring(keyEnd, endPos - keyEnd).Replace(".", string.Empty).Replace(TemplateKeyEnd, string.Empty);
 
-                        contentToReplaceWith = ApplyModifiers(value, modifiersString);
-                        partToReplaceLength = endPos - index;
-                    }
+                        var partToReplaceStart = index;
+                        var partToReplaceLength = endPos - index;
 
-                    // Replace template content by value
-                    templateContent = templateContent.Remove(partToReplaceStart, partToReplaceLength);
-                    templateContent = templateContent.Insert(partToReplaceStart, contentToReplaceWith);
+                        var contentToReplaceWith = ApplyModifiers(value, modifiersString);
+
+                        // Replace template content by value
+                        templateContent = templateContent.Remove(partToReplaceStart, partToReplaceLength);
+                        templateContent = templateContent.Insert(partToReplaceStart, contentToReplaceWith);
+                    }
 
                     Log.Debug($"Replaced template key '{keyPrefix}{key}' at position '{index}'");
 

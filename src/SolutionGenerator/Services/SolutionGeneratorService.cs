@@ -88,11 +88,6 @@ namespace SolutionGenerator.Services
             }
             else
             {
-                foreach (var template in templates)
-                {
-                    targetFileName = engine.ReplaceValues(targetFileName, template);
-                }
-
                 await ExtractResourceToTargetFileAsync(templateDefinition, engine, templateLoader,
                     templates, templateFile, isBinary, targetFileName);
             }
@@ -102,6 +97,11 @@ namespace SolutionGenerator.Services
             TemplateLoader templateLoader, List<ITemplate> templates, ITemplateFile templateFile, bool isBinary, string targetFileName)
         {
             var templateContext = templateDefinition.TemplateContext;
+
+            foreach (var template in templates)
+            {
+                targetFileName = engine.ReplaceValues(targetFileName, template);
+            }
 
             var fullTargetFileName = Path.Combine(templateContext.Solution.Directory, targetFileName);
 
