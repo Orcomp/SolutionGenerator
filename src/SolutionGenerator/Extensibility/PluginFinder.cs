@@ -11,14 +11,15 @@ namespace SolutionGenerator.Extensibility
     using Catel;
     using Catel.Reflection;
     using Orc.Extensibility;
+    using Orc.FileSystem;
 
     public class PluginFinder : PluginFinderBase
     {
         private static readonly string ExpectedInterfaceName = typeof(ITemplateDefinition).FullName;
 
         public PluginFinder(IPluginLocationsProvider pluginLocationsProvider, IPluginInfoProvider pluginInfoProvider,
-            IPluginCleanupService pluginCleanupService)
-            : base(pluginLocationsProvider, pluginInfoProvider, pluginCleanupService)
+            IPluginCleanupService pluginCleanupService, IDirectoryService directoryService, IFileService fileService)
+            : base(pluginLocationsProvider, pluginInfoProvider, pluginCleanupService, directoryService, fileService)
         {
         }
 

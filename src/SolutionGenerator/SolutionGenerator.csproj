@@ -50,29 +50,23 @@
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Core.4.5.0\lib\net46\Catel.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Catel.Core, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Core.4.5.4\lib\net46\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Extensions.Controls, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.Extensions.Controls.4.5.0-unstable0297\lib\net46\Catel.Extensions.Controls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Catel.Extensions.Controls, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Extensions.Controls.4.5.4\lib\net46\Catel.Extensions.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Fody.Attributes">
-      <HintPath>..\..\lib\Catel.Fody.2.14.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Catel.Fody.Attributes, Version=2.15.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Fody.2.15.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Catel.MVVM.4.5.0-unstable0297\lib\net46\Catel.MVVM.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Catel.MVVM, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.MVVM.4.5.4\lib\net46\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\CsvHelper.2.16.0.0\lib\net45\CsvHelper.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\lib\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -84,19 +78,13 @@
       <HintPath>..\..\lib\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ionic.Zip, Version=1.9.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\DotNetZip.1.9.8\lib\net20\Ionic.Zip.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MethodTimer">
-      <HintPath>..\..\lib\MethodTimer.Fody.1.15.10.0\lib\dotnet\MethodTimer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MethodTimer, Version=1.16.0.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\MethodTimer.Fody.1.16.0.0\lib\dotnet\MethodTimer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Build" />
@@ -105,30 +93,26 @@
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="Orc.Controls">
-      <HintPath>..\..\lib\Orc.Controls.1.3.0-unstable0085\lib\net46\Orc.Controls.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Orc.Controls, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.Controls.1.4.1\lib\net46\Orc.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.CsvHelper, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Orc.CsvHelper.1.2.0-unstable0024\lib\net46\Orc.CsvHelper.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Orc.CsvHelper, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.CsvHelper.1.3.0\lib\net46\Orc.CsvHelper.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Extensibility">
-      <HintPath>..\..\lib\Orc.Extensibility.1.0.0-unstable0005\lib\net46\Orc.Extensibility.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Orc.Extensibility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.Extensibility.1.0.0\lib\net46\Orc.Extensibility.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.LogViewer">
-      <HintPath>..\..\lib\Orc.LogViewer.1.2.0-unstable0005\lib\net46\Orc.LogViewer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Orc.FileSystem, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.FileSystem.1.2.0\lib\net46\Orc.FileSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Orchestra.Core">
-      <HintPath>..\..\lib\Orchestra.Core.2.4.0-unstable0038\lib\net46\Orchestra.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Orc.LogViewer, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.LogViewer.1.3.0\lib\net46\Orc.LogViewer.dll</HintPath>
     </Reference>
-    <Reference Include="Orchestra.Shell.TaskRunner">
-      <HintPath>..\..\lib\Orchestra.Shell.TaskRunner.2.4.0-unstable0038\lib\net46\Orchestra.Shell.TaskRunner.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Orchestra.Core, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orchestra.Core.2.5.2\lib\net46\Orchestra.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Orchestra.Shell.TaskRunner, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orchestra.Shell.TaskRunner.2.5.2\lib\net46\Orchestra.Shell.TaskRunner.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -136,7 +120,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.4.5.0-unstable0297\lib\net46\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\lib\Catel.MVVM.4.5.4\lib\net46\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
