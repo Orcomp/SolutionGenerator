@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{[[GUID.COMPONENT_NET40]]}</ProjectGuid>
+    <ProjectGuid>{[[GUID.COMPONENT_NET47]]}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>[[SOLUTION.NAME]]</RootNamespace>
@@ -18,24 +18,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\output\debug\NET40\[[SOLUTION.NAME]]\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET;NET40</DefineConstants>
+    <OutputPath>..\..\..\output\debug\NET47\[[SOLUTION.NAME]]\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET;NET47</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591;1998</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\..\output\debug\NET40\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].XML</DocumentationFile>
+    <DocumentationFile>..\..\..\output\debug\NET47\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\output\release\NET40\[[SOLUTION.NAME]]\</OutputPath>
-    <DefineConstants>TRACE;NET;NET40</DefineConstants>
+    <OutputPath>..\..\..\output\release\NET47\[[SOLUTION.NAME]]\</OutputPath>
+    <DefineConstants>TRACE;NET;NET47</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591;1998</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\..\output\release\NET40\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].XML</DocumentationFile>
+    <DocumentationFile>..\..\..\output\release\NET47\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="..\..\..\lib\AsyncUsageAnalyzers.1.0.0-alpha003\analyzers\dotnet\AsyncUsageAnalyzers.dll" />
@@ -47,22 +47,13 @@
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Core.4.5.4\lib\net40\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Core.4.5.4\lib\net46\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.15.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Catel.Fody.2.15.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="Obsolete, Version=4.1.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,16 +64,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -115,15 +97,15 @@
     <EmbeddedResource Include="..\[[SOLUTION.NAME]].Shared\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.NET40.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.NET47.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="..\[[SOLUTION.NAME]].Shared\Properties\Resources.ru.resx">
       <Link>Properties\Resources.ru.resx</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\[[SOLUTION.NAME]].Shared\Properties\Resources.NET40.Designer.cs">
-      <Link>Properties\Resources.NET40.Designer.cs</Link>
+    <Compile Include="..\[[SOLUTION.NAME]].Shared\Properties\Resources.NET47.Designer.cs">
+      <Link>Properties\Resources.NET47.Designer.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -136,10 +118,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
     <Error Condition="!Exists('..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
-  <Import Project="..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].NET40", "[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\[[SOLUTION.NAME]].NET40.csproj", "{[[GUID.COMPONENT_NET40]]}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].NET47", "[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\[[SOLUTION.NAME]].NET47.csproj", "{[[GUID.COMPONENT_NET47]]}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A8A1A4EE-E04A-43AB-90C9-41E7B82EE1E5}"
 EndProject
@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{1FE0D431-A
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].Tests.NET40", "[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\[[SOLUTION.NAME]].Tests.NET40.csproj", "{[[GUID.TESTS_NET40]]}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].Tests.NET47", "[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\[[SOLUTION.NAME]].Tests.NET47.csproj", "{[[GUID.TESTS_NET47]]}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0787DFC6-AB24-4D00-A8A4-FF203DC7D080}"
 EndProject
@@ -32,7 +32,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].Tests.NET
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{672BFA2E-9F93-496F-B188-40579FB5D301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].Example.NET40", "[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\[[SOLUTION.NAME]].Example.NET40.csproj", "{[[GUID.EXAMPLE_NET40]]}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].Example.NET47", "[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET47\[[SOLUTION.NAME]].Example.NET47.csproj", "{[[GUID.EXAMPLE_NET47]]}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "[[SOLUTION.NAME]].Example.Shared", "[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.shproj", "{[[GUID.EXAMPLE_SHARED]]}"
 EndProject
@@ -46,12 +46,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[[SOLUTION.NAME]].Example.N
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.projitems*{[[GUID.COMPONENT_NET40]]}*SharedItemsImports = 4
+		[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.projitems*{[[GUID.COMPONENT_NET47]]}*SharedItemsImports = 4
 		[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.projitems*{[[GUID.EXAMPLE_NET46]]}*SharedItemsImports = 4
-		[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.projitems*{[[GUID.TESTS_NET40]]}*SharedItemsImports = 4
+		[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.projitems*{[[GUID.TESTS_NET47]]}*SharedItemsImports = 4
 		[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.projitems*{[[GUID.COMPONENT_NET46]]}*SharedItemsImports = 4
 		[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.projitems*{[[GUID.TESTS_NET45]]}*SharedItemsImports = 4
-		[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.projitems*{[[GUID.EXAMPLE_NET40]]}*SharedItemsImports = 4
+		[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.projitems*{[[GUID.EXAMPLE_NET47]]}*SharedItemsImports = 4
 		[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.projitems*{[[GUID.EXAMPLE_SHARED]]}*SharedItemsImports = 13
 		[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.projitems*{[[GUID.TESTS_SHARED]]}*SharedItemsImports = 13
 		[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.projitems*{[[GUID.COMPONENT_SHARED]]}*SharedItemsImports = 13
@@ -68,10 +68,10 @@ Global
 		{[[GUID.EXAMPLE_SHARED]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{[[GUID.EXAMPLE_SHARED]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{[[GUID.EXAMPLE_SHARED]]}.Release|Any CPU.Build.0 = Release|Any CPU
-		{[[GUID.TESTS_NET40]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{[[GUID.TESTS_NET40]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{[[GUID.TESTS_NET40]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{[[GUID.TESTS_NET40]]}.Release|Any CPU.Build.0 = Release|Any CPU
+		{[[GUID.TESTS_NET47]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{[[GUID.TESTS_NET47]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{[[GUID.TESTS_NET47]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{[[GUID.TESTS_NET47]]}.Release|Any CPU.Build.0 = Release|Any CPU
 		{[[GUID.COMPONENT_NET45]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{[[GUID.COMPONENT_NET45]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{[[GUID.COMPONENT_NET45]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -80,10 +80,10 @@ Global
 		{[[GUID.TESTS_NET46]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{[[GUID.TESTS_NET46]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{[[GUID.TESTS_NET46]]}.Release|Any CPU.Build.0 = Release|Any CPU
-		{[[GUID.EXAMPLE_NET40]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{[[GUID.EXAMPLE_NET40]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{[[GUID.EXAMPLE_NET40]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{[[GUID.EXAMPLE_NET40]]}.Release|Any CPU.Build.0 = Release|Any CPU
+		{[[GUID.EXAMPLE_NET47]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{[[GUID.EXAMPLE_NET47]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{[[GUID.EXAMPLE_NET47]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{[[GUID.EXAMPLE_NET47]]}.Release|Any CPU.Build.0 = Release|Any CPU
 		{[[GUID.EXAMPLE_NET45]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{[[GUID.EXAMPLE_NET45]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{[[GUID.EXAMPLE_NET45]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -109,17 +109,17 @@ Global
 		{D3EA1078-BF3D-4709-871C-AAFF70B95045} = {A8A1A4EE-E04A-43AB-90C9-41E7B82EE1E5}	
 		{672BFA2E-9F93-496F-B188-40579FB5D301} = {A8A1A4EE-E04A-43AB-90C9-41E7B82EE1E5}
 	
-		{[[GUID.COMPONENT_NET40]]} = {0787DFC6-AB24-4D00-A8A4-FF203DC7D080}
+		{[[GUID.COMPONENT_NET47]]} = {0787DFC6-AB24-4D00-A8A4-FF203DC7D080}
 		{[[GUID.COMPONENT_NET45]]} = {0787DFC6-AB24-4D00-A8A4-FF203DC7D080}
 		{[[GUID.COMPONENT_NET46]]} = {0787DFC6-AB24-4D00-A8A4-FF203DC7D080}
 		{[[GUID.COMPONENT_SHARED]]} = {0787DFC6-AB24-4D00-A8A4-FF203DC7D080}
 		
-		{[[GUID.TESTS_NET40]]} = {D3EA1078-BF3D-4709-871C-AAFF70B95045}
+		{[[GUID.TESTS_NET47]]} = {D3EA1078-BF3D-4709-871C-AAFF70B95045}
 		{[[GUID.TESTS_NET45]]} = {D3EA1078-BF3D-4709-871C-AAFF70B95045}
 		{[[GUID.TESTS_NET46]]} = {D3EA1078-BF3D-4709-871C-AAFF70B95045}
 		{[[GUID.TESTS_SHARED]]} = {D3EA1078-BF3D-4709-871C-AAFF70B95045}
 
-		{[[GUID.EXAMPLE_NET40]]} = {672BFA2E-9F93-496F-B188-40579FB5D301}
+		{[[GUID.EXAMPLE_NET47]]} = {672BFA2E-9F93-496F-B188-40579FB5D301}
 		{[[GUID.EXAMPLE_NET45]]} = {672BFA2E-9F93-496F-B188-40579FB5D301}
 		{[[GUID.EXAMPLE_NET46]]} = {672BFA2E-9F93-496F-B188-40579FB5D301}
 		{[[GUID.EXAMPLE_SHARED]]} = {672BFA2E-9F93-496F-B188-40579FB5D301}

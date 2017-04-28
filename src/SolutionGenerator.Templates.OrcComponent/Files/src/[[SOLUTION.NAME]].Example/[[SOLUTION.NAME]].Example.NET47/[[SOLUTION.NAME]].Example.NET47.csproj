@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{[[GUID.EXAMPLE_NET40]]}</ProjectGuid>
+    <ProjectGuid>{[[GUID.EXAMPLE_NET47]]}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>[[SOLUTION.NAME]].Example</RootNamespace>
@@ -21,8 +21,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\output\debug\NET40\[[SOLUTION.NAME]].Example\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET;NET40</DefineConstants>
+    <OutputPath>..\..\..\output\debug\NET47\[[SOLUTION.NAME]].Example\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET;NET47</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -33,8 +33,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\output\release\NET40\[[SOLUTION.NAME]].Example\</OutputPath>
-    <DefineConstants>TRACE;NET;NET40</DefineConstants>
+    <OutputPath>..\..\..\output\release\NET47\[[SOLUTION.NAME]].Example\</OutputPath>
+    <DefineConstants>TRACE;NET;NET47</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591;1998</NoWarn>
@@ -50,12 +50,12 @@
   <ItemGroup>
     <Reference Include="Catel.Core, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Core.4.5.4\lib\net40\Catel.Core.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Core.4.5.4\lib\net46\Catel.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Extensions.Controls, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.Extensions.Controls.4.5.4\lib\net40\Catel.Extensions.Controls.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.Extensions.Controls.4.5.4\lib\net46\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Catel.Fody.Attributes, Version=2.15.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
@@ -65,38 +65,14 @@
     </Reference>
     <Reference Include="Catel.MVVM, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Catel.MVVM.4.5.4\lib\net40\Catel.MVVM.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.MVVM.4.5.4\lib\net46\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.IO">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Threading.Tasks">
-      <HintPath>..\..\..\lib\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\lib\Catel.MVVM.4.5.4\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\lib\Catel.MVVM.4.5.4\lib\net46\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -115,9 +91,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\[[SOLUTION.NAME]].NET40.csproj">
-      <Project>{[[GUID.COMPONENT_NET40]]}</Project>
-      <Name>[[SOLUTION.NAME]].NET40</Name>
+    <ProjectReference Include="..\..\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\[[SOLUTION.NAME]].NET47.csproj">
+      <Project>{[[GUID.COMPONENT_NET47]]}</Project>
+      <Name>[[SOLUTION.NAME]].NET47</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -135,12 +111,10 @@
   </ItemGroup>
   <Import Project="..\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\lib\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
     <Error Condition="!Exists('..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
   <Import Project="..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\..\lib\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />

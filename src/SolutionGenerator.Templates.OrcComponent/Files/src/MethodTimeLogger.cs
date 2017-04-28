@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MethodTimeLogger.cs" company="WildGums">
-//   Copyright (c) 2008 - 2017 WildGums. All rights reserved.
+// <copyright file="MethodTimeLogger.cs" company="[[COMPANY.NAME]]">
+//   Copyright (c) 2008 - [[DATETIME.YEAR]] [[COMPANY.NAME]]. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
