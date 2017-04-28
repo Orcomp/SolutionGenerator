@@ -140,9 +140,6 @@
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET40.Designer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET45.Designer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -162,6 +159,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET47.Designer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="OrcComponentTemplateDefinition.cs" />
