@@ -72,13 +72,16 @@
     <Content Include="Files\src\SolutionAssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\ModuleInitializer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\ModuleInitializer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET46\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET47\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET47\[[SOLUTION.NAME]].Example.NET47.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\App.xaml.cs">
@@ -98,13 +101,16 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\ModuleInitializer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\ModuleInitializer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\[[SOLUTION.NAME]].Tests.NET47.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\DummyFacts.cs">
@@ -116,13 +122,16 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\ModuleInitializer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\ModuleInitializer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\FodyWeavers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\[[SOLUTION.NAME]].NET47.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\ModuleInitializer.cs">
@@ -144,6 +153,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\MethodTimeLogger.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET47\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\ModuleInitializer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\ModuleInitializer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="OrcComponentTemplateDefinition.cs" />
@@ -210,12 +228,6 @@
     <Content Include="Files\scripts - Update NuGet.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\FodyWeavers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\[[SOLUTION.NAME]].Example.NET40.csproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\FodyWeavers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -231,12 +243,6 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\FodyWeavers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\[[SOLUTION.NAME]].Tests.NET40.csproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\FodyWeavers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -247,12 +253,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\[[SOLUTION.NAME]].Tests.NET46.csproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\FodyWeavers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\[[SOLUTION.NAME]].NET40.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\FodyWeavers.xml">
@@ -276,12 +276,6 @@
     <Content Include="Files\src\nuget.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\app.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET40\packages.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET45\App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -303,12 +297,6 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].sln.DotSettings">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\app.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET40\packages.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -319,12 +307,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.shproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\app.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET40\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\packages.config">
@@ -383,6 +365,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET47\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\packages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
