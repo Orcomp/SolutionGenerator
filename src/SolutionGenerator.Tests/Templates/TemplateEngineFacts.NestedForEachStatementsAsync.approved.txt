@@ -1,0 +1,43 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Models.cs" company="My company">
+//   Copyright (c) 2008 - 2017 My company. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace SomeSolution.Models
+{
+    
+    public class Record_1
+    {
+        
+        public string Target 1 { get; set; }
+        
+        public string Target 2 { get; set; }
+        
+        public string Target 3 { get; set; }
+        
+        public string Target 4 { get; set; }
+        
+        public string Target 6 { get; set; }
+        
+        public string Target 8 { get; set; }
+        
+        public string Target 10 { get; set; }
+        
+    }
+    
+    public class Record_2
+    {
+        
+        public string Target 1 { get; set; }
+        
+        public string Target 2 { get; set; }
+        
+        public string Target 3 { get; set; }
+        
+        public string Target 4 { get; set; }
+        
+    }
+    
+}

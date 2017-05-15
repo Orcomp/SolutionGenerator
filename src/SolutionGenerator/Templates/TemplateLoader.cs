@@ -31,7 +31,7 @@ namespace SolutionGenerator.Templates
             _assembly = assembly;
         }
 
-        public async Task<Stream> LoadTemplateStreamAsync(ITemplateFile templateFile)
+        public virtual async Task<Stream> LoadTemplateStreamAsync(ITemplateFile templateFile)
         {
             Argument.IsNotNull(() => templateFile);
 
@@ -42,7 +42,7 @@ namespace SolutionGenerator.Templates
             {
                 var memoryStream = new MemoryStream();
 
-                TemplateFileHelper.ExtractResource(_assembly, resource.ResourceName, memoryStream);
+                TemplateFileHelper.ExtractResource(resource.Assembly, resource.ResourceName, memoryStream);
 
                 return memoryStream;
             }
@@ -52,7 +52,7 @@ namespace SolutionGenerator.Templates
             {
                 var memoryStream = new MemoryStream();
 
-                TemplateFileHelper.ExtractEmbeddedResource(_assembly, embeddedResource.ResourceName, memoryStream);
+                TemplateFileHelper.ExtractEmbeddedResource(embeddedResource.Assembly, embeddedResource.ResourceName, memoryStream);
 
                 return memoryStream;
             }
@@ -72,6 +72,8 @@ namespace SolutionGenerator.Templates
 
             using (var stream = await LoadTemplateStreamAsync(templateFile))
             {
+                stream.Position = 0L;
+
                 using (var streamReader = new StreamReader(stream))
                 {
                     return await streamReader.ReadToEndAsync();

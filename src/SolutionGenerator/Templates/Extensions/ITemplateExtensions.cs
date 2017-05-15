@@ -71,6 +71,33 @@ namespace SolutionGenerator.Templates
             return collection;
         }
 
+        public static bool? ResolveIfExpression(this IEnumerable<ITemplate> templates, string key)
+        {
+            key = CleanTemplateKey(key);
+
+            foreach (var template in templates)
+            {
+                var possibleDataPrefixes = GetPossibleDataPrefixes(template);
+                var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
+                                  where key.StartsWithIgnoreCase(possibleDataPrefix)
+                                  select possibleDataPrefix).FirstOrDefault();
+                if (usedPrefix != null)
+                {
+                    if (usedPrefix.Length > 0)
+                    {
+                        key = key.Replace(usedPrefix, string.Empty);
+                    }
+
+                    var ifExpression = template.GetValue(key);
+
+                    var resolvedValue = StringToObjectHelper.ToBool(ifExpression);
+                    return resolvedValue;
+                }
+            }
+
+            return null;
+        }
+
         public static string CleanTemplateKey(this string key)
         {
             key = key.Trim(' ', '[', ']');
@@ -83,6 +110,11 @@ namespace SolutionGenerator.Templates
             if (key.StartsWithIgnoreCase("BeginForEach "))
             {
                 key = key.Remove(0, "BeginForEach ".Length);
+            }
+
+            if (key.StartsWithIgnoreCase("BeginIf "))
+            {
+                key = key.Remove(0, "BeginIf ".Length);
             }
 
             return key;

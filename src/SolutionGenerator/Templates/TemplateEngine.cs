@@ -22,7 +22,7 @@ namespace SolutionGenerator.Templates
         private const string TemplateEndForeachKey = "[[EndForeach]]";
 
         private const string TemplateBeginIf = "BeginIf ";
-        private static readonly string TemplateBeginIfKey = $"[[{TemplateBeginForeach}";
+        private static readonly string TemplateBeginIfKey = $"[[{TemplateBeginIf}";
         private const string TemplateEndIfKey = "[[EndIf]]";
 
         private const char ModifierSeparator = '|';
@@ -90,21 +90,21 @@ namespace SolutionGenerator.Templates
                         }
 
                         // Search for the end
-                        var foreachEnd = templateContent.IndexOf(TemplateEndForeachKey, endPos, StringComparison.OrdinalIgnoreCase);
+                        var foreachEnd = FindEndForForEach(templateContent, endPos);
                         if (foreachEnd < 0)
                         {
                             throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of foreach key '{key}' at position '{index}'");
                         }
 
                         var foreachTemplate = templateContent.Substring(endPos, foreachEnd - endPos);
-                        
+
                         // Strip the template content
                         foreachEnd += TemplateEndForeachKey.Length;
                         var partToReplaceLength = foreachEnd - index;
                         templateContent = templateContent.Remove(index, partToReplaceLength);
 
                         var collectionArray = collection.Cast<object>().ToArray();
-                        for (var i = collectionArray.Length- 1; i >= 0; i--)
+                        for (var i = collectionArray.Length - 1; i >= 0; i--)
                         {
                             var collectionItem = collectionArray[i];
 
@@ -117,31 +117,26 @@ namespace SolutionGenerator.Templates
                     }
                     else if (keyPrefix.EqualsIgnoreCase(TemplateBeginIfKey))
                     {
-                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix)))
+                        var ifExpressionValue = (new[] { templateModel }).ResolveIfExpression(key);
+                        if (!ifExpressionValue.HasValue)
                         {
-                            // Not a value for this template
+                            // Foreach is not for this template, ignore
                             index = FindNextKeyIndex(templateContent, keyPrefix, index);
                             continue;
                         }
 
-                        // Search for the end
-                        var ifEnd = templateContent.IndexOf(TemplateEndIfKey, endPos, StringComparison.OrdinalIgnoreCase);
+                        var ifEnd = FindEndForIf(templateContent, endPos);
                         if (ifEnd < 0)
                         {
                             throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of if key '{key}' at position '{index}'");
                         }
 
-                        var expressionToEvaluate = templateModel.GetValue(key);
                         var value = string.Empty;
 
-                        var isTrue = false;
-                        if (bool.TryParse(expressionToEvaluate, out isTrue))
+                        if (ifExpressionValue ?? false)
                         {
-                            if (isTrue)
-                            {
-                                var ifTemplate = templateContent.Substring(endPos, ifEnd - endPos);
-                                value = ReplaceValues(ifTemplate, templateModel);
-                            }
+                            var ifTemplate = templateContent.Substring(endPos, ifEnd - endPos);
+                            value = ReplaceValues(ifTemplate, templateModel);
                         }
 
                         // Strip the template content
@@ -185,6 +180,46 @@ namespace SolutionGenerator.Templates
             }
 
             return templateContent;
+        }
+
+        private int FindEndForForEach(string templateContent, int startIndex)
+        {
+            return FindEndForKeyword(templateContent, startIndex, TemplateBeginForeachKey, TemplateEndForeachKey);
+        }
+
+        private int FindEndForIf(string templateContent, int startIndex)
+        {
+            return FindEndForKeyword(templateContent, startIndex, TemplateBeginIfKey, TemplateEndIfKey);
+        }
+
+        private int FindEndForKeyword(string templateContent, int startIndex, string keywordStart, string keywordEnd)
+        {
+            // Note: this is not a very optimized way of searching for strings, but
+            // didn't want to spend too much time on migrating to regex
+
+            var counter = 0;
+
+            for (var i = startIndex; i < templateContent.Length; i++)
+            {
+                // Get a temporary subset of data
+                var data = templateContent.Substring(i, Math.Min(25, templateContent.Length - i - 1));
+
+                if (data.StartsWithIgnoreCase(keywordStart))
+                {
+                    counter++;
+                }
+                else if (data.StartsWithIgnoreCase(keywordEnd))
+                {
+                    if (counter == 0)
+                    {
+                        return i;
+                    }
+
+                    counter--;
+                }
+            }
+
+            return -1;
         }
 
         private int FindNextKeyIndex(string content, string keyPrefix, int currentIndex)

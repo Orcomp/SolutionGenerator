@@ -123,10 +123,7 @@ namespace SolutionGenerator.Services
 
                             Log.Debug($"Replacing template values in content for '{templateFile}'");
 
-                            foreach (var template in templates)
-                            {
-                                content = engine.ReplaceValues(content, template);
-                            }
+                            content = engine.ReplaceValues(content, templates);
 
                             using (var streamWriter = new StreamWriter(targetStream))
                             {
