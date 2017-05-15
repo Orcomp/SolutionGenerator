@@ -18,6 +18,7 @@ namespace [[SOLUTION.NAME]].ViewModels
     {
         public MainViewModel()
         {
+            Title = "[[SOLUTION.NAME]] example";
         }
 
         #region Properties

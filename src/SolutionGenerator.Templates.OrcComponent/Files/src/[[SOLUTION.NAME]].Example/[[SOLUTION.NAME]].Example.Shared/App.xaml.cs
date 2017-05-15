@@ -13,6 +13,7 @@ namespace [[SOLUTION.NAME]].Example
     using Catel.Logging;
     using Catel.Services;
     using Catel.Windows;
+    using Orchestra;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -38,7 +39,7 @@ namespace [[SOLUTION.NAME]].Example
 
             base.OnStartup(e);
 
-            StyleHelper.CreateStyleForwardersForDefaultStyles();
+            this.ApplyTheme();
         }
     }
 }

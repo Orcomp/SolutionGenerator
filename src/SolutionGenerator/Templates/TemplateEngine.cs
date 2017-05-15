@@ -9,12 +9,8 @@ namespace SolutionGenerator.Templates
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
-    using System.Text;
     using Catel;
-    using Catel.Collections;
     using Catel.Logging;
-    using Catel.Reflection;
 
     public class TemplateEngine
     {
@@ -24,6 +20,11 @@ namespace SolutionGenerator.Templates
         private const string TemplateBeginForeach = "BeginForeach ";
         private static readonly string TemplateBeginForeachKey = $"[[{TemplateBeginForeach}";
         private const string TemplateEndForeachKey = "[[EndForeach]]";
+
+        private const string TemplateBeginIf = "BeginIf ";
+        private static readonly string TemplateBeginIfKey = $"[[{TemplateBeginForeach}";
+        private const string TemplateEndIfKey = "[[EndIf]]";
+
         private const char ModifierSeparator = '|';
 
         private readonly TemplateLoader _templateLoader;
@@ -44,6 +45,7 @@ namespace SolutionGenerator.Templates
 
             var allPossiblePrefixes = new List<string>();
             allPossiblePrefixes.Add(TemplateBeginForeachKey);
+            allPossiblePrefixes.Add(TemplateBeginIfKey);
             allPossiblePrefixes.AddRange(possibleDataPrefixes.Select(x => $"[[{x}"));
 
             foreach (var possiblePrefix in allPossiblePrefixes)
@@ -113,9 +115,46 @@ namespace SolutionGenerator.Templates
                             }
                         }
                     }
+                    else if (keyPrefix.EqualsIgnoreCase(TemplateBeginIfKey))
+                    {
+                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix)))
+                        {
+                            // Not a value for this template
+                            index = FindNextKeyIndex(templateContent, keyPrefix, index);
+                            continue;
+                        }
 
+                        // Search for the end
+                        var ifEnd = templateContent.IndexOf(TemplateEndIfKey, endPos, StringComparison.OrdinalIgnoreCase);
+                        if (ifEnd < 0)
+                        {
+                            throw Log.ErrorAndCreateException<SolutionGeneratorException>($"Can't find end of if key '{key}' at position '{index}'");
+                        }
+
+                        var expressionToEvaluate = templateModel.GetValue(key);
+                        var value = string.Empty;
+
+                        var isTrue = false;
+                        if (bool.TryParse(expressionToEvaluate, out isTrue))
+                        {
+                            if (isTrue)
+                            {
+                                var ifTemplate = templateContent.Substring(endPos, ifEnd - endPos);
+                                value = ReplaceValues(ifTemplate, templateModel);
+                            }
+                        }
+
+                        // Strip the template content
+                        ifEnd += TemplateEndIfKey.Length;
+                        var partToReplaceLength = ifEnd - index;
+                        templateContent = templateContent.Remove(index, partToReplaceLength);
+
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            templateContent = templateContent.Insert(index, value);
+                        }
+                    }
                     // TODO: Add other special cases here if necessary
-
                     else
                     {
                         // Regular replacement

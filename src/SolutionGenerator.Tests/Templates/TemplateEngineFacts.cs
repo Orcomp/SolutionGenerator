@@ -8,5 +8,6 @@ namespace SolutionGenerator.Tests.Templates
 {
     public class TemplateEngineFacts
     {
+        
     }
 }
