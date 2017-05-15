@@ -35,6 +35,11 @@ namespace SolutionGenerator.Tests.Templates.TestModels
             get { return TypeName.ContainsIgnoreCase("DateTime"); }
         }
 
+        public bool IsOtherType
+        {
+            get { return !IsBool && !IsDateTime; }
+        }
+
         public bool IsNullable
         {
             get { return TypeName == "string" || TypeName.Contains("?"); }

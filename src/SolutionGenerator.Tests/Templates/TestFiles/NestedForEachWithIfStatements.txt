@@ -1,0 +1,25 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Models.cs" company="[[COMPANY.NAME]]">
+//   Copyright (c) 2008 - [[DATETIME.YEAR]] [[COMPANY.NAME]]. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace [[SOLUTION.NAME]].Models
+{
+    [[BeginForeach D.RECORDS]]
+    public class [[RECORDNAME]]
+    {
+        public [[RECORDNAME]]()
+        {
+            [[BeginForeach INCLUDEDFIELDS]]
+            [[TARGET]] = [[BeginIf ISBOOL]]true[[EndIf]][[BeginIf ISDATETIME]]DateTime.Now[[EndIf]][[BeginIf ISOTHERTYPE]]default([[TYPENAME]])[[EndIf]];
+            [[EndForeach]]
+        }
+
+        [[BeginForeach INCLUDEDFIELDS]]
+        public [[TYPENAME]] [[TARGET]] { get; set; }
+        [[EndForeach]]
+    }
+    [[EndForeach]]
+}

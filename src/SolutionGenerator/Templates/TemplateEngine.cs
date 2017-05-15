@@ -16,14 +16,24 @@ namespace SolutionGenerator.Templates
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
+        private const string TemplateKeyStart = "[[";
         private const string TemplateKeyEnd = "]]";
         private const string TemplateBeginForeach = "BeginForeach ";
-        private static readonly string TemplateBeginForeachKey = $"[[{TemplateBeginForeach}";
-        private const string TemplateEndForeachKey = "[[EndForeach]]";
+        private const string TemplateEndForeach = "EndForeach";
+        private static readonly string TemplateBeginForeachKey = $"{TemplateKeyStart}{TemplateBeginForeach}";
+        private static readonly string TemplateEndForeachKey = $"{TemplateKeyStart}{TemplateEndForeach}{TemplateKeyEnd}";
 
         private const string TemplateBeginIf = "BeginIf ";
-        private static readonly string TemplateBeginIfKey = $"[[{TemplateBeginIf}";
-        private const string TemplateEndIfKey = "[[EndIf]]";
+        private const string TemplateEndIf = "EndIf";
+
+        private static readonly string TemplateBeginIfKey = $"{TemplateKeyStart}{TemplateBeginIf}";
+        private static readonly string TemplateEndIfKey = $"{TemplateKeyStart}{TemplateEndIf}{TemplateKeyEnd}";
+
+        private static readonly List<string> KnownReservedPrefixes = new List<string>(new[] 
+        {
+            TemplateBeginForeach, TemplateEndForeach,
+            TemplateBeginIf , TemplateEndIf
+        });
 
         private const char ModifierSeparator = '|';
 
@@ -42,6 +52,8 @@ namespace SolutionGenerator.Templates
             Argument.IsNotNull(() => templateModel);
 
             var possibleDataPrefixes = templateModel.GetPossibleDataPrefixes();
+
+            var availableKeys = templateModel.GetKeys();
 
             var allPossiblePrefixes = new List<string>();
             allPossiblePrefixes.Add(TemplateBeginForeachKey);
@@ -114,6 +126,8 @@ namespace SolutionGenerator.Templates
                                 templateContent = templateContent.Insert(index, itemContent);
                             }
                         }
+
+                        index = index - 1;
                     }
                     else if (keyPrefix.EqualsIgnoreCase(TemplateBeginIfKey))
                     {
@@ -148,14 +162,23 @@ namespace SolutionGenerator.Templates
                         {
                             templateContent = templateContent.Insert(index, value);
                         }
+
+                        index = index - 1;
                     }
                     // TODO: Add other special cases here if necessary
                     else
                     {
-                        // Regular replacement
-                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix)))
+                        // Regular replacement, but make sure to ignore known keywords
+                        var canHandle = !KnownReservedPrefixes.Any(x => key.StartsWithIgnoreCase(x));
+                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix)) ||
+                            !availableKeys.Any(x => x.EqualsIgnoreCase(key)))
                         {
                             // Not a value for this template
+                            canHandle = false;
+                        }
+
+                        if (!canHandle)
+                        {
                             index = FindNextKeyIndex(templateContent, keyPrefix, index);
                             continue;
                         }
@@ -171,6 +194,8 @@ namespace SolutionGenerator.Templates
                         // Replace template content by value
                         templateContent = templateContent.Remove(partToReplaceStart, partToReplaceLength);
                         templateContent = templateContent.Insert(partToReplaceStart, contentToReplaceWith);
+
+                        index = partToReplaceStart - 1;
                     }
 
                     Log.Debug($"Replaced template key '{keyPrefix}{key}' at position '{index}'");

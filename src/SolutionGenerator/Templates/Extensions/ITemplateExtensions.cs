@@ -77,6 +77,8 @@ namespace SolutionGenerator.Templates
 
             foreach (var template in templates)
             {
+                var availableKeys = template.GetKeys();
+
                 var possibleDataPrefixes = GetPossibleDataPrefixes(template);
                 var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
                                   where key.StartsWithIgnoreCase(possibleDataPrefix)
@@ -86,6 +88,11 @@ namespace SolutionGenerator.Templates
                     if (usedPrefix.Length > 0)
                     {
                         key = key.Replace(usedPrefix, string.Empty);
+                    }
+
+                    if (!availableKeys.Any(x => x.EqualsIgnoreCase(key)))
+                    {
+                        continue;
                     }
 
                     var ifExpression = template.GetValue(key);
