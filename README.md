@@ -145,7 +145,8 @@ For now the following modifiers are supported:
 
 * Uppercase => Make the value uppercase
 * Lowercase => Make the value lowercase
-* Camelcase => USe camelcase (e.g. 'SomeValue' becomes 'someValue')
+* Camelcase => Use camelcase (e.g. 'SomeValue' becomes 'someValue')
+* Alphanumeric => Replace all characters that are not alphanumber (e.g. 'Some! Value' becomes 'SomeValue')
 
 ## Using loops
 

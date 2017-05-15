@@ -9,12 +9,15 @@ namespace SolutionGenerator.Templates
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using Catel;
     using Catel.Logging;
 
     public class TemplateEngine
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+
+        private static readonly Regex SlugRegex = new Regex(@"[^A-Za-z0-9_.]+");
 
         private const string TemplateKeyStart = "[[";
         private const string TemplateKeyEnd = "]]";
@@ -29,7 +32,7 @@ namespace SolutionGenerator.Templates
         private static readonly string TemplateBeginIfKey = $"{TemplateKeyStart}{TemplateBeginIf}";
         private static readonly string TemplateEndIfKey = $"{TemplateKeyStart}{TemplateEndIf}{TemplateKeyEnd}";
 
-        private static readonly List<string> KnownReservedPrefixes = new List<string>(new[] 
+        private static readonly List<string> KnownReservedPrefixes = new List<string>(new[]
         {
             TemplateBeginForeach, TemplateEndForeach,
             TemplateBeginIf , TemplateEndIf
@@ -294,6 +297,12 @@ namespace SolutionGenerator.Templates
                 var character = value[0];
                 value = value.Remove(0, 1);
                 value = value.Insert(0, char.ToLower(character).ToString());
+            }
+            else if (modifier.EqualsIgnoreCase(Modifiers.Alphanumeric))
+            {
+                value = value.RemoveDiacritics();
+                value = SlugRegex.Replace(value, string.Empty);
+                value = value.Replace(".", string.Empty);
             }
             else
             {
