@@ -1,0 +1,16 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Models.cs" company="[[COMPANY.NAME]]">
+//   Copyright (c) 2008 - [[DATETIME.YEAR]] [[COMPANY.NAME]]. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+namespace [[SOLUTION.NAME]].Models
+{
+    public class GuidsContainer
+    {
+        public static readonly Guid Guid1 = new Guid("[[GUID.COMPONENT_SHARED]]");
+		public static readonly Guid Guid2 = new Guid("[[GUID.COMPONENT_SEPARATE]]");
+		public static readonly Guid Guid3 = new Guid("[[GUID.COMPONENT_SHARED]]");
+    }
+}

@@ -8,6 +8,7 @@ namespace SolutionGenerator.Tests.Templates
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using ApprovalTests;
     using NUnit.Framework;
@@ -18,6 +19,28 @@ namespace SolutionGenerator.Tests.Templates
     public class TemplateEngineFacts
     {
         private readonly TemplateLoader _templateLoader = new TemplateLoader();
+
+        [Test]
+        public async Task RandomGuidsAsync()
+        {
+            var guidTemplate = new GuidTemplate();
+            var templates = CreateTemplates(guidTemplate);
+
+            var templateContent = await LoadEmbeddedResourceTemplateAsync("RandomGuids.txt");
+
+            var engine = CreateTemplateEngine();
+
+            var result = engine.ReplaceValues(templateContent, templates);
+            
+            var guid1 = guidTemplate.GetValue("COMPONENT_SHARED");
+            var guid2 = guidTemplate.GetValue("COMPONENT_SEPARATE");
+
+            // Guid 1 should occur twice
+            Assert.AreEqual(2, result.Select((c, i) => result.Substring(i)).Count(sub => sub.StartsWith(guid1)));
+
+            // Guid 2 should occur once
+            Assert.AreEqual(1, result.Select((c, i) => result.Substring(i)).Count(sub => sub.StartsWith(guid2)));
+        }
 
         [Test]
         public async Task NestedIfStatementsAsync()

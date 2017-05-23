@@ -173,8 +173,8 @@ namespace SolutionGenerator.Templates
                     {
                         // Regular replacement, but make sure to ignore known keywords
                         var canHandle = !KnownReservedPrefixes.Any(x => key.StartsWithIgnoreCase(x));
-                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix)) ||
-                            !availableKeys.Any(x => x.EqualsIgnoreCase(key)))
+                        if (!allPossiblePrefixes.Any(x => x.EqualsIgnoreCase(keyPrefix))) /*||
+                            !availableKeys.Any(x => x.EqualsIgnoreCase(key)))*/ // disabled for random guids (no pre-defined keys)
                         {
                             // Not a value for this template
                             canHandle = false;
