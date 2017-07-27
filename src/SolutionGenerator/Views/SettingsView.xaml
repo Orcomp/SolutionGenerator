@@ -1,7 +1,7 @@
 ﻿<catel:UserControl x:Class="SolutionGenerator.Views.SettingsView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:catel="http://schemas.catelproject.com"
                    xmlns:converters="clr-namespace:SolutionGenerator.Converters"
                    xmlns:orc="http://www.wildgums.net.au/orc">
 
@@ -31,13 +31,13 @@
                             <Label Grid.Column="0" Content="Name" />
                             <TextBox Grid.Column="1" Text="{Binding Name}" />
 
-                            <orc:DirectoryPickerView Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" />
+                            <orc:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" />
                         </Grid>
                     </Grid>
                 </GroupBox>
 
                 <GroupBox Header="Company" DataContext="{Binding Company}">
-                    <catel:StackGrid>
+                    <orc:StackGrid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="125" />
                             <ColumnDefinition Width="*" />
@@ -50,7 +50,7 @@
 
                         <Label Content="Name" />
                         <TextBox Text="{Binding Name}" />
-                    </catel:StackGrid>
+                    </orc:StackGrid>
                 </GroupBox>
 
                 <ContentControl x:Name="contentPresenter" Content="{Binding ElementName=layoutRoot, Path=DataContext.ActivePlugin, Converter={converters:TemplateDefinitionToViewConverter}}" />

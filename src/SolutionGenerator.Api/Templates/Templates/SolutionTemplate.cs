@@ -25,12 +25,12 @@ namespace SolutionGenerator.Templates
 
             if (string.IsNullOrWhiteSpace(Name))
             {
-                validationContext.AddFieldValidationResult(FieldValidationResult.CreateError("Solution.Name", "The solution name is required"));
+                validationContext.Add(FieldValidationResult.CreateError("Solution.Name", "The solution name is required"));
             }
 
             if (string.IsNullOrWhiteSpace(Directory))
             {
-                validationContext.AddFieldValidationResult(FieldValidationResult.CreateError("Solution.Directory", "The solution directory is required"));
+                validationContext.Add(FieldValidationResult.CreateError("Solution.Directory", "The solution directory is required"));
             }
 
             return validationContext;

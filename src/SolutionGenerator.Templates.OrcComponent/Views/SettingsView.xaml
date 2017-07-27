@@ -3,12 +3,13 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                   xmlns:catel="http://catel.codeplex.com"
+                   xmlns:catel="http://schemas.catelproject.com"
+                   xmlns:orc="http://www.wildgums.net.au/orc"
                    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
         <GroupBox Header="NuGet">
-            <catel:StackGrid DataContext="{Binding NuGet}">
+            <orc:StackGrid DataContext="{Binding NuGet}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="125" />
                     <ColumnDefinition Width="*" />
@@ -21,11 +22,11 @@
 
                 <Label Content="Package name" />
                 <TextBox Text="{Binding PackageName}" />
-            </catel:StackGrid>
+            </orc:StackGrid>
         </GroupBox>
 
         <GroupBox Header="GitHub" DataContext="{Binding GitHub}">
-            <catel:StackGrid>
+            <orc:StackGrid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="125" />
                     <ColumnDefinition Width="*" />
@@ -41,8 +42,11 @@
 
                 <Label Content="Repository name" />
                 <TextBox Text="{Binding RepositoryName}" />
-            </catel:StackGrid>
+            </orc:StackGrid>
         </GroupBox>
     </StackPanel>
 
 </catel:UserControl>
+
+
+
