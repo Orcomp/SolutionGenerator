@@ -3,7 +3,6 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Orc.Controls;component/Themes/Generic.xaml"/>
-        <ResourceDictionary Source="/Catel.Extensions.Controls;component/Themes/Generic.xaml"/>
         <ResourceDictionary Source="/Orchestra.Shell.TaskRunner;component/Themes/Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 

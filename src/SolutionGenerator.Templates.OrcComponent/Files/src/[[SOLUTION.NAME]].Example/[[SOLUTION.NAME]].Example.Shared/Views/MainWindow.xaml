@@ -16,6 +16,6 @@
 
 		<!-- TODO: Add your content here -->
 		
-    </catel:StackGrid>
+    </orc:StackGrid>
 
 </catel:Window>

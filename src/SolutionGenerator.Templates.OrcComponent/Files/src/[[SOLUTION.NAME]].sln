@@ -69,10 +69,6 @@ Global
         Release|Any CPU = Release|Any CPU
     EndGlobalSection
     GlobalSection(ProjectConfigurationPlatforms) = postSolution
-        {[[GUID.EXAMPLE_SHARED]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {[[GUID.EXAMPLE_SHARED]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {[[GUID.EXAMPLE_SHARED]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {[[GUID.EXAMPLE_SHARED]]}.Release|Any CPU.Build.0 = Release|Any CPU
         {[[GUID.COMPONENT_NET45]]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
         {[[GUID.COMPONENT_NET45]]}.Debug|Any CPU.Build.0 = Debug|Any CPU
         {[[GUID.COMPONENT_NET45]]}.Release|Any CPU.ActiveCfg = Release|Any CPU
