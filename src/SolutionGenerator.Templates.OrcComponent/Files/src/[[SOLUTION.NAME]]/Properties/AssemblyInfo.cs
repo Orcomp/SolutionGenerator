@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("[[SOLUTION.NAME]]")]
 [assembly: AssemblyProduct("[[SOLUTION.NAME]]")]
 [assembly: AssemblyDescription("[[SOLUTION.NAME]] library")]
+[assembly: NeutralResourcesLanguage("en-US")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

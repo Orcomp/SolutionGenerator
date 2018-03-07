@@ -17,7 +17,6 @@ using System.Resources;
 [assembly: AssemblyCopyright("Copyright © [[COMPANY.NAME]] 2010 - [[DATETIME.YEAR]]")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("en-US")]
 
 // Version information for an assembly consists of the following four values:
 //
