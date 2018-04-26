@@ -56,7 +56,7 @@ namespace SolutionGenerator.Templates
                 var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
                                   where key.StartsWithIgnoreCase(possibleDataPrefix)
                                   select possibleDataPrefix).FirstOrDefault();
-                if (usedPrefix == null)
+                if (usedPrefix == null && possibleDataPrefixes.Contains(string.Empty))
                 {
                     // Assume string.Empty
                     usedPrefix = string.Empty;
