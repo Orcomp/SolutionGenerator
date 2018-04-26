@@ -1,3 +1,4 @@
+Information("Running target '{0}'", target);
 Information("Using output directory '{0}'", outputRootDirectory);
 
 //-------------------------------------------------------------
@@ -11,7 +12,24 @@ Task("RestorePackages")
 	{
 		Information("Restoring packages for {0}", solution);
 		
-		NuGetRestore(solution);
+        var nuGetRestoreSettings = new NuGetRestoreSettings();
+
+        if (!string.IsNullOrWhiteSpace(nuGetPackageSources))
+        {
+            var sources = new List<string>();
+
+            foreach (var splitted in nuGetPackageSources.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                sources.Add(splitted);
+            }
+            
+            if (sources.Count > 0)
+            {
+                nuGetRestoreSettings.Source = sources;
+            }
+        }
+
+        NuGetRestore(solution, nuGetRestoreSettings);
 	}
 });
 
@@ -40,7 +58,7 @@ Task("Clean")
 
         MSBuild(solutionFileName, configurator =>
             configurator.SetConfiguration(configurationName)
-                .SetVerbosity(Verbosity.Quiet)
+                .SetVerbosity(Verbosity.Minimal)
                 .SetMSBuildPlatform(MSBuildPlatform.x86)
                 .SetPlatformTarget(platform.Value)
                 .WithTarget("Clean"));
@@ -95,10 +113,10 @@ Task("Package")
 {
 	foreach (var projectToPackage in projectsToPackage)
 	{
-		Information("Packaging '{0}'", projectsToPackage);
+		Information("Packaging '{0}'", projectToPackage);
 
 		var msBuildSettings = new MSBuildSettings {
-            Verbosity = Verbosity.Quiet, // Verbosity.Diagnostic
+            Verbosity = Verbosity.Minimal, // Verbosity.Diagnostic
             ToolVersion = MSBuildToolVersion.VS2017,
             Configuration = configurationName,
             MSBuildPlatform = MSBuildPlatform.x86, // Always require x86, see platform for actual target platform
