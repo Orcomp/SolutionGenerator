@@ -36,30 +36,26 @@
     <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Core.5.0.0\lib\net46\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Core.5.4.0-beta0012\lib\net46\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Fody.Attributes, Version=2.17.1.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Fody.2.17.1\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
+    <Reference Include="Catel.Fody.Attributes, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Fody.3.3.0\lib\net452\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.5.0.0\lib\net46\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.MVVM.5.4.0-beta0012\lib\net46\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Expression.Blend.Sdk.WPF.1.0.1\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Orc.Controls, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.Controls.2.0.0\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.Controls.3.0.0-alpha0025\lib\net46\Orc.Controls.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.5.0.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -126,30 +122,6 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\ModuleInitializer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\ModuleInitializer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\FodyWeavers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\[[SOLUTION.NAME]].NET47.csproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\ModuleInitializer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\AssemblyInfo.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET45.Designer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET46.Designer.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\GlobalSuppressions.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -162,10 +134,10 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\ModuleInitializer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\ModuleInitializer.cs">
+    <Content Include="Files\src\[[SOLUTION.NAME]]\ModuleInitializer.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.NET47.Designer.cs">
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="OrcComponentTemplateDefinition.cs" />
@@ -202,12 +174,6 @@
     <Content Include="Files\CONTRIBUTORS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\deployment\FinalBuilder\[[SOLUTION.NAME]].CreatePackages.fbp7">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\deployment\NuGet\template\[[NUGET.PACKAGENAME]]\[[NUGET.PACKAGENAME]].nuspec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\GitVersionConfig.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -215,18 +181,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\scripts - Build - Debug.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\scripts - Build - Release.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\scripts - Clean all.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\scripts - Restore packages.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\scripts - Update NuGet.bat">
@@ -259,19 +213,28 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET46\[[SOLUTION.NAME]].Tests.NET46.csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\FodyWeavers.xml">
+    <Content Include="Files\src\[[SOLUTION.NAME]]\FodyWeavers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\[[SOLUTION.NAME]].NET45.csproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\FodyWeavers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\[[SOLUTION.NAME]].NET46.csproj">
+    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].csproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\tools\NuGet\NuGet.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\build.cake">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\build.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\deployment\cake\continuaci.cake">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\deployment\cake\tasks.cake">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\deployment\cake\variables.cake">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="FodyWeavers.xml" />
@@ -313,18 +276,6 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.Shared\[[SOLUTION.NAME]].Tests.Shared.shproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET45\packages.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET46\packages.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.projitems">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\[[SOLUTION.NAME]].Shared.shproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\.github\ISSUE_TEMPLATE.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -349,48 +300,45 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.de.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.es.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.fr.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.nl.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].Shared\Properties\Resources.ru.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.NET47\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET47\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]]\[[SOLUTION.NAME]].NET47\packages.config">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\Resources.de.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\Resources.es.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\Resources.fr.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\Resources.nl.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\Resources.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\src\[[SOLUTION.NAME]]\Properties\Resources.ru.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /s /f /y "$(TargetDir)\$(TargetFileName)" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\"
 xcopy /s /f /y "$(TargetDir)Files" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\Files\"</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\lib\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\lib\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
+  <Import Project="..\..\lib\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\lib\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\lib\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\lib\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.3.0.3\build\Fody.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

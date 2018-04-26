@@ -3,7 +3,7 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:catel="http://schemas.catelproject.com"
                    xmlns:converters="clr-namespace:SolutionGenerator.Converters"
-                   xmlns:orc="http://www.wildgums.net.au/orc">
+                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls">
 
     <Grid x:Name="layoutRoot">
         <Grid.RowDefinitions>
@@ -31,13 +31,13 @@
                             <Label Grid.Column="0" Content="Name" />
                             <TextBox Grid.Column="1" Text="{Binding Name}" />
 
-                            <orc:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" />
+                            <orccontrols:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Directory" SelectedDirectory="{Binding Directory}" />
                         </Grid>
                     </Grid>
                 </GroupBox>
 
                 <GroupBox Header="Company" DataContext="{Binding Company}">
-                    <orc:StackGrid>
+                    <orccontrols:StackGrid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="125" />
                             <ColumnDefinition Width="*" />
@@ -50,7 +50,7 @@
 
                         <Label Content="Name" />
                         <TextBox Text="{Binding Name}" />
-                    </orc:StackGrid>
+                    </orccontrols:StackGrid>
                 </GroupBox>
 
                 <ContentControl x:Name="contentPresenter" Content="{Binding ElementName=layoutRoot, Path=DataContext.ActivePlugin, Converter={converters:TemplateDefinitionToViewConverter}}" />

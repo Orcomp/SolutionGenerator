@@ -4,12 +4,12 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:catel="http://schemas.catelproject.com"
-                   xmlns:orc="http://www.wildgums.net.au/orc"
+                   xmlns:orccontrols="http://schemas.wildgums.com/orc/controls"
                    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
         <GroupBox Header="Data">
-            <orc:StackGrid DataContext="{Binding Data}">
+            <orccontrols:StackGrid DataContext="{Binding Data}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="125" />
                     <ColumnDefinition Width="*" />
@@ -22,8 +22,8 @@
 
                 <!--<Label Content="Data Folder" />
                 <TextBox Text="{Binding DataFolder}" />-->
-                <orc:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Data folder" SelectedDirectory="{Binding DataFolder}" />
-            </orc:StackGrid>
+                <orccontrols:DirectoryPicker Grid.Row="1" Grid.ColumnSpan="2" LabelWidth="125" LabelText="Data folder" SelectedDirectory="{Binding DataFolder}" />
+            </orccontrols:StackGrid>
         </GroupBox>
 
         <!--<GroupBox Header="GitHub" DataContext="{Binding GitHub}">
