@@ -56,6 +56,12 @@ namespace SolutionGenerator.Templates
                 var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
                                   where key.StartsWithIgnoreCase(possibleDataPrefix)
                                   select possibleDataPrefix).FirstOrDefault();
+                if (usedPrefix == null)
+                {
+                    // Assume string.Empty
+                    usedPrefix = string.Empty;
+                }
+
                 if (usedPrefix != null)
                 {
                     if (usedPrefix.Length > 0)
@@ -64,7 +70,10 @@ namespace SolutionGenerator.Templates
                     }
 
                     collection = template.GetCollectionValue(key);
-                    break;
+                    if (collection != null)
+                    {
+                        break;
+                    }
                 }
             }
 
