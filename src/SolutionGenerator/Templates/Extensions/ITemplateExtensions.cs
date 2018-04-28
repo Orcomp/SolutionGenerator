@@ -52,16 +52,7 @@ namespace SolutionGenerator.Templates
 
             foreach (var template in templates)
             {
-                var possibleDataPrefixes = GetPossibleDataPrefixes(template);
-                var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
-                                  where key.StartsWithIgnoreCase(possibleDataPrefix)
-                                  select possibleDataPrefix).FirstOrDefault();
-                if (usedPrefix == null && possibleDataPrefixes.Contains(string.Empty))
-                {
-                    // Assume string.Empty
-                    usedPrefix = string.Empty;
-                }
-
+                var usedPrefix = template.GetUsedPrefix(key);
                 if (usedPrefix != null)
                 {
                     if (usedPrefix.Length > 0)
@@ -88,10 +79,7 @@ namespace SolutionGenerator.Templates
             {
                 var availableKeys = template.GetKeys();
 
-                var possibleDataPrefixes = GetPossibleDataPrefixes(template);
-                var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
-                                  where key.StartsWithIgnoreCase(possibleDataPrefix)
-                                  select possibleDataPrefix).FirstOrDefault();
+                var usedPrefix = template.GetUsedPrefix(key);
                 if (usedPrefix != null)
                 {
                     if (usedPrefix.Length > 0)
@@ -134,6 +122,21 @@ namespace SolutionGenerator.Templates
             }
 
             return key;
+        }
+
+        public static string GetUsedPrefix(this ITemplate template, string key)
+        {
+            var possibleDataPrefixes = GetPossibleDataPrefixes(template);
+            var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
+                              where key.StartsWithIgnoreCase(possibleDataPrefix)
+                              select possibleDataPrefix).FirstOrDefault();
+            if (usedPrefix == null && possibleDataPrefixes.Contains(string.Empty))
+            {
+                // Assume string.Empty
+                usedPrefix = string.Empty;
+            }
+
+            return usedPrefix;
         }
     }
 }
