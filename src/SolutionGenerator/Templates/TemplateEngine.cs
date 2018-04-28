@@ -298,6 +298,12 @@ namespace SolutionGenerator.Templates
                 value = value.Remove(0, 1);
                 value = value.Insert(0, char.ToLower(character).ToString());
             }
+            else if (modifier.EqualsIgnoreCase(Modifiers.UpperCamelcase))
+            {
+                var character = value[0];
+                value = value.Remove(0, 1);
+                value = value.Insert(0, char.ToUpper(character).ToString());
+            }
             else if (modifier.EqualsIgnoreCase(Modifiers.Alphanumeric))
             {
                 value = value.RemoveDiacritics();

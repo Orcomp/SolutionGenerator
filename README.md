@@ -143,9 +143,10 @@ Multiple modifiers are supported, they must be separated by a `|`.
 
 For now the following modifiers are supported:
 
-* Uppercase => Make the value uppercase
-* Lowercase => Make the value lowercase
+* Uppercase => Make the value uppercase (e.g. 'SomeValue' becomes 'SOMEVALUE')
+* Lowercase => Make the value lowercase (e.g. 'SomeValue' becomes 'somevalue')
 * Camelcase => Use camelcase (e.g. 'SomeValue' becomes 'someValue')
+* UpperCamelCase => Use camelcase but make the first letter uppercase (e.g. 'someValue' becomes 'SomeValue')
 * Alphanumeric => Replace all characters that are not alphanumber (e.g. 'Some! Value' becomes 'SomeValue')
 
 ## Using loops
