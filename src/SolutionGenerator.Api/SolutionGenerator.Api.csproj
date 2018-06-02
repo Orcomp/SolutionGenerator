@@ -81,6 +81,8 @@
     </Compile>
     <Compile Include="Attributes\AbbreviationAttribute.cs" />
     <Compile Include="Exceptions\SolutionGeneratorException.cs" />
+    <Compile Include="Extensions\StringExtensions.camelcase.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\TemplateFileHelper.cs" />
     <Compile Include="Helpers\TemplateFileHelper.embeddedresources.cs" />
     <Compile Include="Helpers\TemplateFileHelper.zippedfiles.cs" />
