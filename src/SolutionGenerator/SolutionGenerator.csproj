@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\lib\ModuleInit.Fody.1.9.0\build\ModuleInit.Fody.props" Condition="Exists('..\..\lib\ModuleInit.Fody.1.9.0\build\ModuleInit.Fody.props')" />
+  <Import Project="..\..\lib\MethodTimer.Fody.2.2.2\build\MethodTimer.Fody.props" Condition="Exists('..\..\lib\MethodTimer.Fody.2.2.2\build\MethodTimer.Fody.props')" />
   <Import Project="..\..\lib\LibGit2Sharp.NativeBinaries.1.0.185\build\LibGit2Sharp.NativeBinaries.props" Condition="Exists('..\..\lib\LibGit2Sharp.NativeBinaries.1.0.185\build\LibGit2Sharp.NativeBinaries.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -49,17 +51,17 @@
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Core.5.5.0\lib\net46\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=5.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Core.5.8.0\lib\net46\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Fody.Attributes, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Fody.3.3.0\lib\net452\Catel.Fody.Attributes.dll</HintPath>
+    <Reference Include="Catel.Fody.Attributes, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Fody.3.7.0\lib\net452\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.5.5.0\lib\net46\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM, Version=5.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.MVVM.5.8.0\lib\net46\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\CsvHelper.7.1.0\lib\net45\CsvHelper.dll</HintPath>
+      <HintPath>..\..\lib\CsvHelper.7.1.1\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="DotNetZip, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\..\lib\DotNetZip.1.11.0\lib\net20\DotNetZip.dll</HintPath>
@@ -76,8 +78,8 @@
     <Reference Include="LibGit2Sharp, Version=0.24.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
       <HintPath>..\..\lib\LibGit2Sharp.0.24.0\lib\net40\LibGit2Sharp.dll</HintPath>
     </Reference>
-    <Reference Include="MethodTimer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\MethodTimer.Fody.2.1.0\lib\net452\MethodTimer.dll</HintPath>
+    <Reference Include="MethodTimer, Version=2.2.2.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\MethodTimer.Fody.2.2.2\lib\net452\MethodTimer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Conversion.v4.0" />
@@ -89,32 +91,32 @@
       <HintPath>..\..\lib\Expression.Blend.Sdk.WPF.1.0.1\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ModuleInit, Version=1.8.0.0, Culture=neutral, PublicKeyToken=409b3227471b0f0d, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\ModuleInit.Fody.1.8.0\lib\net452\ModuleInit.dll</HintPath>
+    <Reference Include="ModuleInit, Version=1.9.0.0, Culture=neutral, PublicKeyToken=409b3227471b0f0d, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\ModuleInit.Fody.1.9.0\lib\net452\ModuleInit.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.Controls, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.Controls.3.0.0-alpha0037\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.Controls.3.1.1\lib\net46\Orc.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Orc.Csv, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.Csv.3.3.0-alpha0017\lib\net46\Orc.Csv.dll</HintPath>
+      <HintPath>..\..\lib\Orc.Csv.3.3.0\lib\net46\Orc.Csv.dll</HintPath>
     </Reference>
     <Reference Include="Orc.Extensibility, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.Extensibility.3.0.0-alpha0020\lib\net46\Orc.Extensibility.dll</HintPath>
+      <HintPath>..\..\lib\Orc.Extensibility.3.0.0\lib\net46\Orc.Extensibility.dll</HintPath>
     </Reference>
     <Reference Include="Orc.FileSystem, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.FileSystem.3.0.0-alpha0028\lib\net46\Orc.FileSystem.dll</HintPath>
+      <HintPath>..\..\lib\Orc.FileSystem.3.0.0\lib\net46\Orc.FileSystem.dll</HintPath>
     </Reference>
-    <Reference Include="Orc.LogViewer, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.LogViewer.3.0.0-alpha0014\lib\net46\Orc.LogViewer.dll</HintPath>
+    <Reference Include="Orc.LogViewer, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.LogViewer.3.1.0\lib\net46\Orc.LogViewer.dll</HintPath>
     </Reference>
     <Reference Include="Orc.SystemInfo, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.SystemInfo.3.0.0-alpha0019\lib\net46\Orc.SystemInfo.dll</HintPath>
+      <HintPath>..\..\lib\Orc.SystemInfo.3.0.0\lib\net46\Orc.SystemInfo.dll</HintPath>
     </Reference>
-    <Reference Include="Orchestra.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orchestra.Core.5.0.0-alpha0028\lib\net46\Orchestra.Core.dll</HintPath>
+    <Reference Include="Orchestra.Core, Version=5.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orchestra.Core.5.1.4\lib\net46\Orchestra.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Orchestra.Shell.TaskRunner, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orchestra.Shell.TaskRunner.5.0.0-alpha0028\lib\net46\Orchestra.Shell.TaskRunner.dll</HintPath>
+    <Reference Include="Orchestra.Shell.TaskRunner, Version=5.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orchestra.Shell.TaskRunner.5.1.4\lib\net46\Orchestra.Shell.TaskRunner.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -218,9 +220,11 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\lib\LibGit2Sharp.NativeBinaries.1.0.185\build\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.NativeBinaries.1.0.185\build\LibGit2Sharp.NativeBinaries.props'))" />
-    <Error Condition="!Exists('..\..\lib\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.3.0.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\lib\Fody.3.3.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.3.3.5\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\lib\MethodTimer.Fody.2.2.2\build\MethodTimer.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\MethodTimer.Fody.2.2.2\build\MethodTimer.Fody.props'))" />
+    <Error Condition="!Exists('..\..\lib\ModuleInit.Fody.1.9.0\build\ModuleInit.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\ModuleInit.Fody.1.9.0\build\ModuleInit.Fody.props'))" />
   </Target>
-  <Import Project="..\..\lib\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\lib\Fody.3.0.3\build\Fody.targets')" />
+  <Import Project="..\..\lib\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\..\lib\Fody.3.3.5\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

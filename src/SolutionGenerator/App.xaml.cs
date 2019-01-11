@@ -22,7 +22,7 @@ namespace SolutionGenerator
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         #region Methods
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
             LogManager.AddDebugListener(true);
@@ -35,7 +35,7 @@ namespace SolutionGenerator
                 serviceLocator.RegisterType<ITaskRunnerService, TaskRunnerService>();
 
                 var shellService = serviceLocator.ResolveType<IShellService>();
-                shellService.CreateAsync<ShellWindow>();
+                await shellService.CreateAsync<ShellWindow>();
 
                 base.OnStartup(e);
             }
@@ -48,7 +48,7 @@ namespace SolutionGenerator
                 MessageBox.Show($"A critical error has occurred in '{assemblyTitle}'.\n\nPlease contact support, they will know what to do.",
                     $"Critical error in '{assemblyTitle}' - please contact support", MessageBoxButton.OK, MessageBoxImage.Stop);
 
-                LogManager.FlushAll();
+                await LogManager.FlushAllAsync();
 
                 Environment.Exit(1);
             }

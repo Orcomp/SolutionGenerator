@@ -36,21 +36,24 @@
     <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Core.5.5.0\lib\net46\Catel.Core.dll</HintPath>
+    <Reference Include="Catel.Core, Version=5.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Core.5.8.0\lib\net46\Catel.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.Fody.Attributes, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Fody.3.3.0\lib\net452\Catel.Fody.Attributes.dll</HintPath>
+    <Reference Include="Catel.Fody.Attributes, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.Fody.3.7.0\lib\net452\Catel.Fody.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="Catel.MVVM, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.MVVM.5.5.0\lib\net46\Catel.MVVM.dll</HintPath>
+    <Reference Include="Catel.MVVM, Version=5.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Catel.MVVM.5.8.0\lib\net46\Catel.MVVM.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\lib\Expression.Blend.Sdk.WPF.1.0.1\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Orc.Controls, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Orc.Controls.3.0.0-alpha0037\lib\net46\Orc.Controls.dll</HintPath>
+    <Reference Include="Orc.Controls, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.Controls.3.1.1\lib\net46\Orc.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Orc.FileSystem, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Orc.FileSystem.3.0.0\lib\net46\Orc.FileSystem.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -61,6 +64,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.FileSystem.Watcher, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\System.IO.FileSystem.Watcher.4.3.0\lib\net46\System.IO.FileSystem.Watcher.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\lib\System.Runtime.Serialization.Formatters.4.3.0\lib\net46\System.Runtime.Serialization.Formatters.dll</HintPath>
@@ -277,9 +283,6 @@
     <Content Include="Files\src\[[SOLUTION.NAME]].Example\[[SOLUTION.NAME]].Example.Shared\[[SOLUTION.NAME]].Example.Shared.shproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\src\[[SOLUTION.NAME]].sln.DotSettings">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Files\src\[[SOLUTION.NAME]].Tests\[[SOLUTION.NAME]].Tests.NET45\packages.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -349,12 +352,12 @@
     <PostBuildEvent>xcopy /s /f /y "$(TargetDir)\$(TargetFileName)" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\"
 xcopy /s /f /y "$(TargetDir)Files" "$(TargetDir)\..\$(SolutionName)\templates\$(TargetName)\Files\"</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\lib\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\lib\Fody.3.0.3\build\Fody.targets')" />
+  <Import Project="..\..\lib\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\..\lib\Fody.3.3.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\lib\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.3.0.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\lib\Fody.3.3.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.3.3.5\build\Fody.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
