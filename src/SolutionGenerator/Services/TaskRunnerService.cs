@@ -44,7 +44,7 @@ namespace SolutionGenerator.Services
             set
             {
                 _title = value;
-                TitleChanged.SafeInvoke(this);
+                TitleChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
