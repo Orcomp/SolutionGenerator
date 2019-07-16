@@ -38,19 +38,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SolutionGenerator.Api\SolutionGenerator.Api.csproj" />
   </ItemGroup>
-
-  <!-- Template specific -->
-  <ItemGroup>
-    <None Remove="Files\**" />
-    <Compile Remove="Files\**" />
-    <Content Include="Files\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /s /f /y &quot;$(TargetDir)\$(TargetFileName)&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\$(TargetFramework)\templates\$(TargetName)\&quot;&#xD;&#xA;xcopy /s /f /y &quot;$(TargetDir)\Files&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\$(TargetFramework)\templates\$(TargetName)\Files\&quot;" />
-  </Target>
   
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -69,4 +56,19 @@
 
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.explicit.props')" />
   <Import Project="$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props" Condition="Exists('$(MSBuildProjectDirectory)\..\Directory.build.shared.mat.props')" />
+  
+  <!-- Template specific, must be defined after the explicit imports -->
+  <ItemGroup>
+    <Page Remove="Files\**" />
+    <Resource Remove="Files\**" />
+    <None Remove="Files\**" />
+    <Compile Remove="Files\**" />
+    <Content Include="Files\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /s /f /y &quot;$(TargetDir)\$(TargetFileName)&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\$(TargetFramework)\templates\$(TargetName)\&quot;&#xD;&#xA;xcopy /s /f /y &quot;$(TargetDir)\Files&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\$(TargetFramework)\templates\$(TargetName)\Files\&quot;" />
+  </Target>
 </Project>
