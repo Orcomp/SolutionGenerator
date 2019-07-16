@@ -132,30 +132,19 @@ private void BuildComponents()
             PlatformTarget = PlatformTarget.MSIL
         };
 
-        var toolPath = GetVisualStudioPath(msBuildSettings.ToolVersion);
-        if (!string.IsNullOrWhiteSpace(toolPath))
-        {
-            msBuildSettings.ToolPath = toolPath;
-        }
-
-        // msBuildSettings.AddFileLogger(new MSBuildFileLogger
-        // {
-        //     //Verbosity = msBuildSettings.Verbosity,
-        //     Verbosity = Verbosity.Diagnostic,
-        //     LogFile = System.IO.Path.Combine(OutputRootDirectory, string.Format(@"MsBuild_{0}_build.log", component))
-        // });
-
+        ConfigureMsBuild(msBuildSettings, component);
+        
         // Note: we need to set OverridableOutputPath because we need to be able to respect
         // AppendTargetFrameworkToOutputPath which isn't possible for global properties (which
         // are properties passed in using the command line)
-        var outputDirectory = string.Format("{0}/{1}/", OutputRootDirectory, component);
+        var outputDirectory = GetProjectOutputDirectory(component);
         Information("Output directory: '{0}'", outputDirectory);
         msBuildSettings.WithProperty("OverridableOutputPath", outputDirectory);
         msBuildSettings.WithProperty("PackageOutputPath", OutputRootDirectory);
 
         // SourceLink specific stuff
         var repositoryUrl = RepositoryUrl;
-        if (!IsLocalBuild && !string.IsNullOrWhiteSpace(repositoryUrl))
+        if (!SourceLinkDisabled && !IsLocalBuild && !string.IsNullOrWhiteSpace(repositoryUrl))
         {       
             Information("Repository url is specified, enabling SourceLink to commit '{0}/commit/{1}'", repositoryUrl, RepositoryCommitId);
 
@@ -168,56 +157,7 @@ private void BuildComponents()
             msBuildSettings.WithProperty("RepositoryUrl", repositoryUrl);
             msBuildSettings.WithProperty("RevisionId", RepositoryCommitId);
 
-            // For SourceLink to work, the .csproj should contain something like this:
-            // <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="all" />
-            var projectFileContents = System.IO.File.ReadAllText(projectFileName);
-            if (!projectFileContents.Contains("Microsoft.SourceLink.GitHub"))
-            {
-                Warning("No SourceLink reference found, automatically injecting SourceLink package reference now");
-
-                //const string MSBuildNS = (XNamespace) "http://schemas.microsoft.com/developer/msbuild/2003";
-
-                var xmlDocument = XDocument.Parse(projectFileContents);
-                var projectElement = xmlDocument.Root;
-
-                // Item group with package reference
-                var referencesItemGroup = new XElement("ItemGroup");
-                var sourceLinkPackageReference = new XElement("PackageReference");
-                sourceLinkPackageReference.Add(new XAttribute("Include", "Microsoft.SourceLink.GitHub"));
-                sourceLinkPackageReference.Add(new XAttribute("Version", "1.0.0-beta-63127-02"));
-                sourceLinkPackageReference.Add(new XAttribute("PrivateAssets", "all"));
-
-                referencesItemGroup.Add(sourceLinkPackageReference);
-                projectElement.Add(referencesItemGroup);
-
-                // Item group with source root
-                // <SourceRoot Include="{repository root}" RepositoryUrl="{repository url}"/>
-                var sourceRootItemGroup = new XElement("ItemGroup");
-                var sourceRoot = new XElement("SourceRoot");
-
-                // Required to end with a \
-                var sourceRootValue = RootDirectory;
-                if (!sourceRootValue.EndsWith("\\"))
-                {
-                    sourceRootValue += "\\";
-                };
-
-                sourceRoot.Add(new XAttribute("Include", sourceRootValue));
-                sourceRoot.Add(new XAttribute("RepositoryUrl", repositoryUrl));
-
-                // Note: since we are not allowing source control manager queries (we don't want to require a .git directory),
-                // we must specify the additional information below
-                sourceRoot.Add(new XAttribute("SourceControl", "git"));
-                sourceRoot.Add(new XAttribute("RevisionId", RepositoryCommitId));
-
-                sourceRootItemGroup.Add(sourceRoot);
-                projectElement.Add(sourceRootItemGroup);
-
-                xmlDocument.Save(projectFileName);
-
-                // Restore packages again for the dynamic package
-                RestoreNuGetPackages(projectFileName);
-            }
+            InjectSourceLinkInProjectFile(projectFileName);
         }
 
         MSBuild(projectFileName, msBuildSettings);
@@ -239,17 +179,7 @@ private void PackageComponents()
 
         var projectDirectory = string.Format("./src/{0}", component);
         var projectFileName = string.Format("{0}/{1}.csproj", projectDirectory, component);
-
-        var projectFileContents = FileReadText(projectFileName);
-        if (!string.IsNullOrWhiteSpace(projectFileContents))
-        {
-            if (projectFileContents.ToLower().Contains("uap10.0"))
-            {
-                Warning("UAP 10.0 is detected as one of the target frameworks, make sure to install the latest version of .NET Core in order to pack UAP 10.0 assemblies. See https://github.com/dotnet/cli/issues/9303 for more info");
-            }
-        }
-
-        var outputDirectory = string.Format("{0}/{1}/", OutputRootDirectory, component);
+        var outputDirectory = GetProjectOutputDirectory(component);
         Information("Output directory: '{0}'", outputDirectory);
 
         // Step 1: remove intermediate files to ensure we have the same results on the build server, somehow NuGet 
@@ -275,13 +205,18 @@ private void PackageComponents()
         Information(string.Empty);
 
         // Step 2: Go packaging!
+        Information("Using 'msbuild' to package '{0}'", component);
 
-        Information("Using 'dotnet pack' to package '{0}'", component);
-
-        var msBuildSettings = new DotNetCoreMSBuildSettings
-        {
-            //Verbosity = DotNetCoreVerbosity.Diagnostic // DotNetCoreVerbosity.Minimal,
+        var msBuildSettings = new MSBuildSettings {
+            Verbosity = Verbosity.Quiet,
+            //Verbosity = Verbosity.Diagnostic,
+            ToolVersion = MSBuildToolVersion.Default,
+            Configuration = ConfigurationName,
+            MSBuildPlatform = MSBuildPlatform.x86, // Always require x86, see platform for actual target platform
+            PlatformTarget = PlatformTarget.MSIL
         };
+
+        ConfigureMsBuild(msBuildSettings, component, "pack");
 
         // Note: we need to set OverridableOutputPath because we need to be able to respect
         // AppendTargetFrameworkToOutputPath which isn't possible for global properties (which
@@ -304,32 +239,20 @@ private void PackageComponents()
             msBuildSettings.WithProperty("RepositoryUrl", repositoryUrl);
             msBuildSettings.WithProperty("RevisionId", RepositoryCommitId);
         }
-
+        
         // Fix for .NET Core 3.0, see https://github.com/dotnet/core-sdk/issues/192, it
         // uses obj/release instead of [outputdirectory]
         msBuildSettings.WithProperty("DotNetPackIntermediateOutputPath", outputDirectory);
-
-        // msBuildSettings.AddFileLogger(new MSBuildFileLoggerSettings
-        // {
-        //     Verbosity = DotNetCoreVerbosity.Diagnostic,
-        //     LogFile = System.IO.Path.Combine(OutputRootDirectory, string.Format(@"MsBuild_{0}_pack.log", component))
-        // });
-
-        var packSettings = new DotNetCorePackSettings
-        {
-            MSBuildSettings = msBuildSettings,
-            OutputDirectory = OutputRootDirectory,
-            Configuration = ConfigurationName,
-            NoBuild = true,
-            Verbosity = msBuildSettings.Verbosity
-        };
-
-        DotNetCorePack(projectFileName, packSettings);
         
+        msBuildSettings.WithProperty("NoBuild", "true");
+        msBuildSettings.Targets.Add("Pack");
+
+        MSBuild(projectFileName, msBuildSettings);
+
         LogSeparator();
     }
 
-    var codeSign = (!IsCiBuild && !string.IsNullOrWhiteSpace(CodeSignCertificateSubjectName));
+    var codeSign = (!IsCiBuild && !IsLocalBuild && !string.IsNullOrWhiteSpace(CodeSignCertificateSubjectName));
     if (codeSign)
     {
         // For details, see https://docs.microsoft.com/en-us/nuget/create-packages/sign-a-package
