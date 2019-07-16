@@ -49,7 +49,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /s /f /y &quot;$(TargetDir)\$(TargetFileName)&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\templates\$(TargetName)\&quot;&#xD;&#xA;xcopy /s /f /y &quot;$(TargetDir)\Files&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\templates\$(TargetName)\Files\&quot;" />
+    <Exec Command="xcopy /s /f /y &quot;$(TargetDir)\$(TargetFileName)&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\$(TargetFramework)\templates\$(TargetName)\&quot;&#xD;&#xA;xcopy /s /f /y &quot;$(TargetDir)\Files&quot; &quot;$(TargetDir)\..\..\$(SolutionName)\$(TargetFramework)\templates\$(TargetName)\Files\&quot;" />
   </Target>
   
   <ItemGroup>
