@@ -10,6 +10,7 @@ namespace SolutionGenerator
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Reflection;
     using System.Resources;
     using System.Web;
@@ -35,7 +36,7 @@ namespace SolutionGenerator
                     var resources = (from resource in reader.Cast<DictionaryEntry>()
                                      let resourceKey = resource.Key as string
                                      where resourceKey != null && resourceKey.StartsWithIgnoreCase(expectedPrefix)
-                                     select new ResourceTemplateFile(assembly, resourceKey, HttpUtility.UrlDecode(resourceKey).Substring(expectedPrefix.Length))).ToList<ITemplateFile>();
+                                     select new ResourceTemplateFile(assembly, resourceKey, WebUtility.UrlDecode(resourceKey).Substring(expectedPrefix.Length))).ToList<ITemplateFile>();
                     return resources;
                 }
             }

@@ -15,8 +15,6 @@ namespace SolutionGenerator.Tests
     [TestFixture]
     public class EfEntityPluralServiceTest
     {
-        private readonly ITemplateProvider _target = new TemplateProvider(new FileSystemService());
-
         [TestCase("Parts", "Part")]
         [TestCase("Entities", "Entity")]
         [TestCase("Feet", "Foot")]
@@ -26,7 +24,7 @@ namespace SolutionGenerator.Tests
         public void ToSingularTest(string input, string expected)
         {
             var serviceLocator = ServiceLocator.Default;
-            var target = serviceLocator.ResolveType<IEntityPluralService>();
+            var target = serviceLocator.ResolveType<IPluralizationService>();
 
             // Singularize
             Assert.AreEqual(expected, target.ToSingular(input));
@@ -43,7 +41,7 @@ namespace SolutionGenerator.Tests
         public void ToPluralTest(string input, string expected)
         {
             var serviceLocator = ServiceLocator.Default;
-            var target = serviceLocator.ResolveType<IEntityPluralService>();
+            var target = serviceLocator.ResolveType<IPluralizationService>();
 
             // Pluralize
             Assert.AreEqual(expected, target.ToPlural(input));

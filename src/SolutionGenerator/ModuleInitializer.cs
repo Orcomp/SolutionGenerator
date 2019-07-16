@@ -7,7 +7,6 @@
 
 namespace SolutionGenerator
 {
-    using System.Data.Entity.Infrastructure.Pluralization;
     using Catel.IoC;
     using Extensibility;
     using Orc.Csv;
@@ -52,8 +51,6 @@ namespace SolutionGenerator
             serviceLocator.RegisterType<ISolutionGeneratorService, SolutionGeneratorService>();
             serviceLocator.RegisterType<IFileSystemService, FileSystemService>();
             serviceLocator.RegisterType<IProjectFileService, ProjectFileService>();
-
-            serviceLocator.RegisterType<IPluralizationService, EnglishPluralizationService>();
 
             serviceLocator.RegisterType<ITaskRunnerService, TaskRunnerService>();
         }
