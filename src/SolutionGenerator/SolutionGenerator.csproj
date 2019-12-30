@@ -35,7 +35,7 @@
     <PackageReference Include="Microsoft.Web.Xdt" Version="3.0.0" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.0" PrivateAssets="all" />
-    <PackageReference Include="Orc.Csv" Version="3.5.0" />
+    <PackageReference Include="Orc.Csv" Version="3.6.0" />
     <PackageReference Include="Orc.Extensibility" Version="3.3.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
     <PackageReference Include="WpfAnalyzers" Version="2.2.0.3" PrivateAssets="all">
