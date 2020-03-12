@@ -264,7 +264,7 @@ Task("Build")
             
             // TODO: How to determine if this is a .NET Core project / solution? We cannot
             // use IsDotNetCoreProject() because it's project based, not solution based
-            //UseCoreClr = IsDotNetCoreProject
+            UseCoreClr = true,
 
             // Minimize extreme logging
             Verbose = false,
