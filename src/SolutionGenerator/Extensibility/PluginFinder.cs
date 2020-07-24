@@ -18,8 +18,9 @@ namespace SolutionGenerator.Extensibility
         private static readonly string ExpectedInterfaceName = typeof(ITemplateDefinition).FullName;
 
         public PluginFinder(IPluginLocationsProvider pluginLocationsProvider, IPluginInfoProvider pluginInfoProvider,
-            IPluginCleanupService pluginCleanupService, IDirectoryService directoryService, IFileService fileService)
-            : base(pluginLocationsProvider, pluginInfoProvider, pluginCleanupService, directoryService, fileService)
+            IPluginCleanupService pluginCleanupService, IDirectoryService directoryService, IFileService fileService,
+            IAssemblyReflectionService assemblyReflectionService, IRuntimeAssemblyResolverService runtimeAssemblyResolverServic)
+            : base(pluginLocationsProvider, pluginInfoProvider, pluginCleanupService, directoryService, fileService, assemblyReflectionService, runtimeAssemblyResolverServic)
         {
         }
 
@@ -60,7 +61,7 @@ namespace SolutionGenerator.Extensibility
             return false;
         }
 
-        protected override bool IsPlugin(Type type)
+        protected override bool IsPlugin(PluginProbingContext context, Type type)
         {
             // Note: we are in reflection only context here, we must check against the name, not the type
             if ((from iface in type.GetInterfacesEx()
