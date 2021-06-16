@@ -45,14 +45,14 @@ namespace SolutionGenerator.ViewModels
             SelectedPlugin = AvailablePlugins.FirstOrDefault();
         }
 
-        private void OnSelectedPluginChanged()
+        private async void OnSelectedPluginChanged()
         {
             ITemplateDefinition templateDefinition = null;
 
-            if (SelectedPlugin != null)
+            if (SelectedPlugin is not null)
             {
-                var plugin = _multiplePluginsService.ConfigureAndLoadPlugins(SelectedPlugin.FullTypeName).FirstOrDefault();
-                if (plugin != null)
+                var plugin = (await _multiplePluginsService.ConfigureAndLoadPluginsAsync(SelectedPlugin.FullTypeName)).FirstOrDefault();
+                if (plugin is not null)
                 {
                     templateDefinition = plugin.Instance as ITemplateDefinition;
                 }

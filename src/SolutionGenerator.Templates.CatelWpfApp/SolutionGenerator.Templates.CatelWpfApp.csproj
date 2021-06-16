@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net462</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows7</TargetFrameworks>
     <AssemblyName>SolutionGenerator.Templates.CatelWpfApp</AssemblyName>
     <RootNamespace>SolutionGenerator.Templates.CatelWpfApp</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>

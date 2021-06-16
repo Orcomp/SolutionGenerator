@@ -97,7 +97,7 @@ namespace SolutionGenerator.Templates
                     if (keyPrefix.EqualsIgnoreCase(TemplateBeginForeachKey))
                     {
                         var collection = (new[] { templateModel }).GetForEachCollection(key);
-                        if (collection == null)
+                        if (collection is null)
                         {
                             // Foreach is not for this template, ignore
                             index = FindNextKeyIndex(templateContent, keyPrefix, index);
@@ -124,7 +124,7 @@ namespace SolutionGenerator.Templates
                             var collectionItem = collectionArray[i];
 
                             var itemContent = GenerateForeachContent(collectionItem, foreachTemplate);
-                            if (itemContent != null)
+                            if (itemContent is not null)
                             {
                                 templateContent = templateContent.Insert(index, itemContent);
                             }

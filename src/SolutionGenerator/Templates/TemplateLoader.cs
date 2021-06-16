@@ -38,7 +38,7 @@ namespace SolutionGenerator.Templates
             Log.Debug("Loading template from '{0}'", templateFile);
 
             var resource = templateFile as ResourceTemplateFile;
-            if (resource != null)
+            if (resource is not null)
             {
                 var memoryStream = new MemoryStream();
 
@@ -48,7 +48,7 @@ namespace SolutionGenerator.Templates
             }
 
             var embeddedResource = templateFile as EmbeddedResourceTemplateFile;
-            if (embeddedResource != null)
+            if (embeddedResource is not null)
             {
                 var memoryStream = new MemoryStream();
 
@@ -58,7 +58,7 @@ namespace SolutionGenerator.Templates
             }
 
             var file = templateFile as FileTemplateFile;
-            if (file != null)
+            if (file is not null)
             {
                 return File.OpenRead(file.FileName);
             }

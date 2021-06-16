@@ -28,10 +28,10 @@ namespace SolutionGenerator.Services
             var siblingElement = _document.Root?
                 .Descendants(_nameSpace + buildAction)
                 //.FirstOrDefault(e => e.Attribute(_nameSpace + "Include") != null && e.Attribute(_nameSpace + "Include").Value.ToLower().Contains(siblingNodeContains));
-                .FirstOrDefault(e => e.Attribute("Include") != null && e.Attribute("Include").Value.ToLower().Contains(siblingNodeContains));
+                .FirstOrDefault(e => e.Attribute("Include") is not null && e.Attribute("Include").Value.ToLower().Contains(siblingNodeContains));
 
             var parentElement = siblingElement?.Parent;
-            if (parentElement == null)
+            if (parentElement is null)
             {
                 throw new ApplicationException($"Can not add {buildAction}Item {item} to project file {_fileName}");
             }
@@ -54,7 +54,7 @@ namespace SolutionGenerator.Services
                 .Descendants(_nameSpace + buildAction)
                 .FirstOrDefault(e => e.Attribute("Include").Value.ToLower().Contains(item));
 
-            if (element == null)
+            if (element is null)
             {
                 throw new ApplicationException($"Can not remove {buildAction} Item {item} to project file {_fileName}");
             }

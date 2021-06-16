@@ -53,7 +53,7 @@ namespace SolutionGenerator.Templates
             foreach (var template in templates)
             {
                 var usedPrefix = template.GetUsedPrefix(key);
-                if (usedPrefix != null)
+                if (usedPrefix is not null)
                 {
                     if (usedPrefix.Length > 0)
                     {
@@ -61,7 +61,7 @@ namespace SolutionGenerator.Templates
                     }
 
                     collection = template.GetCollectionValue(key);
-                    if (collection != null)
+                    if (collection is not null)
                     {
                         break;
                     }
@@ -80,7 +80,7 @@ namespace SolutionGenerator.Templates
                 var availableKeys = template.GetKeys();
 
                 var usedPrefix = template.GetUsedPrefix(key);
-                if (usedPrefix != null)
+                if (usedPrefix is not null)
                 {
                     if (usedPrefix.Length > 0)
                     {
@@ -130,7 +130,7 @@ namespace SolutionGenerator.Templates
             var usedPrefix = (from possibleDataPrefix in possibleDataPrefixes
                               where key.StartsWithIgnoreCase(possibleDataPrefix)
                               select possibleDataPrefix).FirstOrDefault();
-            if (usedPrefix == null && possibleDataPrefixes.Contains(string.Empty))
+            if (usedPrefix is null && possibleDataPrefixes.Contains(string.Empty))
             {
                 // Assume string.Empty
                 usedPrefix = string.Empty;

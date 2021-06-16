@@ -45,7 +45,7 @@ namespace SolutionGenerator
             foreach (var templateProperty in templateProperties)
             {
                 var template = PropertyHelper.GetPropertyValue(this, templateProperty.Name, false) as ITemplate;
-                if (template != null)
+                if (template is not null)
                 {
                     var contextValidationContext = template.Validate();
                     validationContext.SynchronizeWithContext(contextValidationContext, true);

@@ -56,7 +56,7 @@ namespace SolutionGenerator.Tests.Templates
             var result = engine.ReplaceValues(templateContent, templates);
 
             var outputFile = filesContext.GetFile("NestedIfStatements.txt", true);
-            File.WriteAllText(outputFile, result);
+            await File.WriteAllTextAsync(outputFile, result);
 
             Approvals.VerifyFile(outputFile);
         }
@@ -86,7 +86,7 @@ namespace SolutionGenerator.Tests.Templates
             var result = engine.ReplaceValues(templateContent, templates);
 
             var outputFile = filesContext.GetFile("NestedForEachStatements.txt", true);
-            File.WriteAllText(outputFile, result);
+            await File.WriteAllTextAsync(outputFile, result);
 
             Approvals.VerifyFile(outputFile);
         }
@@ -120,7 +120,7 @@ namespace SolutionGenerator.Tests.Templates
             var result = engine.ReplaceValues(templateContent, templates);
 
             var outputFile = filesContext.GetFile("NestedForEachWithIfStatements.txt", true);
-            File.WriteAllText(outputFile, result);
+            await File.WriteAllTextAsync(outputFile, result);
 
             Approvals.VerifyFile(outputFile);
         }

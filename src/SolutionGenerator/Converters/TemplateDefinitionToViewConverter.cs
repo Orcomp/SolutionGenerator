@@ -13,7 +13,7 @@ namespace SolutionGenerator.Converters
     {
         protected override object Convert(ITemplateDefinition value, Type targetType, object parameter)
         {
-            if (value == null)
+            if (value is null)
             {
                 return null;
             }

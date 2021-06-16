@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net462</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows7</TargetFrameworks>
     <AssemblyName>SolutionGenerator.Tests</AssemblyName>
     <RootNamespace>SolutionGenerator.Tests</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>

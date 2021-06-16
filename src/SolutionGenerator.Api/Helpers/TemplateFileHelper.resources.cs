@@ -67,7 +67,7 @@ namespace SolutionGenerator
 
             using (var sourceStream = resourceManager.GetStream(resourceName))
             {
-                if (sourceStream == null)
+                if (sourceStream is null)
                 {
                     Log.Warning("Failed to extract resource '{0}', possible names:");
 

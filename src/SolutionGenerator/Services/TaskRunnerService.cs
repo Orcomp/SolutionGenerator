@@ -69,7 +69,7 @@ namespace SolutionGenerator.Services
         {
             var settings = (SettingsViewModel)dataContext;
             var templateDefinition = settings.ActivePlugin;
-            if (templateDefinition == null)
+            if (templateDefinition is null)
             {
                 Log.Error("No template has been selected");
                 return;

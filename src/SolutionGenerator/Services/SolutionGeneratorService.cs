@@ -158,7 +158,7 @@ namespace SolutionGenerator.Services
             foreach (var property in propertiesImplementingTemplate)
             {
                 var template = property.GetValue(templateContext) as ITemplate;
-                if (template != null)
+                if (template is not null)
                 {
                     templates.Add(template);
                 }

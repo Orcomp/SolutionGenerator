@@ -43,7 +43,7 @@ namespace SolutionGenerator
 
             using (var resource = assembly.GetManifestResourceStream(resourceName))
             {
-                if (resource == null)
+                if (resource is null)
                 {
                     Log.Warning("Failed to extract embedded resource '{0}', possible names:");
 

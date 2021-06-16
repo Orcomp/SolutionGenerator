@@ -36,7 +36,7 @@ namespace SolutionGenerator.Templates
         string ITemplate.GetValue(string key)
         {
             var value = PropertyHelper.GetPropertyValue(_collectionItem, key, true);
-            return value != null ? value.ToString() : string.Empty;
+            return value is not null ? value.ToString() : string.Empty;
         }
 
         public List<string> GetKeys()

@@ -34,7 +34,7 @@ namespace SolutionGenerator.Templates
         string ITemplate.GetValue(string key)
         {
             var templateObject = PropertyHelper.GetPropertyValue(this, key, true);
-            if (templateObject != null)
+            if (templateObject is not null)
             {
                 var value = ObjectToStringHelper.ToString(templateObject);
                 return value;
