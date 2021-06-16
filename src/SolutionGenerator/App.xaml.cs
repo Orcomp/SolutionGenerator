@@ -1,15 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="WildGums">
-//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace SolutionGenerator
+﻿namespace SolutionGenerator
 {
     using System;
     using System.Windows;
-    using Catel.ApiCop;
-    using Catel.ApiCop.Listeners;
     using Catel.IoC;
     using Catel.Logging;
     using Catel.Reflection;
@@ -21,7 +13,6 @@ namespace SolutionGenerator
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        #region Methods
         protected override async void OnStartup(StartupEventArgs e)
         {
 #if DEBUG
@@ -53,15 +44,5 @@ namespace SolutionGenerator
                 Environment.Exit(1);
             }
         }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            // Get advisory report in console
-            ApiCopManager.AddListener(new ConsoleApiCopListener());
-            ApiCopManager.WriteResults();
-
-            base.OnExit(e);
-        }
-        #endregion
     }
 }

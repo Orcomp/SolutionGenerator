@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SettingsViewModel.cs" company="WildGums">
-//   Copyright (c) 2012 - 2016 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace SolutionGenerator.ViewModels
+﻿namespace SolutionGenerator.ViewModels
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -38,7 +32,7 @@ namespace SolutionGenerator.ViewModels
         {
             await base.InitializeAsync();
 
-            AvailablePlugins = new List<IPluginInfo>(from plugin in _pluginManager.GetPlugins()
+            AvailablePlugins = new List<IPluginInfo>(from plugin in await _pluginManager.RefreshAndGetPluginsAsync()
                                                      orderby plugin.Name
                                                      select plugin);
 
