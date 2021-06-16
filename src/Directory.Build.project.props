@@ -5,7 +5,6 @@
 
   <PropertyGroup>
     <Authors>wildgums</Authors>
-    <PackageIconUrl>https://github.com/WildGums/Assets/raw/master/packages/solutiongenerator/logo.png</PackageIconUrl>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl></RepositoryUrl>
